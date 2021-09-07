@@ -30,7 +30,7 @@ class PoliteiaController: UIViewController {
         let noTxsLabel = UILabel(frame: self.politeiaTableView.frame)
         noTxsLabel.text = LocalizedStrings.noPoliteia
         noTxsLabel.font = UIFont(name: "Source Sans Pro", size: 16)
-        noTxsLabel.textColor = UIColor.appColors.lightBluishGray
+        noTxsLabel.textColor = UIColor.appColors.text3
         noTxsLabel.textAlignment = .center
         return noTxsLabel
     }
@@ -148,7 +148,7 @@ class PoliteiaController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
         
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
         let closeButton = UIBarButtonItem(image: icon,
@@ -157,7 +157,7 @@ class PoliteiaController: UIViewController {
                                           action: #selector(self.dismissView))
         
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.politeia, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
     }

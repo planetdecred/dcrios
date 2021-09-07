@@ -29,20 +29,52 @@ enum MenuItem: String, CaseIterable {
             return MoreMenuViewController.instantiate(from: .More).wrapInNavigationcontroller()
         }
     }
-
+    
+    var isActive: Bool {
+        switch self {
+        case .overview:
+            return true
+            
+        case .transactions:
+            return true
+        
+        case .wallets:
+            return true
+        
+        case .more:
+            return true
+        }
+    }
+    
     var icon: UIImage? {
         switch self {
         case .overview:
-            return  UIImage(named: "nav_menu/ic_overview")
+            return UIImage(named: "nav_menu/ic_overview")
         
         case .transactions:
-            return  UIImage(named: "nav_menu/ic_transactions")
+            return UIImage(named: "nav_menu/ic_transactions")
         
         case .wallets:
-            return  UIImage(named: "nav_menu/ic_wallet")
+            return UIImage(named: "nav_menu/ic_wallet_inactive")
         
         case .more:
-            return  UIImage(named: "nav_menu/ic_menu")
+            return UIImage(named: "nav_menu/ic_menu_inactive")
+        }
+    }
+    
+    var iconDarkTheme: UIImage? {
+        switch self {
+        case .overview:
+            return UIImage(named: "nav_menu/ic_overview_inactive")
+        
+        case .transactions:
+            return UIImage(named: "nav_menu/ic_transactions_inactive")
+        
+        case .wallets:
+            return  UIImage(named: "nav_menu/ic_wallet_inactive")
+        
+        case .more:
+            return  UIImage(named: "nav_menu/ic_menu_inactive")
         }
     }
 

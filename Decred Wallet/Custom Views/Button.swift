@@ -16,18 +16,20 @@ class Button: UIButton {
 		let loaderLabel = UILabel()
 		loaderLabel.translatesAutoresizingMaskIntoConstraints = false
 		loaderLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
-		loaderLabel.textColor = UIColor.appColors.lightBluishGray
+		loaderLabel.textColor = UIColor.appColors.text3
 		return loaderLabel
 	}()
 	lazy private var loaderIcon: UIImageView = {
 		let loaderIcon = UIImageView()
 		loaderIcon.translatesAutoresizingMaskIntoConstraints = false
 		loaderIcon.image = UIImage(named: "btn_spinner")
+        loaderIcon.tintColor = UIColor.appColors.text2
 		return loaderIcon
 	}()
 	lazy private var loaderView: UIView = {
 		let loaderView = UIView()
 		loaderView.isHidden = true
+        loaderView.backgroundColor = .clear
 		self.addSubview(loaderView)
 
 		loaderView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +63,7 @@ class Button: UIButton {
 		}
 	}
 
-	@IBInspectable var selectedBorderColor: UIColor = UIColor.appColors.lightBlue {
+	@IBInspectable var selectedBorderColor: UIColor = UIColor.appColors.primary {
 		didSet {
 			setupView()
 		}
@@ -79,13 +81,13 @@ class Button: UIButton {
 		}
 	}
 
-	@IBInspectable var enabledBackgroundColor: UIColor = UIColor.appColors.lightBlue {
+	@IBInspectable var enabledBackgroundColor: UIColor = UIColor.appColors.primary {
 		didSet {
 			setupView()
 		}
 	}
 
-	@IBInspectable var disabledBackgroundColor: UIColor = UIColor.appColors.paleGray {
+	@IBInspectable var disabledBackgroundColor: UIColor = UIColor.appColors.text5 {
 		didSet {
 			setupView()
 		}

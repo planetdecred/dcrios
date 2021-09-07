@@ -82,7 +82,7 @@ class ReceiveViewController: UIViewController {
             return
         }
         
-        let swiftLeeBlackColor = UIColor.black
+        let swiftLeeBlackColor = UIColor.white
         let swiftLeeLogo = UIImage(named: "ic_qr_logo")!
 
         if let qrURLImage = URL(string: address)?.qrImage(using: swiftLeeBlackColor, logo: swiftLeeLogo, frame: self.addressQRCodeImageView.frame) {

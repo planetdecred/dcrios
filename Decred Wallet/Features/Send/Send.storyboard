@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,16 +31,16 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8y-OH-DiU">
                                         <rect key="frame" x="24" y="16" width="24" height="24"/>
-                                        <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" name="text2"/>
                                         <state key="normal" image="ic_close"/>
                                         <connections>
                                             <action selector="closeButtonTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="DPz-48-AM0"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Send DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GuW-Xf-Sr2">
-                                        <rect key="frame" x="64" y="15.5" width="238" height="25.5"/>
+                                        <rect key="frame" x="64" y="16.5" width="238" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="sendDCR"/>
@@ -82,34 +83,34 @@
                                     <constraint firstItem="kwf-vZ-E9t" firstAttribute="leading" secondItem="GuW-Xf-Sr2" secondAttribute="trailing" constant="16" id="mzy-D9-xKL"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1VY-fw-ObN">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1VY-fw-ObN">
                                 <rect key="frame" x="0.0" y="100" width="414" height="568.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3C-42-Oka">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3C-42-Oka">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="877.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7K-3J-yiV">
-                                                <rect key="frame" x="8" y="0.0" width="398" height="877.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7K-3J-yiV">
+                                                <rect key="frame" x="8" y="0.0" width="398" height="882.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Se0-MS-xbk" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Se0-MS-xbk" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="125"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNR-fY-cT9">
-                                                                <rect key="frame" x="16" y="16" width="31" height="18"/>
+                                                                <rect key="frame" x="16" y="16" width="32.5" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" name="text2"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9AC-cy-rNT" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9AC-cy-rNT" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="5" y="34" width="388" height="88"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" name="surface"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localizeAccountSelectorPrompt" value="YES"/>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="accountSelectorPrompt" value="sendingAccount"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="surface"/>
                                                         <constraints>
                                                             <constraint firstItem="9AC-cy-rNT" firstAttribute="top" secondItem="WNR-fY-cT9" secondAttribute="bottom" id="9EC-mj-KpJ"/>
                                                             <constraint firstItem="9AC-cy-rNT" firstAttribute="leading" secondItem="Se0-MS-xbk" secondAttribute="leading" constant="5" id="EJn-Hn-X8c"/>
@@ -123,7 +124,7 @@
                                                                 <real key="value" value="14"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" name="text1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                 <real key="value" value="0.040000000000000001"/>
@@ -139,23 +140,23 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZ1-l0-nEc" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="133" width="398" height="142"/>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yZ1-l0-nEc" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="133" width="398" height="147"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aua-j2-wqg">
-                                                                <rect key="frame" x="16" y="16" width="14.5" height="18"/>
+                                                                <rect key="frame" x="16" y="16" width="15" height="17"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" name="text2"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="to"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-hs-gI2">
-                                                                <rect key="frame" x="313" y="16" width="69" height="30"/>
+                                                                <rect key="frame" x="307" y="16" width="75" height="29"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <state key="normal" title="Send to self">
-                                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="titleColor" name="primary"/>
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="sendToSelf"/>
@@ -164,12 +165,12 @@
                                                                     <action selector="sendToSelfTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="doq-46-7sz"/>
                                                                 </connections>
                                                             </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kma-kO-ySG">
-                                                                <rect key="frame" x="16" y="50" width="366" height="76"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kma-kO-ySG">
+                                                                <rect key="frame" x="16" y="50" width="366" height="82"/>
                                                                 <subviews>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-oq-YJC" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="60.5"/>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-oq-YJC" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="68"/>
+                                                                        <color key="backgroundColor" name="surface"/>
                                                                         <color key="textColor" systemColor="labelColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -178,8 +179,8 @@
                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="allowLineBreaks" value="NO"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19H-1W-F1v" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="60.5" width="366" height="15.5"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Invalid address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19H-1W-F1v" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="68" width="366" height="14"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -201,7 +202,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="surface"/>
                                                         <constraints>
                                                             <constraint firstItem="aua-j2-wqg" firstAttribute="top" secondItem="yZ1-l0-nEc" secondAttribute="top" constant="16" id="Ero-2B-C6f"/>
                                                             <constraint firstItem="1cr-hs-gI2" firstAttribute="top" secondItem="yZ1-l0-nEc" secondAttribute="top" constant="16" id="IFu-m2-sb3"/>
@@ -218,7 +219,7 @@
                                                                 <real key="value" value="14"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" name="text1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                 <real key="value" value="0.040000000000000001"/>
@@ -234,23 +235,23 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fie-VD-jFK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="283" width="398" height="140"/>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fie-VD-jFK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="288" width="398" height="140"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZf-lR-xrW">
-                                                                <rect key="frame" x="16" y="22" width="14.5" height="18"/>
+                                                                <rect key="frame" x="16" y="22" width="15" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" name="text2"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="to"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buz-3W-EyU">
-                                                                <rect key="frame" x="297" y="16" width="85" height="30"/>
+                                                                <rect key="frame" x="289" y="16" width="93" height="29"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <state key="normal" title="Send to others">
-                                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="titleColor" name="primary"/>
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="sendToOthers"/>
@@ -259,16 +260,16 @@
                                                                     <action selector="sendToOthersTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="8va-HH-Qm0"/>
                                                                 </connections>
                                                             </button>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vka-UC-gd6" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vka-UC-gd6" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="49" width="398" height="88"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" name="surface"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localizeAccountSelectorPrompt" value="YES"/>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="accountSelectorPrompt" value="receivingAccount"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="surface"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="vka-UC-gd6" secondAttribute="trailing" id="8YC-6v-5Zi"/>
                                                             <constraint firstItem="vka-UC-gd6" firstAttribute="top" secondItem="Buz-3W-EyU" secondAttribute="bottom" constant="3" id="Fpt-Hd-rbU"/>
@@ -284,7 +285,7 @@
                                                                 <real key="value" value="14"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" name="text1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                 <real key="value" value="0.040000000000000001"/>
@@ -300,41 +301,41 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-6r-dFg" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="431" width="398" height="446.5"/>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-6r-dFg" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="436" width="398" height="446.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="q2W-cT-s6V">
-                                                                <rect key="frame" x="16" y="16" width="366" height="18"/>
+                                                                <rect key="frame" x="16" y="16" width="366" height="16.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSP-KE-DQw">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="49.5" height="16.5"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" name="text2"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="amount"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable: 7.51464806 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPC-Zp-0GF">
-                                                                        <rect key="frame" x="203" y="0.0" width="163" height="18"/>
+                                                                        <rect key="frame" x="183" y="0.0" width="183" height="16.5"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" name="text2"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2rv-Cb-tiy" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="16" y="50" width="366" height="148"/>
+                                                                <rect key="frame" x="16" y="48.5" width="366" height="144"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Cr6-AQ-1do">
-                                                                        <rect key="frame" x="16" y="16" width="334" height="116"/>
+                                                                        <rect key="frame" x="16" y="16" width="334" height="112"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="Q6c-ki-Guy">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="42"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="39"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0 DCR" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="R2D-m0-pos" customClass="SuffixTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="42"/>
-                                                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="267" height="39"/>
+                                                                                        <color key="textColor" name="text1"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="32"/>
                                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -342,12 +343,12 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </textField>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPH-60-lge">
-                                                                                        <rect key="frame" x="298" y="8.5" width="36" height="25"/>
-                                                                                        <color key="backgroundColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        <rect key="frame" x="294" y="7.5" width="40" height="24"/>
+                                                                                        <color key="backgroundColor" name="text4"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="15"/>
                                                                                         <inset key="contentEdgeInsets" minX="4" minY="3" maxX="4" maxY="3"/>
                                                                                         <state key="normal" title="MAX">
-                                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <color key="titleColor" name="text"/>
                                                                                         </state>
                                                                                         <connections>
                                                                                             <action selector="sendMaxTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="SbG-fM-LMh"/>
@@ -356,7 +357,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JCw-01-z6N">
-                                                                                <rect key="frame" x="0.0" y="46" width="334" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="43" width="334" height="40"/>
                                                                                 <subviews>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-cG-YIN">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -371,7 +372,7 @@
                                                                                     </button>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lP-zj-e4O" userLabel="separator view">
                                                                                         <rect key="frame" x="48" y="19.5" width="286" height="1"/>
-                                                                                        <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <color key="backgroundColor" name="border"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="1" id="weP-6j-dzX"/>
                                                                                         </constraints>
@@ -379,25 +380,25 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7p0-4V-893">
-                                                                                <rect key="frame" x="0.0" y="90" width="334" height="26"/>
+                                                                                <rect key="frame" x="0.0" y="87" width="334" height="25"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="0 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQf-9s-ZHl">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="26"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="281" height="25"/>
                                                                                         <gestureRecognizers/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                        <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <color key="textColor" name="text5"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <connections>
                                                                                             <outletCollection property="gestureRecognizers" destination="uhi-1g-Spg" appends="YES" id="gwy-lp-3Vg"/>
                                                                                         </connections>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znf-dC-sLH" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                                        <rect key="frame" x="289" y="0.0" width="45" height="26"/>
+                                                                                        <rect key="frame" x="284" y="0.0" width="50" height="25"/>
                                                                                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                                         <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
                                                                                         <state key="normal" title="Retry">
-                                                                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="titleColor" name="primary"/>
                                                                                         </state>
                                                                                         <userDefinedRuntimeAttributes>
                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -420,7 +421,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" name="surface"/>
                                                                 <constraints>
                                                                     <constraint firstItem="Cr6-AQ-1do" firstAttribute="top" secondItem="2rv-Cb-tiy" secondAttribute="top" constant="16" id="3U0-rK-DO4"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Cr6-AQ-1do" secondAttribute="trailing" constant="16" id="PW0-or-fJq"/>
@@ -432,7 +433,7 @@
                                                                         <real key="value" value="4"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                        <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="value" name="colorDivider"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                         <real key="value" value="2"/>
@@ -440,7 +441,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not enough funds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKM-60-zWN" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="16" y="202" width="366" height="15.5"/>
+                                                                <rect key="frame" x="16" y="196.5" width="366" height="14"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                                 <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -460,88 +461,88 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-3g-wvL">
-                                                                <rect key="frame" x="16" y="225.5" width="366" height="1"/>
-                                                                <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <rect key="frame" x="16" y="218.5" width="366" height="1"/>
+                                                                <color key="backgroundColor" name="border"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="jeh-h2-M6c"/>
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="eib-Wj-lg2">
-                                                                <rect key="frame" x="16" y="238.5" width="366" height="192"/>
+                                                                <rect key="frame" x="16" y="231.5" width="366" height="199"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mYo-qQ-KAN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="55"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="62"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Transaction fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkW-CI-SHZ">
-                                                                                <rect key="frame" x="0.0" y="18.5" width="235" height="18"/>
+                                                                                <rect key="frame" x="0.0" y="23" width="220" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text4"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="transactionFee"/>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000251 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4P1-pB-RuT">
-                                                                                <rect key="frame" x="239" y="17.5" width="99" height="20.5"/>
+                                                                                <rect key="frame" x="224" y="21.5" width="114" height="19"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text1"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_expand" translatesAutoresizingMaskIntoConstraints="NO" id="v2e-H7-YpV">
-                                                                                <rect key="frame" x="342" y="15.5" width="24" height="24"/>
+                                                                                <rect key="frame" x="342" y="19" width="24" height="24"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                     </stackView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8m9-LE-q6f" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="67" width="366" height="125"/>
+                                                                        <rect key="frame" x="0.0" y="74" width="366" height="125"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJI-Pc-3x2">
-                                                                                <rect key="frame" x="16" y="17.5" width="93" height="18"/>
+                                                                                <rect key="frame" x="16" y="17.5" width="100.5" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text4"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="processingTime"/>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈ 60 mins (12 blocks)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4X-9A-RKk">
-                                                                                <rect key="frame" x="211.5" y="16" width="138.5" height="20.5"/>
+                                                                                <rect key="frame" x="197.5" y="16" width="152.5" height="19"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text1"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx5-Vw-Hi6">
-                                                                                <rect key="frame" x="16" y="52.5" width="46.5" height="18"/>
+                                                                                <rect key="frame" x="16" y="51" width="51.5" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text4"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="feeRate"/>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000001 DCR/byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHd-xR-fIs">
-                                                                                <rect key="frame" x="216" y="51.5" width="134" height="20.5"/>
+                                                                                <rect key="frame" x="199.5" y="50" width="150.5" height="19"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text1"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction size" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlj-QE-Cwy">
-                                                                                <rect key="frame" x="16" y="88" width="94" height="18"/>
+                                                                                <rect key="frame" x="16" y="85" width="100.5" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text4"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="transactionSize"/>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="251 bytes" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zok-p3-0dg">
-                                                                                <rect key="frame" x="286.5" y="86.5" width="63.5" height="20.5"/>
+                                                                                <rect key="frame" x="279.5" y="83.5" width="70.5" height="19"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="text1"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="background"/>
                                                                         <constraints>
                                                                             <constraint firstItem="yx5-Vw-Hi6" firstAttribute="centerY" secondItem="BHd-xR-fIs" secondAttribute="centerY" id="00S-6z-Uf3"/>
                                                                             <constraint firstItem="O4X-9A-RKk" firstAttribute="top" secondItem="8m9-LE-q6f" secondAttribute="top" constant="16" id="456-iH-82y"/>
@@ -566,7 +567,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="surface"/>
                                                         <constraints>
                                                             <constraint firstItem="q2W-cT-s6V" firstAttribute="leading" secondItem="yYA-6r-dFg" secondAttribute="leading" constant="16" id="4tq-E5-1N9"/>
                                                             <constraint firstItem="eib-Wj-lg2" firstAttribute="leading" secondItem="yYA-6r-dFg" secondAttribute="leading" constant="16" id="57O-pP-z92"/>
@@ -628,54 +629,54 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9I-3F-cJf">
-                                <rect key="frame" x="0.0" y="676.5" width="414" height="185.5"/>
+                                <rect key="frame" x="0.0" y="681" width="414" height="181"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eB8-kv-pro">
-                                        <rect key="frame" x="16" y="17" width="56" height="18"/>
+                                        <rect key="frame" x="16" y="17" width="60.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text4"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="totalCost"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="— DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NX9-am-HqU">
-                                        <rect key="frame" x="353.5" y="16" width="44.5" height="20.5"/>
+                                        <rect key="frame" x="343.5" y="16" width="54.5" height="19"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance after send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwo-dA-rVW">
-                                        <rect key="frame" x="16" y="53.5" width="107.5" height="18"/>
+                                        <rect key="frame" x="16" y="52" width="117.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text4"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="balanceAfterSend"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.51464806 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VB-8U-kh0">
-                                        <rect key="frame" x="291" y="52.5" width="107" height="20.5"/>
+                                        <rect key="frame" x="275" y="51" width="123" height="19"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE2-R8-tCb" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="121.5" width="382" height="48"/>
+                                        <rect key="frame" x="16" y="117" width="382" height="48"/>
                                         <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" name="text"/>
                                         </state>
                                         <state key="disabled" title="Next">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
-                                                <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" name="primary"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" name="text5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="7"/>
@@ -687,13 +688,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change of 1.64344 DCR will return to 'default'" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQI-LG-nQW">
-                                        <rect key="frame" x="16" y="87.5" width="262.5" height="18"/>
+                                        <rect key="frame" x="16" y="84.5" width="288.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text4"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="uE2-R8-tCb" firstAttribute="leading" secondItem="T9I-3F-cJf" secondAttribute="leading" constant="16" id="BtD-eD-Ofq"/>
                                     <constraint firstItem="0VB-8U-kh0" firstAttribute="top" secondItem="NX9-am-HqU" secondAttribute="bottom" constant="16" id="CQ6-R7-tgs"/>
@@ -714,7 +715,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xFE-MF-1f4"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="T9I-3F-cJf" firstAttribute="leading" secondItem="xFE-MF-1f4" secondAttribute="leading" id="4Kb-5r-Kg1"/>
                             <constraint firstItem="T9I-3F-cJf" firstAttribute="top" secondItem="1VY-fw-ObN" secondAttribute="bottom" constant="8" id="7iq-RO-g3s"/>
@@ -779,13 +780,13 @@
         <!--Confirm To Send Fund View Controller-->
         <scene sceneID="ztT-Wn-CO5">
             <objects>
-                <viewController storyboardIdentifier="ConfirmToSendFundViewController" id="I0z-kv-sqb" customClass="ConfirmToSendFundViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmToSendFundViewController" interfaceStyle="dark" id="I0z-kv-sqb" customClass="ConfirmToSendFundViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="SS6-Yn-4sk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-qx-dNF">
-                                <rect key="frame" x="0.0" y="329.5" width="414" height="532.5"/>
+                                <rect key="frame" x="0.0" y="341.5" width="414" height="520.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8Z-VR-xRg">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
@@ -796,23 +797,23 @@
                                                     <constraint firstAttribute="height" constant="24" id="5Ts-37-Az4"/>
                                                     <constraint firstAttribute="width" constant="24" id="qhU-ul-Ue2"/>
                                                 </constraints>
-                                                <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" name="text2"/>
                                                 <state key="normal" image="ic_close"/>
                                                 <connections>
                                                     <action selector="closeButtonTapped:" destination="I0z-kv-sqb" eventType="touchUpInside" id="Sbr-st-ONC"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm to send" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZE-vD-HWT">
-                                                <rect key="frame" x="66" y="20.5" width="328" height="25.5"/>
+                                                <rect key="frame" x="66" y="21.5" width="328" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="text1"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="confirmToSend"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstItem="CZ8-dG-xU6" firstAttribute="top" secondItem="z8Z-VR-xRg" secondAttribute="top" constant="21" id="JNA-nR-iUb"/>
                                             <constraint firstAttribute="trailing" secondItem="xZE-vD-HWT" secondAttribute="trailing" constant="20" id="Qs5-W4-eLB"/>
@@ -824,145 +825,145 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGm-mf-aSe">
                                         <rect key="frame" x="0.0" y="65" width="414" height="1"/>
-                                        <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="border"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="9be-ci-fRA"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="t2O-O9-yam">
-                                        <rect key="frame" x="16" y="83" width="382" height="433.5"/>
+                                        <rect key="frame" x="16" y="83" width="382" height="421.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qhr-qZ-gC3">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="66.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="62"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending from Default (Wallet 2)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijc-AC-2ul">
-                                                        <rect key="frame" x="100.5" y="0.0" width="181.5" height="18"/>
+                                                        <rect key="frame" x="94.5" y="0.0" width="193.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text2"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.14159265 DCR ($78.54)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lxH-eS-8vg">
-                                                        <rect key="frame" x="27.5" y="26" width="327" height="40.5"/>
+                                                        <rect key="frame" x="6.5" y="24.5" width="369" height="37.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="32"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="yiG-qb-B8Q">
-                                                <rect key="frame" x="0.0" y="82.5" width="382" height="24"/>
+                                                <rect key="frame" x="0.0" y="78" width="382" height="24"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cXp-p6-Jyp">
-                                                <rect key="frame" x="0.0" y="122.5" width="382" height="46.5"/>
+                                                <rect key="frame" x="0.0" y="118" width="382" height="43.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To destination address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0An-yk-jZi">
-                                                        <rect key="frame" x="125" y="0.0" width="132.5" height="18"/>
+                                                        <rect key="frame" x="120.5" y="0.0" width="141.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text2"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dcur2mcGjmENx4DhNqDctW5wJCVyT3Qeqkx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JLL-4K-S63">
-                                                        <rect key="frame" x="39.5" y="26" width="303.5" height="20.5"/>
+                                                        <rect key="frame" x="22.5" y="24.5" width="337.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M02-Mv-3H5">
-                                                <rect key="frame" x="0.0" y="185" width="382" height="1"/>
-                                                <color key="backgroundColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="0.0" y="177.5" width="382" height="1"/>
+                                                <color key="backgroundColor" name="border"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="THI-fY-TMw"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tcu-rg-zBC">
-                                                <rect key="frame" x="0.0" y="202" width="382" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="194.5" width="382" height="19"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Transaction fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9j3-zs-uvw">
-                                                        <rect key="frame" x="0.0" y="1.5" width="89.5" height="18"/>
+                                                        <rect key="frame" x="0.0" y="1.5" width="95.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text4"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="transactionFee"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000251 DCR (0.01 USD)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSo-oZ-Kra">
-                                                        <rect key="frame" x="105.5" y="0.0" width="276.5" height="20.5"/>
+                                                        <rect key="frame" x="111.5" y="0.0" width="270.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1o-sN-j2O">
-                                                <rect key="frame" x="0.0" y="238.5" width="382" height="1"/>
-                                                <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="0.0" y="229.5" width="382" height="1"/>
+                                                <color key="backgroundColor" name="border"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="aXb-IO-Ijo"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fUp-Kn-aOG">
-                                                <rect key="frame" x="0.0" y="255.5" width="382" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="246.5" width="382" height="19"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Total cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kz7-gi-MvZ">
-                                                        <rect key="frame" x="0.0" y="1.5" width="56" height="18"/>
+                                                        <rect key="frame" x="0.0" y="1.5" width="60.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text4"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="totalCost"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.14184365 DCR (78.55 USD)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOq-up-oAS">
-                                                        <rect key="frame" x="72" y="0.0" width="310" height="20.5"/>
+                                                        <rect key="frame" x="76.5" y="0.0" width="305.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="mhx-tC-qef">
-                                                <rect key="frame" x="0.0" y="292" width="382" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="281.5" width="382" height="19"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Balance after send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpP-hG-3vz">
-                                                        <rect key="frame" x="0.0" y="1.5" width="107.5" height="18"/>
+                                                        <rect key="frame" x="0.0" y="1.5" width="117.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text4"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="balanceAfterSend"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.37280441 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPq-24-2mO">
-                                                        <rect key="frame" x="123.5" y="0.0" width="258.5" height="20.5"/>
+                                                        <rect key="frame" x="133.5" y="0.0" width="248.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBO-Zj-lPK">
-                                                <rect key="frame" x="0.0" y="328.5" width="382" height="1"/>
+                                                <rect key="frame" x="0.0" y="316.5" width="382" height="1"/>
                                                 <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="vyx-nS-cgc"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EwD-qd-034">
-                                                <rect key="frame" x="0.0" y="345.5" width="382" height="24"/>
+                                                <rect key="frame" x="0.0" y="333.5" width="382" height="24"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GEH-md-JV4">
-                                                        <rect key="frame" x="40" y="0.0" width="302" height="24"/>
+                                                        <rect key="frame" x="25" y="0.0" width="332" height="24"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_info" translatesAutoresizingMaskIntoConstraints="NO" id="QE7-JA-cN2">
                                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Your DCR will be sent and CANNOT be undone." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gav-BH-WCe">
-                                                                <rect key="frame" x="32" y="3" width="270" height="18"/>
+                                                                <rect key="frame" x="32" y="4" width="300" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" name="text4"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="sendWarning"/>
@@ -976,21 +977,21 @@
                                                 </constraints>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuF-dd-eap" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="385.5" width="382" height="48"/>
+                                                <rect key="frame" x="0.0" y="373.5" width="382" height="48"/>
                                                 <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                                 <state key="normal" title="Send 3.14159265 DCR">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" name="text"/>
                                                 </state>
                                                 <state key="disabled" title="Next">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
-                                                        <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="value" name="primary"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                        <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="value" name="text5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="7"/>
@@ -1004,7 +1005,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="z8Z-VR-xRg" secondAttribute="trailing" id="2MN-tc-Qye"/>
                                     <constraint firstAttribute="bottom" secondItem="t2O-O9-yam" secondAttribute="bottom" constant="16" id="2fK-F3-P0O"/>
@@ -1054,19 +1055,16 @@
     </scenes>
     <designables>
         <designable name="19H-1W-F1v">
-            <size key="intrinsicContentSize" width="108" height="15.5"/>
-        </designable>
-        <designable name="JDR-oq-YJC">
-            <size key="intrinsicContentSize" width="366" height="51.5"/>
+            <size key="intrinsicContentSize" width="81" height="14"/>
         </designable>
         <designable name="uE2-R8-tCb">
             <size key="intrinsicContentSize" width="62" height="48"/>
         </designable>
         <designable name="vKM-60-zWN">
-            <size key="intrinsicContentSize" width="121.5" height="15.5"/>
+            <size key="intrinsicContentSize" width="96.5" height="14"/>
         </designable>
         <designable name="znf-dC-sLH">
-            <size key="intrinsicContentSize" width="45" height="26"/>
+            <size key="intrinsicContentSize" width="50" height="25"/>
         </designable>
         <designable name="zuF-dd-eap">
             <size key="intrinsicContentSize" width="185" height="48"/>
@@ -1079,11 +1077,38 @@
         <image name="ic_info" width="24" height="24"/>
         <image name="ic_more" width="24" height="24"/>
         <image name="ic_swap" width="24" height="24"/>
+        <namedColor name="background">
+            <color red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="border">
+            <color red="0.7686274509803922" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorDivider">
+            <color red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.16078431372549021" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text1">
+            <color red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text2">
+            <color red="0.23921568627450981" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text4">
+            <color red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text5">
+            <color red="0.7686274509803922" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

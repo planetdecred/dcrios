@@ -17,8 +17,8 @@ class FloatingPlaceholderLabel: UILabel {
 
     var topConstraint: NSLayoutConstraint?
 
-    let normalColor: UIColor = UIColor.appColors.lightBluishGray
-    var activeColor: UIColor = UIColor.appColors.lightBlue
+    let normalColor: UIColor = UIColor.appColors.text3
+    var activeColor: UIColor = UIColor.appColors.primary
     let normalFontSize: CGFloat = 16
     let smallerFontSize: CGFloat = 14
 
@@ -41,7 +41,7 @@ class FloatingPlaceholderLabel: UILabel {
     }
 
     public func initView() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.appColors.surface
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = self.normalColor

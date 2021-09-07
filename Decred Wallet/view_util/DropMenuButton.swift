@@ -47,9 +47,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     private var marginRightTable: CGFloat = 0
     private var isDissmissOutside: Bool = false
     private var widthText: CGFloat = 0
-    private var labelBGColor: UIColor = UIColor.appColors.lightBlue
+    private var labelBGColor: UIColor = UIColor.appColors.primary
     private var labelColor: UIColor = UIColor.white
-    private var separateColor: UIColor = UIColor.appColors.gray
+    private var separateColor: UIColor = UIColor.appColors.surfaceRipple
     private var isShowCurrentValue: Bool = false
     
     var superSuperView = UIView()
@@ -148,7 +148,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             containerView.layer.shadowOffset = CGSize(width: -2, height: 5)
             containerView.layer.shadowRadius = 6
             containerView.layer.shadowOpacity = 0.8
-            containerView.layer.shadowColor = UIColor.lightGray.cgColor
+            containerView.layer.shadowColor = UIColor.appColors.shadowColor2.cgColor
 
             addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
             containerView.addSubview(self.viewGesture)
@@ -254,7 +254,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         itemLabel.textAlignment = NSTextAlignment.left
         itemLabel.text = items[(indexPath as NSIndexPath).row].text
         itemLabel.font = UIFont(name: "SourceSansPro-Regular", size: 17)
-        itemLabel.textColor = UIColor.black
+        itemLabel.textColor = UIColor.appColors.text1
         cell.addSubview(itemLabel)
         
         itemLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -270,9 +270,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         label.translatesAutoresizingMaskIntoConstraints = false
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.appColors.paleGray
+        bgColorView.backgroundColor = UIColor.appColors.text5
         
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = UIColor.appColors.surface
         cell.selectedBackgroundView = bgColorView
         cell.separatorInset = UIEdgeInsets(top: 0, left: frame.width, bottom: 0, right: frame.width)
         

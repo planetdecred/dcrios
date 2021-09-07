@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +28,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter an address to validate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiw-wW-xcc">
                                 <rect key="frame" x="24" y="52" width="390" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="text2"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterAnAddressToValidate"/>
@@ -38,11 +39,11 @@
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zzo-zu-amS" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="16" y="16" width="366" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="2R1-qe-liF"/>
                                         </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" name="text1"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -52,12 +53,12 @@
                                             <constraint firstAttribute="height" constant="12" id="wWS-WS-ofi"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text2"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U35-06-028">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U35-06-028">
                                         <rect key="frame" x="291" y="88" width="91" height="40"/>
-                                        <color key="backgroundColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="text5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Pwl-Tb-uuY"/>
                                             <constraint firstAttribute="width" constant="91" id="h3j-22-qJN"/>
@@ -84,7 +85,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Clear">
-                                            <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primary"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="clear"/>
@@ -98,7 +99,7 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1U-S2-pl5">
                                                 <rect key="frame" x="0.0" y="20" width="366" height="1"/>
-                                                <color key="backgroundColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="border"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="SEz-LA-6LR"/>
                                                 </constraints>
@@ -121,13 +122,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaV-R7-wev">
                                                         <rect key="frame" x="0.0" y="0.0" width="122" height="17"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.25490196078431371" green="0.74509803921568629" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text6"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owned by this wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7J-fE-EIb">
                                                         <rect key="frame" x="0.0" y="17" width="122" height="17"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                        <color key="textColor" red="0.1764705882352941" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="secondary"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -136,7 +137,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="7jX-ei-EuG"/>
                                             <constraint firstAttribute="bottom" secondItem="af1-RL-xDM" secondAttribute="bottom" constant="16" id="AlK-5j-s3h"/>
@@ -149,7 +150,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="GbU-6n-NJa" firstAttribute="centerX" secondItem="LrX-Tt-MCM" secondAttribute="centerX" id="Bqe-Xe-VL8"/>
                                     <constraint firstItem="Zzo-zu-amS" firstAttribute="top" secondItem="LrX-Tt-MCM" secondAttribute="top" constant="16" id="DUs-5E-BdE"/>
@@ -174,7 +175,8 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="lJi-sD-7r8"/>
+                        <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="LrX-Tt-MCM" firstAttribute="top" secondItem="kiw-wW-xcc" secondAttribute="bottom" constant="8" id="MFX-mA-jUm"/>
                             <constraint firstItem="LrX-Tt-MCM" firstAttribute="leading" secondItem="lJi-sD-7r8" secondAttribute="leading" constant="8" id="Xjc-er-0xo"/>
@@ -184,7 +186,6 @@
                             <constraint firstItem="kiw-wW-xcc" firstAttribute="leading" secondItem="lJi-sD-7r8" secondAttribute="leading" constant="24" id="lJ1-Qg-gcC"/>
                             <constraint firstItem="LrX-Tt-MCM" firstAttribute="centerX" secondItem="7gC-1n-K0z" secondAttribute="centerX" id="ti7-tg-KWE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lJi-sD-7r8"/>
                     </view>
                     <connections>
                         <outlet property="addrOwnerInfo" destination="e7J-fE-EIb" id="Ajs-Qb-Hah"/>
@@ -204,5 +205,32 @@
     </scenes>
     <resources>
         <image name="img-checkmark" width="42" height="44"/>
+        <namedColor name="background">
+            <color red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="border">
+            <color red="0.7686274509803922" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.16078431372549021" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary">
+            <color red="0.17647058823529413" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text1">
+            <color red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text2">
+            <color red="0.23921568627450981" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text5">
+            <color red="0.7686274509803922" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text6">
+            <color red="0.25490196078431371" green="0.74509803921568629" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

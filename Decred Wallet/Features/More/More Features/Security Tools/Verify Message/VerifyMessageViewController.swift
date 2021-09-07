@@ -70,8 +70,8 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -79,13 +79,13 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         //setup leftBar button
         self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.verifyMessage, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)
-        infoBtn.setImage(UIImage(named: "info"), for: .normal)
+        infoBtn.setImage(UIImage(named: "ic_info"), for: .normal)
         infoBtn.addTarget(self, action: #selector(pageInfo), for: .touchUpInside)
         infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
@@ -168,14 +168,14 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     func toggleValidateButtonState() {
         let textCheck =  self.addressText.text!.isEmpty || self.messageText.text!.isEmpty || self.signatureText.text!.isEmpty
         self.verifyBtn.isEnabled = textCheck ?  false : true
-        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
+        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.text5 : UIColor.appColors.primary
     }
     
     @IBAction func clearFields(_ sender: Any) {
         self.addressText.text = nil
         self.messageText.text = nil
         self.signatureText.text = nil
-        self.verifyBtn.backgroundColor = UIColor.appColors.paleGray
+        self.verifyBtn.backgroundColor = UIColor.appColors.text5
         self.verifyBtn.isEnabled = false
         self.addressText.textViewDidEndEditing(self.addressText)
         self.messageText.textViewDidEndEditing(self.messageText)

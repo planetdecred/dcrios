@@ -48,8 +48,8 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
            //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -57,7 +57,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
         //setup leftBar button
         self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.validateAddresses, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
                
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
        }
@@ -91,7 +91,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     
     func toggleValidateButtonState(addressHasText: String) {
         self.validateBtn.isEnabled = addressHasText.isEmpty ?  false : true
-        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
+        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.text5 : UIColor.appColors.primary
     }
     
     @IBAction func validatAddress(_ sender: Any) {
@@ -117,7 +117,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
                        self.validityInfo.textColor = UIColor.appColors.green
                        self.validityInfo.text = LocalizedStrings.validAddress
                        self.addrOwnerInfo.isHidden = false
-                       self.addrOwnerInfo.textColor = UIColor.appColors.lightBluishGray
+                       self.addrOwnerInfo.textColor = UIColor.appColors.text3
                        self.addrOwnerInfo.text = LocalizedStrings.validNotOwnAddr
                        self.isValidImg.image = UIImage.init(named: "ic_checkmark_round")
                    } else {
@@ -132,7 +132,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     
     @IBAction func clearAddress(_ sender: Any) {
         self.addressText.text = nil
-        self.validateBtn.backgroundColor = UIColor.appColors.paleGray
+        self.validateBtn.backgroundColor = UIColor.appColors.text5
         self.validateBtn.isEnabled = false
         self.viewContHeightContraint.constant = 144
         self.isValidMsgContainer.isHidden = true

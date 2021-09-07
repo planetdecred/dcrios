@@ -81,7 +81,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
             
             if wallet.isAccountMixerActive {
                 self.walletNotBackedUpLabel.isHidden = false
-                self.walletNotBackedUpLabel.textColor = UIColor.appColors.bluishGray
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.text4
                 self.walletNotBackedUpLabel.text = LocalizedStrings.mixing
                 self.showCheckMixerStatusView()
             } else {
@@ -124,7 +124,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
     
     func hideCheckMixerStatusView() {
         self.checkMixerStatusView.isHidden = true
-        self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
+        self.checkMixerStatusDivider.isHidden = true
     }
     
     func showCheckMixerStatusView() {
@@ -188,6 +188,9 @@ extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletAccountTableViewCell") as! WalletAccountTableViewCell
         accountViewCell.account = self.wallet.accounts[indexPath.row]
+        if indexPath.row == 0 {
+            accountViewCell.separator.isHidden = true
+        }
         return accountViewCell
     }
     

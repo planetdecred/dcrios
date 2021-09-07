@@ -58,8 +58,8 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let mainTextColor = UIColor.appColors.darkBlue
-        let subTextColor = UIColor.appColors.darkBluishGray
+        let mainTextColor = UIColor.appColors.text1
+        let subTextColor = UIColor.appColors.text2
 
         let sourceAccountInfo = Utils.styleAttributedString(
             String(format: "Sending from <bold>%@</bold>", self.unsignedTxSummary.sourceAccountInfo), // localize!

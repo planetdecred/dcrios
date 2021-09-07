@@ -42,13 +42,13 @@ class SecurityViewController: UIViewController {
         tabController?.selectedIndex = 0
 
         // add border below password tab and remove border below PIN tab
-        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
+        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.primary, thickness: 2)
         btnPin.removeBorders(atPositions: .bottom)
-        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.gray, thickness: 1)
+        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.surfaceRipple, thickness: 1)
 
         // set active and inactive text colors
-        btnPassword.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
-        btnPin.setTitleColor(UIColor.appColors.bluishGray, for: .normal)
+        btnPassword.setTitleColor(UIColor.appColors.primary, for: .normal)
+        btnPin.setTitleColor(UIColor.appColors.text4, for: .normal)
 
         if self.isSecurityCodeChangeAttempt {
             self.securityPromptLabel.text = String(format: "%@ %@ %@",
@@ -65,13 +65,13 @@ class SecurityViewController: UIViewController {
         tabController?.selectedIndex = 1
 
         // add border below PIN tab and remove border below PIN tab
-        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
+        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.primary, thickness: 2)
         btnPassword.removeBorders(atPositions: .bottom)
-        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.gray, thickness: 1)
+        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.surfaceRipple, thickness: 1)
 
         // set active and inactive text colors
-        btnPin.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
-        btnPassword.setTitleColor(UIColor.appColors.bluishGray, for: .normal)
+        btnPin.setTitleColor(UIColor.appColors.primary, for: .normal)
+        btnPassword.setTitleColor(UIColor.appColors.text4, for: .normal)
 
         if self.isSecurityCodeChangeAttempt {
             self.securityPromptLabel.text = String(format: "%@ %@ %@",
@@ -122,7 +122,7 @@ class SecurityViewController: UIViewController {
             
             let activeTabButton = securityRequestVC is RequestPasswordViewController ? self.btnPassword : self.btnPin
             activeTabButton?.addBorder(atPosition: .bottom,
-                                      color: loading ? UIColor.appColors.paleGray: UIColor.appColors.lightBlue,
+                                      color: loading ? UIColor.appColors.text5: UIColor.appColors.primary,
                                       thickness: 2)
         }
         

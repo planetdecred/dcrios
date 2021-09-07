@@ -15,8 +15,8 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
            //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -25,13 +25,13 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
         self.addNavigationBackButton()
             
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.securityTools, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)
-        infoBtn.setImage(UIImage(named: "info"), for: .normal)
+        infoBtn.setImage(UIImage(named: "ic_info"), for: .normal)
         infoBtn.addTarget(self, action: #selector(pageInfo), for: .touchUpInside)
         infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)

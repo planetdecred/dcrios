@@ -39,7 +39,7 @@ class SeedBackupVerifyTableViewCell: UITableViewCell {
 
     private func setSelectedWordText(selectedWord: String) {
         self.selectedWordLbl?.text = selectedWord.isEmpty ? "—" : selectedWord
-        self.selectedWordLbl?.textColor = selectedWord.isEmpty ? UIColor.appColors.lightBluishGray : UIColor.appColors.darkBluishGray
+        self.selectedWordLbl?.textColor = selectedWord.isEmpty ? UIColor.appColors.text3 : UIColor.appColors.text2
     }
 
     private func deselectAllButtons() {

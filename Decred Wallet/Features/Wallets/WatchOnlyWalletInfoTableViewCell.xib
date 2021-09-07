@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,21 +24,21 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YI3-dZ-TVN" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="152"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="p4H-85-xXK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="152"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4OU-1s-YCs">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BOt-b0-4q7">
-                                                <rect key="frame" x="16" y="16" width="382" height="20.5"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="19"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch only wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPf-yg-DII">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -45,24 +47,24 @@
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnS-85-hCg">
-                                        <rect key="frame" x="0.0" y="52.5" width="414" height="101"/>
+                                        <rect key="frame" x="0.0" y="51" width="414" height="101"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AO5-VU-vlo">
-                                                <rect key="frame" x="44" y="0.0" width="354" height="1"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="16" y="0.0" width="382" height="1"/>
+                                                <color key="backgroundColor" name="colorDivider"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="xVX-6O-h7E"/>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rkT-JM-G2U">
                                                 <rect key="frame" x="0.0" y="1" width="414" height="100"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="dQ1-E0-FzW"/>
                                                 </constraints>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstItem="AO5-VU-vlo" firstAttribute="leading" secondItem="OnS-85-hCg" secondAttribute="leading" constant="16" id="1td-O5-Bv4"/>
                                             <constraint firstAttribute="trailing" secondItem="rkT-JM-G2U" secondAttribute="trailing" id="NNM-Yd-SKN"/>
@@ -76,7 +78,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="surface"/>
                         <constraints>
                             <constraint firstItem="p4H-85-xXK" firstAttribute="top" secondItem="YI3-dZ-TVN" secondAttribute="top" id="5lw-XB-QRf"/>
                             <constraint firstItem="p4H-85-xXK" firstAttribute="leading" secondItem="YI3-dZ-TVN" secondAttribute="leading" id="Q5P-iI-duo"/>
@@ -105,7 +107,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" name="surface"/>
                 <constraints>
                     <constraint firstItem="YI3-dZ-TVN" firstAttribute="top" secondItem="7bu-f6-QMZ" secondAttribute="top" id="0LF-eS-U5n"/>
                     <constraint firstAttribute="trailing" secondItem="YI3-dZ-TVN" secondAttribute="trailing" id="BqB-EK-Kjl"/>
@@ -120,4 +122,18 @@
             <point key="canvasLocation" x="134.78260869565219" y="203.23660714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="colorDivider">
+            <color red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text1">
+            <color red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

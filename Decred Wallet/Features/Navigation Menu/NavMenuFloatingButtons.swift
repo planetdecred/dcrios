@@ -23,7 +23,7 @@ class NavMenuFloatingButtons: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        self.layer.backgroundColor = UIColor.appColors.lightBlue.cgColor
+        self.layer.backgroundColor = UIColor.appColors.primary.cgColor
         self.layer.cornerRadius = 24
         
         self.createButtons()
@@ -37,11 +37,13 @@ class NavMenuFloatingButtons: UIView {
         self.sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         self.sendButton.translatesAutoresizingMaskIntoConstraints = false
         self.sendButton.clipsToBounds = true
+        self.sendButton.setTitleColor(UIColor.appColors.text, for: .normal)
         self.sendButton.addTarget(self, action: #selector(self.sendTapped), for: .touchUpInside)
 
         self.receiveButton.setImage(UIImage(named: "ic_receive"), for: .normal)
         self.receiveButton.setTitle(LocalizedStrings.receive.localizedCapitalized, for: .normal)
         self.receiveButton.set(fontSize: 17, name: "Source Sans Pro")
+        self.receiveButton.setTitleColor(UIColor.appColors.text, for: .normal)
         self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 22)
         self.receiveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         self.receiveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +54,7 @@ class NavMenuFloatingButtons: UIView {
         separator.layer.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7).cgColor
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.clipsToBounds = true
+        self.backgroundColor = UIColor.appColors.primary
         
         self.addSubview(self.sendButton)
         self.addSubview(self.receiveButton)

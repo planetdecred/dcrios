@@ -13,6 +13,7 @@ class WalletAccountTableViewCell: UITableViewCell {
     @IBOutlet weak var accountNameLabel: UILabel!
     @IBOutlet weak var totalAccountBalanceLabel: UILabel!
     @IBOutlet weak var spendableAccountBalanceLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
     
     var account: DcrlibwalletAccount? {
         didSet {

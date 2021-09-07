@@ -83,4 +83,9 @@ class Settings {
         let selectedOption: String = Settings.readStringValue(for: DcrlibwalletCurrencyConversionConfigKey)
         return CurrencyConversionOption(rawValue: selectedOption) ?? .None
     }
+    
+    static var colorThemeOption: ColorThemeOption {
+        let selectedOption: String = Settings.readStringValue(for: GlobalConstants.Strings.COLORTHEME)
+        return ColorThemeOption(rawValue: selectedOption) ?? .deviceDefault
+    }
 }

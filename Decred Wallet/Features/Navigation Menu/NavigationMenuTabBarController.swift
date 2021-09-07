@@ -49,7 +49,7 @@ class NavigationMenuTabBarController: UITabBarController {
         tabBar.isHidden = true
 
         let background = UIView(frame: CGRect.zero) // White background to fill up safe area at bottom of devices >= iPhone X
-        background.backgroundColor = UIColor.white
+        background.backgroundColor = UIColor.appColors.surface
         background.translatesAutoresizingMaskIntoConstraints = false
         background.clipsToBounds = true
         self.view.addSubview(background)

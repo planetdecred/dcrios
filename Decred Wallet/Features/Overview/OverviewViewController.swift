@@ -194,8 +194,8 @@ class OverviewViewController: UIViewController {
         self.recentTransactionsTableView.dataSource = self
 
         self.totalSyncProgressView.layer.cornerRadius = 8
-        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
-        self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
+        self.showSyncDetailsButton.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 0.62)
+        self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 0.62)
         
         //mixers tableview
         self.mixerTableView.delegate = self
@@ -204,12 +204,12 @@ class OverviewViewController: UIViewController {
         //TODO change me
         self.mixersTableViewHeightContraint.constant = WalletMixerCell.height
         
-        pageSubtitleLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        pageSubtitleLabel.layer.borderColor = UIColor.appColors.text5.cgColor
         pageSubtitleLabel.layer.borderWidth = 1.0
         pageSubtitleLabel.layer.cornerRadius = 8
         pageSubtitleLabel.isHidden = true
         
-        usdBalanceLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        usdBalanceLabel.layer.borderColor = UIColor.appColors.text5.cgColor
         usdBalanceLabel.layer.borderWidth = 1.0
         usdBalanceLabel.layer.cornerRadius = 8
         usdBalanceLabel.isHidden = true
@@ -225,7 +225,7 @@ class OverviewViewController: UIViewController {
     func updateMultiWalletBalance() {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
-        self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
+        self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.text1)
         if Settings.currencyConversionOption != .None {
             displayExchangeRate(self.exchangeRate)
         }
@@ -338,6 +338,7 @@ class OverviewViewController: UIViewController {
             self.syncConnectionButton.setImage(UIImage(named: "ic_rescan"), for: .normal)
             self.syncConnectionButton.imageView?.contentMode = .scaleAspectFit
         }
+        self.syncConnectionButton.layer.borderColor = UIColor.appColors.border.cgColor
     }
     
     private func clearAndHideSyncDetails() {
@@ -370,10 +371,10 @@ class OverviewViewController: UIViewController {
         
         let attributedString = NSMutableAttributedString(string: latestBlockText)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
-                                      value: UIColor.appColors.darkBlue,
+                                      value: UIColor.appColors.text1,
                                       range: bestBlockHeightRange)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
-                                      value: UIColor.appColors.darkBlue,
+                                      value: UIColor.appColors.text1,
                                       range: bestBlockAgeRange)
         
         self.latestBlockLabel.attributedText = attributedString
@@ -391,7 +392,7 @@ class OverviewViewController: UIViewController {
         
         let attributedString = NSMutableAttributedString(string: connectedPeerText)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
-                                      value: UIColor.appColors.darkBlue,
+                                      value: UIColor.appColors.text1,
                                       range: peerCountRange)
         
         self.connectedPeersLabel.attributedText = attributedString

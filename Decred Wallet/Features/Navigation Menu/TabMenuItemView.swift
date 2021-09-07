@@ -10,6 +10,7 @@ import UIKit
 
 class TabMenuItemView: UIView {
     let iconView = UIImageView(frame: CGRect.zero)
+    var isSelected = false
     
     var topBorderWidth: CGFloat {
         return self.frame.size.width - 20
@@ -34,17 +35,16 @@ class TabMenuItemView: UIView {
     convenience init(for menuItem: MenuItem) {
         self.init(frame: CGRect.zero)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.appColors.surface
         self.translatesAutoresizingMaskIntoConstraints = false
         self.clipsToBounds = true
         
-        self.display(menuItemIcon: menuItem.icon!)
+        self.display(menuItemIcon: menuItem.iconDarkTheme!)
         self.display(menuItemTitle: menuItem.displayTitle)
     }
     
     func display(menuItemIcon: UIImage) {
         self.iconView.image = menuItemIcon.withRenderingMode(.automatic)
-        self.iconView.alpha = 0.5
         self.iconView.translatesAutoresizingMaskIntoConstraints = false
         self.iconView.clipsToBounds = true
         
@@ -64,7 +64,7 @@ class TabMenuItemView: UIView {
         itemTitleLabel.text = menuItemTitle
         itemTitleLabel.numberOfLines = 0
         itemTitleLabel.adjustsFontSizeToFitWidth = true
-        itemTitleLabel.textColor = UIColor.appColors.darkerGray
+        itemTitleLabel.textColor = UIColor.appColors.text1
         itemTitleLabel.textAlignment = .center
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
@@ -85,7 +85,6 @@ class TabMenuItemView: UIView {
     
     // Sets this menu item icon alpha to 1 and adds a top border to this view.
     func activate() {
-        self.iconView.alpha = 1.0
         
         let borderLayer = CALayer()
         borderLayer.backgroundColor = UIColor.appColors.green.cgColor
@@ -100,7 +99,6 @@ class TabMenuItemView: UIView {
     
     // Sets this menu item icon alpha to 0.5 and removes the top border previously added to this view.
     func deactivate() {
-        self.iconView.alpha = 0.5
         
         let borderLayers = self.layer.sublayers!.filter({ $0.name == "active border" })
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {

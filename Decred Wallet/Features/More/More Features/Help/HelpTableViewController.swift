@@ -15,8 +15,8 @@ class HelpTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue 
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1 
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -24,7 +24,7 @@ class HelpTableViewController: UITableViewController {
         self.addNavigationBackButton()
             
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.help, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
     }
     
@@ -34,7 +34,7 @@ class HelpTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.appColors.darkBluishGray
+        header.textLabel?.textColor = UIColor.appColors.text2
         header.textLabel?.text = LocalizedStrings.helpInfo
         header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
     }
@@ -48,7 +48,7 @@ class HelpTableViewController: UITableViewController {
         if let url = URL(string: urlString) {
             let viewController = SFSafariViewController(url: url)
             viewController.delegate = self as? SFSafariViewControllerDelegate
-            
+            viewController.view.backgroundColor = UIColor.appColors.background
             self.present(viewController, animated: true)
         }
     }

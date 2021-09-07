@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,7 +31,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rename wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjt-85-hFY">
                                         <rect key="frame" x="24" y="24" width="127.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
@@ -42,6 +42,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="dXt-3n-nbc"/>
                                         </constraints>
+                                        <color key="textColor" name="primary"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
@@ -61,7 +62,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                 <state key="normal" title="Cancel">
-                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleColor" name="primary"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="cancelButtonTapped:" destination="lI7-ED-syP" eventType="touchUpInside" id="BQQ-tS-nqJ"/>
@@ -81,13 +82,13 @@
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                        <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" name="text5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="7"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
-                                                        <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" name="primary"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -95,7 +96,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstItem="As3-fJ-RPc" firstAttribute="centerY" secondItem="RpI-Rx-7Vj" secondAttribute="centerY" id="93X-Cp-2cz"/>
                                             <constraint firstAttribute="bottom" secondItem="RpI-Rx-7Vj" secondAttribute="bottom" id="K1q-2c-rOK"/>
@@ -116,7 +117,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="jtQ-yz-NH0" firstAttribute="top" secondItem="ylK-Qf-Xvq" secondAttribute="bottom" constant="4" id="4bf-cr-Vw4"/>
                                     <constraint firstItem="G04-cX-21S" firstAttribute="centerY" secondItem="sjt-85-hFY" secondAttribute="centerY" id="6AE-2W-A0r"/>
@@ -181,7 +182,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove wallet from device?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-2k-s0e">
                                         <rect key="frame" x="24" y="20" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
@@ -190,7 +191,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to have the seed phrase backed up before removing the wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vZ-fQ-jXH">
                                         <rect key="frame" x="24" y="57.5" width="286" height="40.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text2"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
@@ -203,7 +204,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" name="primary"/>
                                         </state>
                                         <connections>
                                             <action selector="cancelButtonTapped:" destination="LZB-Of-VZX" eventType="touchUpInside" id="cG1-1T-Bf1"/>
@@ -239,14 +240,14 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This action cannot be undone." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1IQ-bS-Ofp">
                                         <rect key="frame" x="24" y="106" width="286" height="20.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="1IQ-bS-Ofp" firstAttribute="leading" secondItem="PES-gD-iwp" secondAttribute="leading" constant="24" id="04U-U6-hUF"/>
                                     <constraint firstAttribute="trailing" secondItem="Bso-LG-2oW" secondAttribute="trailing" constant="8" id="3sd-OA-WX7"/>
@@ -308,7 +309,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming transactions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lw-6t-u7h">
                                         <rect key="frame" x="24" y="20" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
@@ -316,7 +317,7 @@
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-B1-oIO">
                                         <rect key="frame" x="0.0" y="57.5" width="334" height="100"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Mgh-sQ-tVk"/>
                                         </constraints>
@@ -328,7 +329,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" name="primary"/>
                                         </state>
                                         <connections>
                                             <action selector="cancelButtonTapped:" destination="1C2-Ut-oCm" eventType="touchUpInside" id="tAE-LB-RmH"/>
@@ -344,7 +345,7 @@
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         <state key="normal" title="Ok">
-                                            <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primary"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
@@ -362,7 +363,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="tdL-B1-oIO" firstAttribute="leading" secondItem="JnU-Wj-3OK" secondAttribute="leading" id="17Z-8D-dhf"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="J44-oo-1jR"/>
@@ -435,11 +436,11 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVC-da-btr">
                                                 <rect key="frame" x="66" y="20.5" width="328" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="text1"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstItem="y0F-Ju-bFE" firstAttribute="top" secondItem="pAW-47-8yR" secondAttribute="top" constant="21" id="5lQ-ay-KBb"/>
                                             <constraint firstAttribute="trailing" secondItem="LVC-da-btr" secondAttribute="trailing" constant="20" id="ER9-8f-7Z6"/>
@@ -451,17 +452,17 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGa-cu-Ijj">
                                         <rect key="frame" x="0.0" y="65" width="414" height="1"/>
-                                        <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="colorDivider"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="ZBu-hu-oyn"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="67" width="414" height="150"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstItem="pAW-47-8yR" firstAttribute="top" secondItem="STI-8m-ryV" secondAttribute="top" id="48m-Ux-Jep"/>
                                     <constraint firstItem="1tl-kt-hoo" firstAttribute="leading" secondItem="STI-8m-ryV" secondAttribute="leading" id="EUh-6g-2uI"/>
@@ -517,7 +518,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create watch only wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="CPF-2i-5k9">
                                         <rect key="frame" x="24" y="24" width="366" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAs-jd-Gqe" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
@@ -525,6 +526,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="kXE-rI-pu8"/>
                                         </constraints>
+                                        <color key="textColor" name="primary"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
@@ -544,7 +546,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                 <state key="normal" title="Cancel">
-                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleColor" name="primary"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="cancelButtonTapped:" destination="Gv8-Qc-Xel" eventType="touchUpInside" id="YZV-a5-sU3"/>
@@ -564,13 +566,13 @@
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                        <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" name="text5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="7"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
-                                                        <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" name="primary"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -578,7 +580,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstItem="m9N-SL-zOt" firstAttribute="height" secondItem="US8-5M-GYa" secondAttribute="height" id="TtM-dk-GOl"/>
                                             <constraint firstAttribute="bottom" secondItem="US8-5M-GYa" secondAttribute="bottom" id="j8H-6E-EFH"/>
@@ -593,6 +595,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="7Qz-7x-2Mm"/>
                                         </constraints>
+                                        <color key="textColor" name="primary"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
@@ -603,7 +606,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="GAs-jd-Gqe" secondAttribute="trailing" constant="24" id="5lv-0F-YcZ"/>
                                     <constraint firstItem="BsG-gz-XtA" firstAttribute="leading" secondItem="EGJ-n8-btt" secondAttribute="leading" constant="16" id="7dy-MF-3RH"/>
@@ -686,14 +689,14 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Name is taken" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="BTN-ql-GEd">
                                         <rect key="frame" x="24" y="88" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yR8-ps-0nz">
                                         <rect key="frame" x="24" y="125.5" width="286" height="80.5"/>
                                         <string key="text">There are existing account named mixed and unmixed. Please change the name to something else for now. You can change them after the setup.</string>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="text2"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XI0-Td-fU0" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
@@ -706,7 +709,7 @@
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         <state key="normal" title="Go back &amp; rename">
-                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primary"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
@@ -733,7 +736,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="surface"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Awo-Ox-dBF" secondAttribute="trailing" constant="24" id="4ih-h2-B7X"/>
                                     <constraint firstAttribute="trailing" secondItem="jVx-IZ-qCJ" secondAttribute="trailing" id="5vG-He-DIt"/>
@@ -788,10 +791,10 @@
             <size key="intrinsicContentSize" width="88" height="21"/>
         </designable>
         <designable name="EGJ-n8-btt">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="32" height="34"/>
         </designable>
         <designable name="GAs-jd-Gqe">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="32" height="34"/>
         </designable>
         <designable name="RpI-Rx-7Vj">
             <size key="intrinsicContentSize" width="77" height="21"/>
@@ -806,15 +809,30 @@
             <size key="intrinsicContentSize" width="52" height="21"/>
         </designable>
         <designable name="ylK-Qf-Xvq">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="32" height="34"/>
         </designable>
     </designables>
     <resources>
         <image name="ic_alert" width="16" height="16"/>
         <image name="ic_close" width="24" height="24"/>
         <image name="ic_info" width="24" height="24"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="colorDivider">
+            <color red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.16078431372549021" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text1">
+            <color red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text2">
+            <color red="0.23921568627450981" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text5">
+            <color red="0.7686274509803922" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

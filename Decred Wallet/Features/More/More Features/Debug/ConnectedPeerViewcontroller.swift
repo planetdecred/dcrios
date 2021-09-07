@@ -24,7 +24,7 @@ class ConnectedPeerViewController: UIViewController {
     func setupUI() {
         self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.connectPeer, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -84,10 +84,10 @@ extension ConnectedPeerViewController: UITableViewDelegate, UITableViewDataSourc
         headerView.addSubview(sectionButton)
         idLabel.text = "\(self.peers[section].id)"
         idLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-        idLabel.textColor = UIColor.appColors.darkBlue
+        idLabel.textColor = UIColor.appColors.text1
         addrLabel.text = "\(self.peers[section].addr)"
         addrLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-        addrLabel.textColor = UIColor.appColors.darkBluishGray
+        addrLabel.textColor = UIColor.appColors.text2
         sectionButton.addTarget(self, action: #selector(self.hideSection(sender:)), for: .touchUpInside)
         sectionButton.tag = section
         sectionButton.leftImage(image: UIImage(named: "ic_expand")!, renderMode: .alwaysOriginal)

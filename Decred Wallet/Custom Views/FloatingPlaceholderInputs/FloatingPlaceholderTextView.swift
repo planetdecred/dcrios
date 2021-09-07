@@ -110,8 +110,8 @@ class FloatingPlaceholderTextView: UITextView {
     }
 
     func hideError() {
-        self.borderLayer.activeBorderColor = UIColor.appColors.lightBlue
-        self.floatingPlaceholderLabel.activeColor = UIColor.appColors.lightBlue
+        self.borderLayer.activeBorderColor = UIColor.appColors.primary
+        self.floatingPlaceholderLabel.activeColor = UIColor.appColors.primary
         self.borderLayer.changeBorderColor(acitve: self.isEditing)
         self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: self.isEditing)
     }

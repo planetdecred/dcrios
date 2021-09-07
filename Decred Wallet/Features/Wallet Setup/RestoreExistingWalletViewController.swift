@@ -35,7 +35,7 @@ class RestoreExistingWalletViewController: UIViewController {
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
         self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
         self.wordSelectionDropDownContainer.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 4.0)
-        self.wordSelectionDropDownContainer?.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        self.wordSelectionDropDownContainer?.layer.shadowColor = UIColor.appColors.text1.cgColor
         self.wordSelectionDropDownContainer?.layer.shadowRadius = 4
         self.wordSelectionDropDownContainer?.layer.shadowOpacity = 0.24
         self.wordSelectionDropDownContainer?.layer.shadowOffset = CGSize(width: -1, height: 1)
@@ -156,9 +156,9 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
-        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBluishGray.cgColor
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.text2.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
-        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.gray.cgColor
+        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.border.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
@@ -193,7 +193,7 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
         self.userEnteredSeedWords[wordIndex] = seedWord
         
         let allSeedWordsEntered = !self.userEnteredSeedWords.contains("")
-        self.btnConfirm.backgroundColor = allSeedWordsEntered ? UIColor.appColors.lightBlue : UIColor.appColors.paleGray
+        self.btnConfirm.backgroundColor = allSeedWordsEntered ? UIColor.appColors.primary : UIColor.appColors.text5
         
         if wordIndex < 32 && moveToNextField {
             let nextTableIndexPath = IndexPath(row: wordIndex + 1, section: 0)

@@ -125,7 +125,7 @@ class PlainHorizontalProgressBar: UIView {
             trackView.layer.cornerRadius = 0
         }
         if progress == 0 && isDefaultColor {
-            self.layer.backgroundColor = UIColor.appColors.paleGray.cgColor
+            self.layer.backgroundColor = UIColor.appColors.text5.cgColor
         } else {
             self.layer.backgroundColor = barBGColor.cgColor
         }

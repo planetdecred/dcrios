@@ -32,7 +32,7 @@ class TransactionsViewController: UIViewController {
         let noTxsLabel = UILabel(frame: self.txTableView.frame)
         noTxsLabel.text = LocalizedStrings.noTransactions
         noTxsLabel.font = UIFont(name: "Source Sans Pro", size: 16)
-        noTxsLabel.textColor = UIColor.appColors.lightBluishGray
+        noTxsLabel.textColor = UIColor.appColors.text3
         noTxsLabel.textAlignment = .center
         return noTxsLabel
     }
@@ -92,7 +92,7 @@ class TransactionsViewController: UIViewController {
 
     private func setupWalletSelector() {
         if WalletLoader.shared.wallets.count > 1 {
-            self.walletSelectorContainerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.walletSelectorContainerView.frame.size.height - 1, borderHeight: 1)
+            self.walletSelectorContainerView.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: self.walletSelectorContainerView.frame.size.height - 1, borderHeight: 1)
 
             self.walletSelectorGradientLayer.frame = self.walletSelectorCollectionView.bounds
             self.walletSelectorGradientLayer.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]

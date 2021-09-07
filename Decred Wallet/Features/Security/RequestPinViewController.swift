@@ -269,7 +269,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     override func hideError() {
         super.hideError()
         self.pinCollectionView.reloadData()
-        self.pinCount.textColor = UIColor.appColors.darkBluishGray
+        self.pinCount.textColor = UIColor.appColors.text2
         self.errorLabel.isHidden = true
     }
 }
@@ -285,7 +285,7 @@ extension RequestPinViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PinCell", for: indexPath)
-        cell.backgroundColor = self.isInErrorState == true ? UIColor.appColors.orange : UIColor.appColors.turquoise
+        cell.backgroundColor = self.isInErrorState == true ? UIColor.appColors.orange : UIColor.appColors.secondary
         return cell
     }
 }
