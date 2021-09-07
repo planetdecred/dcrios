@@ -97,7 +97,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     }
 
     @objc func passwordTextFieldChange() {
-        let password = self.passwordInput.text ?? ""
+        let password = self.passwordInput.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let passwordStrength = PinPasswordStrength.percentageStrength(of: password)
         self.passwordStrengthIndicator?.progress = passwordStrength.strength
         self.passwordStrengthIndicator?.progressTintColor = passwordStrength.color
@@ -119,11 +119,12 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     }
 
     func checkPasswordMatch() {
-        let confirmPassword = self.confirmPasswordInput?.text ?? ""
-        self.btnSubmit.isEnabled = self.passwordInput.text != "" && confirmPassword != ""
+        let password = self.passwordInput.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let confirmPassword = self.confirmPasswordInput?.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        self.btnSubmit.isEnabled = password != "" && confirmPassword != ""
         self.confirmCountLabel?.text = !confirmPassword.isEmpty ? "\(confirmPassword.count)" : "0"
 
-        if self.passwordInput.text == confirmPassword || self.isInErrorState {
+        if password == confirmPassword || self.isInErrorState {
             self.confirmErrorLabel?.text = ""
             self.confirmCountLabel?.textColor = UIColor.appColors.text2
             self.confirmPasswordInput?.hideError()
@@ -158,7 +159,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     }
 
     func validatePasswordsAndProceed() -> Bool {
-        let password = self.passwordInput.text ?? ""
+        let password = self.passwordInput.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         if password.length == 0 {
             self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
