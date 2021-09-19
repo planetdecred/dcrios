@@ -34,9 +34,10 @@ extension BinaryInteger {
 extension Formatter {
     static let withSeparator: NumberFormatter = {
         let formatter = NumberFormatter()
-        formatter.groupingSeparator = ","
+        formatter.locale = Locale(identifier: "en_US")
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 8
+        formatter.minimumFractionDigits = 2
         return formatter
     }()
 }

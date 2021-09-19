@@ -76,7 +76,8 @@ class SendViewController: UIViewController {
     
     var validSendAmountString: String {
         let amountCrudeText = self.amountTextField.text
-        let validTextAmountString = amountCrudeText?.dropLast(4) ?? ""
+        let tmpString = amountCrudeText?.replacingOccurrences(of: ",", with: ".")
+        let validTextAmountString = tmpString?.dropLast(4) ?? ""
         return String(validTextAmountString)
     }
     
