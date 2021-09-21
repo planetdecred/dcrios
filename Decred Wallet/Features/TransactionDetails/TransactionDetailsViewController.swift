@@ -281,7 +281,7 @@ class TransactionDetailsViewController: UIViewController {
                                                            color: UIColor.appColors.primary)
 
             let defaultTextStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
-                                                         color: UIColor.appColors.deepGray)
+                                                         color: UIColor.appColors.text1)
 
             let infoMessage = Utils.styleAttributedString(LocalizedStrings.tapOnBlueText,
                                                            styles: [blueTextColorStyle],
@@ -367,7 +367,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         let transactionDetailsTableWidth = self.transactionDetailsTable.frame.size.width
 
         let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: transactionDetailsTableWidth, height: 48))
-        headerView.backgroundColor = UIColor.white
+        headerView.backgroundColor = UIColor.appColors.surface
         headerView.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 1)
 
         let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: transactionDetailsTableWidth - 56, height: 47))

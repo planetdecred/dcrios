@@ -24,13 +24,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-Dc-Yer">
-                                <rect key="frame" x="24" y="16" width="327" height="23.5"/>
+                                <rect key="frame" x="24" y="16" width="327" height="25.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-4T-Zbi">
-                                        <rect key="frame" x="0.0" y="3" width="22" height="18"/>
+                                        <rect key="frame" x="0.0" y="4" width="22" height="18"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transactions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndj-nb-BCf">
-                                        <rect key="frame" x="38" y="0.0" width="289" height="23.5"/>
+                                        <rect key="frame" x="38" y="0.0" width="289" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-tQ-Ota">
-                                <rect key="frame" x="0.0" y="57.5" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="59.5" width="375" height="90"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lw-Zf-ZH8">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -60,14 +60,14 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="WalletSelectorCell" id="dYd-nH-FXC" customClass="WalletSelectorCollectionViewCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1" width="39.5" height="48"/>
+                                                        <rect key="frame" x="0.0" y="1" width="37" height="48"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yKx-9n-VaU">
-                                                            <rect key="frame" x="0.0" y="0.0" width="39.5" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="37" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBS-9S-ZGG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="39.5" height="48"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="48"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="48" id="lOU-OC-TPe"/>
                                                                     </constraints>
@@ -76,7 +76,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9j-Fx-1BX">
-                                                                    <rect key="frame" x="0.0" y="46" width="39.5" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="46" width="37" height="4"/>
                                                                     <color key="backgroundColor" name="primary"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="4" id="dZh-O3-xc5"/>
@@ -151,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="50" width="375" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xg-aj-JTN" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="24" y="0.0" width="42" height="40"/>
+                                                <rect key="frame" x="24" y="0.0" width="27" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5Q6-Di-baZ"/>
                                                 </constraints>
@@ -164,7 +164,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-S9-8yX" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="82" y="0.0" width="78" height="40"/>
+                                                <rect key="frame" x="67" y="0.0" width="60" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Gs9-Yd-Jvr"/>
                                                 </constraints>
@@ -189,7 +189,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rdz-8b-in4">
-                                <rect key="frame" x="8" y="147.5" width="359" height="463.5"/>
+                                <rect key="frame" x="8" y="149.5" width="359" height="461.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="16"/>
                                 <color key="separatorColor" name="colorDivider"/>
@@ -236,7 +236,7 @@
     <resources>
         <image name="ic_collapse" width="24" height="24"/>
         <image name="ic_decred" width="22" height="18"/>
-        <image name="ic_dropdown" width="24" height="24"/>
+        <image name="ic_dropdown" width="10" height="6"/>
         <namedColor name="background">
             <color red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
