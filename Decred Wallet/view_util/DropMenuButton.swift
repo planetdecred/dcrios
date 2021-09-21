@@ -170,6 +170,12 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         table.reloadData()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        containerView.layer.shadowColor = UIColor.appColors.shadowColor2.cgColor
+        self.setNeedsDisplay()
+    }
+    
     func caculateWidthCell() {
         self.items.forEach { (item) in
             let widthText = item.text.width(withConstrainedHeight: 20, font: UIFont(name: "SourceSansPro-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17))
