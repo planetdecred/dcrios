@@ -222,6 +222,14 @@ class OverviewViewController: UIViewController {
         self.refreshControl.endRefreshing()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        pageSubtitleLabel.layer.borderColor = UIColor.appColors.text5.cgColor
+        usdBalanceLabel.layer.borderColor = UIColor.appColors.text5.cgColor
+        self.syncConnectionButton.layer.borderColor = UIColor.appColors.border.cgColor
+        self.view.setNeedsDisplay()
+    }
+    
     func updateMultiWalletBalance() {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
