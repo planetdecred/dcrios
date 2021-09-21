@@ -10,7 +10,7 @@ import UIKit
 
 class FloatingPlaceholderBorderLayer: CALayer {
     var activeBorderColor: UIColor = UIColor.appColors.primary
-    let inactiveBorderColor: UIColor = UIColor.appColors.lightGray
+    let inactiveBorderColor: UIColor = UIColor.appColors.colorDivider
 
     override init() {
         super.init()
