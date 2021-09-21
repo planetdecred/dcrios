@@ -173,37 +173,45 @@ class TransactionsViewController: UIViewController {
     }
 
     func setupTxFilterDropDown() {
-        var filterOptions = [LocalizedStrings.all]
+        let wallet = WalletLoader.shared.wallets[self.currentWalletSelectorIndex]
+        let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterAll)
+        var filterOptions = ["\(LocalizedStrings.all) (\(count))"]
         self.txFilters = [DcrlibwalletTxFilterAll]
 
-        let wallet = WalletLoader.shared.wallets[self.currentWalletSelectorIndex]
+        
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent) > 0 {
-            filterOptions.append(LocalizedStrings.sent)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent)
+            filterOptions.append("\(LocalizedStrings.sent) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterSent)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived) > 0 {
-            filterOptions.append(LocalizedStrings.received)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived)
+            filterOptions.append("\(LocalizedStrings.received) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterReceived)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred) > 0 {
-            filterOptions.append(LocalizedStrings.yourself)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred)
+            filterOptions.append("\(LocalizedStrings.yourself) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterTransferred)
         }
         
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterMixed) > 0 {
-            filterOptions.append(LocalizedStrings.mixed)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterMixed)
+            filterOptions.append("\(LocalizedStrings.mixed) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterMixed)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
-            filterOptions.append(LocalizedStrings.staking)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking)
+            filterOptions.append("\(LocalizedStrings.staking) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterStaking)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase) > 0 {
-            filterOptions.append(LocalizedStrings.coinbase)
+            let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase)
+            filterOptions.append("\(LocalizedStrings.coinbase) (\(count))")
             self.txFilters.append(DcrlibwalletTxFilterCoinBase)
         }
 

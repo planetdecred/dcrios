@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,23 +30,23 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qge-xk-4Od">
-                        <rect key="frame" x="56" y="34" width="330" height="44.333333333333343"/>
+                        <rect key="frame" x="56" y="35.333333333333329" width="330" height="41.333333333333329"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CLm-d4-NZG">
-                                <rect key="frame" x="0.0" y="0.0" width="220.66666666666666" height="44.333333333333336"/>
+                                <rect key="frame" x="0.0" y="0.0" width="209.33333333333334" height="41.333333333333336"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-xk-Fuj">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="22.666666666666668"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="156" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vote" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9cz-Uu-4tu">
-                                                <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="22.666666666666668"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="21"/>
+                                                <color key="backgroundColor" name="surface"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <color key="textColor" name="text1"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1.04044861 DCR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAe-dK-oRr" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="37.333333333333321" y="0.0" width="100.66666666666669" height="22.666666666666668"/>
+                                                <rect key="frame" x="40" y="0.0" width="116" height="21"/>
                                                 <color key="backgroundColor" name="secondary"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,11 +76,11 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rNW-ei-H1Q">
-                                        <rect key="frame" x="0.0" y="26.666666666666664" width="148.33333333333334" height="17.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="25" width="165.33333333333334" height="16.333333333333329"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" text="Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="c8y-0R-Prg" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="36.666666666666664" height="17.666666666666668"/>
-                                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="38.333333333333336" height="16.333333333333332"/>
+                                                <color key="backgroundColor" name="surface"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" name="text4"/>
                                                 <nil key="highlightedColor"/>
@@ -107,7 +106,8 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="116.51637184 DCR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9zq-1l-9A2">
-                                                <rect key="frame" x="40.666666666666664" y="0.0" width="107.66666666666669" height="17.666666666666668"/>
+                                                <rect key="frame" x="42.333333333333329" y="0.0" width="122.99999999999999" height="16.333333333333332"/>
+                                                <color key="backgroundColor" name="surface"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" name="text3"/>
                                                 <nil key="highlightedColor"/>
@@ -128,19 +128,19 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FjC-Gz-h2A">
-                                <rect key="frame" x="228.66666666666671" y="0.0" width="101.33333333333334" height="44.333333333333336"/>
+                                <rect key="frame" x="217.33333333333329" y="0.0" width="112.66666666666666" height="41.333333333333336"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Krx-yJ-hxW">
-                                        <rect key="frame" x="0.0" y="0.0" width="81.333333333333329" height="44.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="41.333333333333336"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Oct 22, 2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="s9S-gM-kBM">
-                                                <rect key="frame" x="0.0" y="0.0" width="81.333333333333329" height="23.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="22"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                 <color key="textColor" name="text4"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="142 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="VNM-Dh-lLd">
-                                                <rect key="frame" x="0.0" y="23.666666666666664" width="81.333333333333329" height="20.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="22" width="92.666666666666671" height="19.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" name="text3"/>
                                                 <nil key="highlightedColor"/>
@@ -154,7 +154,7 @@
                                         </constraints>
                                     </stackView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ic_confirmed" translatesAutoresizingMaskIntoConstraints="NO" id="Lx9-wb-9kJ">
-                                        <rect key="frame" x="89.333333333333314" y="16" width="12" height="12"/>
+                                        <rect key="frame" x="100.66666666666669" y="14.666666666666664" width="12" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="12" id="Ifj-Uz-Cye"/>
                                             <constraint firstAttribute="height" constant="12" id="Oed-EE-d5I"/>
@@ -201,10 +201,10 @@
     </objects>
     <designables>
         <designable name="LAe-dK-oRr">
-            <size key="intrinsicContentSize" width="100.66666666666667" height="17.666666666666668"/>
+            <size key="intrinsicContentSize" width="116" height="16.333333333333332"/>
         </designable>
         <designable name="c8y-0R-Prg">
-            <size key="intrinsicContentSize" width="36.666666666666664" height="17.666666666666668"/>
+            <size key="intrinsicContentSize" width="38.333333333333336" height="16.333333333333332"/>
         </designable>
     </designables>
     <resources>
@@ -225,8 +225,5 @@
         <namedColor name="text4">
             <color red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
