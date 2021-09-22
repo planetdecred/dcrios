@@ -31,8 +31,12 @@ class SimpleTextInputDialog: UIViewController {
     @IBOutlet weak var submitButton: Button!
     @IBOutlet weak var infoButton: UIButton!
     
+    @IBOutlet weak var noticeTitle: UILabel!
+    @IBOutlet weak var noticeIcon: UIButton!
+    
     @IBOutlet weak var dialogViewBottomConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var textFieldTopTitleConstrant: NSLayoutConstraint!
+    
     private var dialogTitle: String!
     private var placeholder: String!
     private var currentValue: String!
@@ -41,6 +45,8 @@ class SimpleTextInputDialog: UIViewController {
     private var verifyInput: Bool!
     private var showInfoButton: Bool!
     private var infoText: String!
+    private var noticeText: String = ""
+    private var showNoticeIcon: Bool = false
     private var callback: SimpleTextInputDialogCallback!
     
     static func show(sender vc: UIViewController,
@@ -52,6 +58,8 @@ class SimpleTextInputDialog: UIViewController {
                      verifyInput: Bool = false,
                      showInfoButton: Bool = false,
                      infoText: String = "",
+                     noticeText: String = "",
+                     showNoticeIcon: Bool = false,
                      callback: @escaping SimpleTextInputDialogCallback) {
         
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
@@ -64,6 +72,8 @@ class SimpleTextInputDialog: UIViewController {
         dialog.callback = callback
         dialog.showInfoButton = showInfoButton
         dialog.infoText = infoText
+        dialog.showNoticeIcon = showNoticeIcon
+        dialog.noticeText = noticeText
         
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
@@ -81,8 +91,21 @@ class SimpleTextInputDialog: UIViewController {
         self.textField.delegate = self
         self.textField.becomeFirstResponder()
         self.infoButton.isHidden = !self.showInfoButton
+        self.noticeIcon.isHidden = !self.showNoticeIcon
+        if !self.noticeText.isEmpty {
+            self.noticeTitle.text = self.noticeText
+            self.noticeTitle.isHidden = false
+            self.textFieldTopTitleConstrant.constant = 70
+        } else {
+            self.noticeTitle.isHidden = true
+            self.textFieldTopTitleConstrant.constant = 25
+        }
+        
+        self.textField.updateConstraintsIfNeeded()
         
         self.listenForKeyboardVisibilityChanges(delegate: self)
+        self.view.updateConstraintsIfNeeded()
+        self.view.layoutIfNeeded()
     }
 
     override func viewDidAppear(_ animated: Bool) {
