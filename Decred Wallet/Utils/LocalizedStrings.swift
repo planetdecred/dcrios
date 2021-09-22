@@ -338,7 +338,7 @@ struct LocalizedStrings {
     static let accountName = NSLocalizedString("accountName", comment: "")
     static let createNewAccount = NSLocalizedString("createNewAccount", comment: "")
     static let accountCreated = NSLocalizedString("accountCreated", comment: "")
-    static let createNewAccountNotice = NSLocalizedString("createNewAccountNotice", value: "Accounts CANNOT be deleted once created.", comment: "")
+    static let createNewAccountNotice = NSLocalizedString("createNewAccountNotice", comment: "")
     
     /* Security Tools */
     static let securityTools = NSLocalizedString("securityTools", comment: "")
