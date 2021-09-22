@@ -131,6 +131,14 @@ class SettingsController: UITableViewController  {
         self.tableView.reloadData()
     }
     
+    @objc override func dismissView() {
+        if self.isModal {
+            self.dismiss(animated: false, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
