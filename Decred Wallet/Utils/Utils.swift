@@ -119,6 +119,15 @@ struct Utils {
         return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
     }
     
+    static func amountShowedInEightDecimals(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.text1) -> NSMutableAttributedString {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = ""
+        formatter.maximumFractionDigits = 8
+        formatter.minimumFractionDigits = 8
+        return Utils.getAttributedString(str: formatter.string(from: NSNumber(value: amount ?? 0)) ?? "0.00000000", siz: smallerTextSize, TexthexColor: textColor)
+    }
+    
     // function should be refactored!
     static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSMutableAttributedString {
         var tmpString = str
