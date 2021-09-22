@@ -350,9 +350,11 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         SimpleTextInputDialog.show(sender: self,
                                    title: LocalizedStrings.createNewAccount,
                                    placeholder: LocalizedStrings.accountName,
-                                   submitButtonText: LocalizedStrings.create) { accountName, dialogDelegate in
+                                   submitButtonText: LocalizedStrings.create,
+                                   showInfoButton: false,
+                                   noticeText: LocalizedStrings.createNewAccountNotice,
+                                   showNoticeIcon: true) { accountName, dialogDelegate in
                                     dialogDelegate?.dismissDialog()
-                                    
                                     let privatePassType = SpendingPinOrPassword.securityType(for: wallet.id)
                                     Security.spending(initialSecurityType: privatePassType).requestCurrentCode(sender: self) { pinOrPassword, type, completion in
                                         DispatchQueue.global(qos: .userInitiated).async {
