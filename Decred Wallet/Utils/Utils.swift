@@ -124,8 +124,8 @@ struct Utils {
             return Utils.getAttributedString(str: "0", siz: smallerTextSize, TexthexColor: textColor)
         }
         let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = ""
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 8
         formatter.minimumFractionDigits = 8
         return Utils.getAttributedString(str: formatter.string(from: NSNumber(value: amount ?? 0)) ?? "0", siz: smallerTextSize, TexthexColor: textColor)
