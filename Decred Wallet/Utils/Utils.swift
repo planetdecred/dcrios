@@ -120,12 +120,15 @@ struct Utils {
     }
     
     static func amountShowedInEightDecimals(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.text1) -> NSMutableAttributedString {
+        if((amount ?? 0) == 0) {
+            return Utils.getAttributedString(str: "0", siz: smallerTextSize, TexthexColor: textColor)
+        }
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = ""
         formatter.maximumFractionDigits = 8
         formatter.minimumFractionDigits = 8
-        return Utils.getAttributedString(str: formatter.string(from: NSNumber(value: amount ?? 0)) ?? "0.00000000", siz: smallerTextSize, TexthexColor: textColor)
+        return Utils.getAttributedString(str: formatter.string(from: NSNumber(value: amount ?? 0)) ?? "0", siz: smallerTextSize, TexthexColor: textColor)
     }
     
     // function should be refactored!
