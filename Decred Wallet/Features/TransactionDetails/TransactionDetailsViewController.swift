@@ -190,7 +190,7 @@ class TransactionDetailsViewController: UIViewController {
     private func prepareTxOverview() {
         let attributedAmountString: NSMutableAttributedString
         if transaction.type == DcrlibwalletTxTypeMixed {
-            attributedAmountString = Utils.getAttributedString(str: transaction.dcrMixDenom.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.text1)
+            attributedAmountString = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.mixDenom), smallerTextSize: 20.0, textColor: UIColor.appColors.text1)
             if transaction.mixCount > 1 {
                 let mixCount = NSMutableAttributedString(string: "\t x\(transaction.mixCount)")
                 mixCount.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.text5, range: NSRange(location: 0, length: mixCount.length))
@@ -198,7 +198,7 @@ class TransactionDetailsViewController: UIViewController {
             }
         } else {
             attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
-            attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.text1))
+            attributedAmountString.append(Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.amount), smallerTextSize: 20.0, textColor: UIColor.appColors.text1))
         }
         
         self.txOverview.txAmount = attributedAmountString

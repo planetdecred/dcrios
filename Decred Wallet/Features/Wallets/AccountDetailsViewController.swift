@@ -101,35 +101,35 @@ class AccountDetailsViewController: UIViewController {
     }
     
     func displayAccountBalances() {
-        self.totalBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.balance?.dcrTotal,
+        self.totalBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: self.account.balance?.dcrTotal,
                                                                                smallerTextSize: 20)
         
-        self.spendableBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.dcrSpendableBalance,
+        self.spendableBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: self.account.dcrSpendableBalance,
                                                                                    smallerTextSize: 15)
         
         if let immatureReward = self.account.balance?.dcrImmatureReward, immatureReward > 0 {
-            self.immatureRewardsBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: immatureReward,
+            self.immatureRewardsBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: immatureReward,
                                                                                              smallerTextSize: 15)
         } else {
             self.immatureRewardsBalanceLabel.superview?.isHidden = true
         }
         
         if let lockedByTickets = self.account.balance?.dcrLockedByTickets, lockedByTickets > 0 {
-            self.lockedByTicketsBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: lockedByTickets,
+            self.lockedByTicketsBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: lockedByTickets,
                                                                                              smallerTextSize: 15)
         } else {
             self.lockedByTicketsBalanceLabel.superview?.isHidden = true
         }
         
         if let votingAuthority = self.account.balance?.dcrVotingAuthority, votingAuthority > 0 {
-            self.votingAuthorityBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: votingAuthority,
+            self.votingAuthorityBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: votingAuthority,
                                                                                              smallerTextSize: 15)
         } else {
             self.votingAuthorityBalanceLabel.superview?.isHidden = true
         }
         
         if let immatureStakeGen = self.account.balance?.dcrImmatureStakeGeneration, immatureStakeGen > 0 {
-            self.immatureStakeGenBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: immatureStakeGen,
+            self.immatureStakeGenBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: immatureStakeGen,
                                                                                               smallerTextSize: 15)
         } else {
             self.immatureStakeGenBalanceLabel.superview?.isHidden = true

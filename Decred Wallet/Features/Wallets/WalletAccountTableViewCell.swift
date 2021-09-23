@@ -18,8 +18,8 @@ class WalletAccountTableViewCell: UITableViewCell {
     var account: DcrlibwalletAccount? {
         didSet {
             self.accountNameLabel.text = account?.name
-            self.totalAccountBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: account?.dcrTotalBalance, smallerTextSize: 15)
-            self.spendableAccountBalanceLabel.text = "\(account?.dcrSpendableBalance ?? 0) DCR"
+            self.totalAccountBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: account?.dcrTotalBalance, smallerTextSize: 15)
+            self.spendableAccountBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: account?.dcrSpendableBalance, smallerTextSize: 14, textColor: UIColor.appColors.text4)
         }
     }
 }
