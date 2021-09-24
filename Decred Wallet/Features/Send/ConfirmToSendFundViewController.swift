@@ -78,7 +78,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             self.destinationInfoLabel.text = self.unsignedTxSummary.destinationAddress
         }
         
-        let amountText = Utils.amountAsAttributedString(
+        let amountText = Utils.amountShowedInEightDecimals(
             amount: self.unsignedTxSummary.dcrAmount.doubleValue, smallerTextSize: 15.0
         )
         
