@@ -103,6 +103,12 @@ class PlainHorizontalProgressBar: UIView {
         self.layoutMargins = .zero
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        self.setNeedsLayout()
+    }
+    
     open func setProgress(_ value: Float, animated: Bool, isDefaultColor: Bool = false) {
         self.progress = value
         self.isDefaultColor = isDefaultColor

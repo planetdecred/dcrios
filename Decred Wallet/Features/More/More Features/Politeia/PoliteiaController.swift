@@ -162,6 +162,12 @@ class PoliteiaController: UIViewController {
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        self.view.setNeedsLayout()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         WalletLoader.shared.multiWallet.politeia?.removeNotificationListener("\(self)")
