@@ -21,7 +21,7 @@ class MoreMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func navigateMorePage(to menuItem: MoreMenuItem) {
         if menuItem == .settings {
-            let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
+            let settingsVC = SettingNavigationViewController(rootViewController: SettingsController.instantiate(from: .Settings))
             settingsVC.modalPresentationStyle = .currentContext
             self.present(settingsVC, animated: false, completion: nil)
         } else {
