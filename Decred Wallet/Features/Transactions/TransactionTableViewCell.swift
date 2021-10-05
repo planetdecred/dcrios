@@ -72,7 +72,7 @@ class TransactionTableViewCell: UITableViewCell {
     }
     
     func displayRegularTxInfo(_ transaction: Transaction) {
-        let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.text1)
+        let amountString = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.amount), smallerTextSize: 13.0, textColor: UIColor.appColors.text1)
         if transaction.direction == DcrlibwalletTxDirectionSent {
             let attributedString = NSMutableAttributedString(string:"-")
             attributedString.append(amountString)
@@ -92,7 +92,7 @@ class TransactionTableViewCell: UITableViewCell {
         self.txTypeIconImageView?.image = UIImage(named: "mixed_tx")
         self.txAmountOrTicketStatusLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.mixed)
         
-        let mixAmount = Utils.getAttributedString(str: transaction.dcrMixDenom.description, siz: 11.0, TexthexColor: UIColor.appColors.text1)
+        let mixAmount = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.mixDenom), smallerTextSize: 11.0, textColor: UIColor.appColors.text1)
         if transaction.mixCount > 1 {
             let mixCount = NSMutableAttributedString(string: "\t x\(transaction.mixCount)")
             mixAmount.append(mixCount)
@@ -104,7 +104,7 @@ class TransactionTableViewCell: UITableViewCell {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.voted)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketVoted")
 
-        self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.text3)
+        self.stakingTxAmountLabel.attributedText = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.amount), smallerTextSize: 11.0, textColor: UIColor.appColors.text3)
         self.voteRewardLabel.attributedText = Utils.getAttributedString(str: transaction.dcrVoteReward.round(8).description, siz: 11.0, TexthexColor: UIColor.white)
         self.daysCounterLabel.text = String(format: (ageInDays > 1 ? LocalizedStrings.days : LocalizedStrings.day), ageInDays)
     }
@@ -113,7 +113,7 @@ class TransactionTableViewCell: UITableViewCell {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.revoked)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketRevoked")
 
-        self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.text3)
+        self.stakingTxAmountLabel.attributedText = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.amount), smallerTextSize: 11.0, textColor: UIColor.appColors.text3)
         self.voteRewardLabel.attributedText = Utils.getAttributedString(str: transaction.dcrVoteReward.round(8).description, siz: 11.0, TexthexColor: UIColor.white)
         
         self.daysCounterLabel.text = String(format: (ageInDays > 1 ? LocalizedStrings.days : LocalizedStrings.day), ageInDays)
@@ -122,7 +122,7 @@ class TransactionTableViewCell: UITableViewCell {
     func displayTicketPurchaseInfo(_ transaction: Transaction, wallet: DcrlibwalletWallet) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.ticket)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
-        self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.text3)
+        self.stakingTxAmountLabel.attributedText = Utils.amountShowedInEightDecimals(amount: DcrlibwalletAmountCoin(transaction.amount), smallerTextSize: 11.0, textColor: UIColor.appColors.text3)
 
         let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
         let txConfirmations = transaction.confirmations

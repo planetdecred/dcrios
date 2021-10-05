@@ -240,8 +240,8 @@ class PrivacyViewController: UIViewController {
             let unmixedBalance = try wallet?.getAccountBalance(Int32(unmixedAccountNumber))
             let mixedBalance = try wallet?.getAccountBalance(Int32(mixedAccountNumber))
             DispatchQueue.main.async {
-                self.unmixedBalance.text = Utils.amountAsAttributedString(amount: unmixedBalance?.dcrTotal, smallerTextSize: 15.0).string
-                self.mixedBalance.text = Utils.amountAsAttributedString(amount: mixedBalance?.dcrTotal, smallerTextSize: 15.0).string
+                self.unmixedBalance.text = Utils.amountShowedInEightDecimals(amount: unmixedBalance?.dcrTotal, smallerTextSize: 15.0).string
+                self.mixedBalance.text = Utils.amountShowedInEightDecimals(amount: mixedBalance?.dcrTotal, smallerTextSize: 15.0).string
             }
         } catch {
             DispatchQueue.main.async {

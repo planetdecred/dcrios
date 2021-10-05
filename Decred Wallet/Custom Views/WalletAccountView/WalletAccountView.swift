@@ -23,8 +23,7 @@ import Dcrlibwallet
         didSet {
             self.accountNameLabel.text = self.selectedAccount?.name ?? LocalizedStrings.tapToSelectAccount
             let accountBalance = self.selectedAccount?.dcrTotalBalance ?? 0
-            self.accountBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: accountBalance,
-                                                                                     smallerTextSize: 15.0)
+            self.accountBalanceLabel.attributedText = Utils.amountShowedInEightDecimals(amount: accountBalance, smallerTextSize: 15.0)
         }
     }
     

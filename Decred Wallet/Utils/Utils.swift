@@ -114,9 +114,16 @@ struct Utils {
         }
     }
     
-    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.text1) -> NSMutableAttributedString {
-        let amountRoundedOff = (Decimal(amount ?? 0) as NSDecimalNumber).round(8)
-        return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
+    static func amountShowedInEightDecimals(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.text1) -> NSMutableAttributedString {
+        if((amount ?? 0) == 0) {
+            return Utils.getAttributedString(str: "0", siz: smallerTextSize, TexthexColor: textColor)
+        }
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 8
+        formatter.minimumFractionDigits = 8
+        return Utils.getAttributedString(str: formatter.string(from: NSNumber(value: amount ?? 0)) ?? "0", siz: smallerTextSize, TexthexColor: textColor)
     }
     
     // function should be refactored!
