@@ -52,6 +52,7 @@ class PoliteiaTableViewCell: UITableViewCell {
             let yesPercentRound = (politeia.yesPercent).round(decimals: 2)
             let noPercentRound = politeia.novotes > 0 ? (100.0 - yesPercentRound).round(decimals: 2) : 0
             self.percentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercentRound)%) No: \(politeia.novotes) (\(noPercentRound)%)"
+            self.percentLabel.textColor = UIColor.black
         } else {
             self.percentView.isHidden = true
             self.percentLabel.isHidden = true

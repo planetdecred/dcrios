@@ -75,6 +75,16 @@ class PoliteiaDetailController: UIViewController {
         
         let stackButton:UIBarButtonItem = UIBarButtonItem(customView: stackview)
         self.navigationItem.rightBarButtonItem = stackButton
+        self.contentTextView.layoutIfNeeded()
+        self.contentTextView.textColor = UIColor.appColors.text1
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.contentTextView.textColor = UIColor.appColors.text1
+        self.contentTextView.setNeedsLayout()
+        self.contentTextView.layoutIfNeeded()
+        self.view.setNeedsLayout()
     }
     
     func getDetailPoliteia() {
@@ -86,7 +96,6 @@ class PoliteiaDetailController: UIViewController {
                     if let poli = result!.0 {
                         self.politeia = poli
                         self.displayData()
-                        self.contentTextView.textColor = UIColor.appColors.text1
                     }
                 }
             }
@@ -101,6 +110,7 @@ class PoliteiaDetailController: UIViewController {
         self.percentView.isHidden = true
         self.yesPercentLabel.isHidden = true
         self.noPercentLabel.isHidden = true
+        contentLoadingIndicator.color = UIColor.appColors.text1
     }
     
     @objc func shareButtonTapped(_ sender: Any) {
@@ -139,13 +149,16 @@ class PoliteiaDetailController: UIViewController {
             self.percentView.setProgress(Float(politeia.yesPercent), animated: false, isDefaultColor: politeia.novotes == 0)
             let yesPercent = politeia.yesPercent
             self.yesPercentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercent.round(decimals: 2))%)"
+            self.yesPercentLabel.textColor = UIColor.black
             self.noPercentLabel.text = "No: \(politeia.novotes) (\(politeia.novotes > 0 ? (100 - yesPercent).round(decimals: 2) : 0)%)"
+            self.noPercentLabel.textColor = UIColor.black
         }
         
         if politeia.indexfile != "" && politeia.fileversion == politeia.version {
             let down = Down(markdownString: politeia.indexfile)
             let attributedString = try? down.toAttributedString()
             self.contentTextView.attributedText = attributedString
+            self.contentTextView.textColor = UIColor.appColors.text1
         } else {
             self.contentLoadingIndicator.isHidden = false
             DispatchQueue.global(qos: .userInitiated).async {
@@ -159,6 +172,7 @@ class PoliteiaDetailController: UIViewController {
                         let down = Down(markdownString: description!)
                         let attributedString = try? down.toAttributedString()
                         self.contentTextView.attributedText = attributedString
+                        self.contentTextView.textColor = UIColor.appColors.text1
                     }
                 }
             }
