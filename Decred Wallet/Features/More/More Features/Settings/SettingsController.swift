@@ -71,7 +71,10 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
-        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        if self.traitCollection.userInterfaceStyle == .dark {
+            self.navigationController?.navigationBar.barTintColor = UIColor.black
+        }
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
         let closeButton = UIBarButtonItem(image: icon,
                                           style: .done,
@@ -129,6 +132,14 @@ class SettingsController: UITableViewController  {
         }
         
         self.tableView.reloadData()
+    }
+    
+    @objc override func dismissView() {
+        if self.isModal {
+            self.dismiss(animated: false, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

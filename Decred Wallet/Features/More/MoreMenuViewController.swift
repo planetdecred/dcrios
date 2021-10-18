@@ -20,7 +20,13 @@ class MoreMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func navigateMorePage(to menuItem: MoreMenuItem) {
-        self.navigationController?.pushViewController(menuItem.viewController, animated: true)
+        if menuItem == .settings {
+            let settingsVC = SettingNavigationViewController(rootViewController: SettingsController.instantiate(from: .Settings))
+            settingsVC.modalPresentationStyle = .currentContext
+            self.present(settingsVC, animated: false, completion: nil)
+        } else {
+                self.navigationController?.pushViewController(menuItem.viewController, animated: true)
+        }
        }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
