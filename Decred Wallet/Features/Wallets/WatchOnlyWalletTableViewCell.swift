@@ -40,7 +40,7 @@ class WatchOnlyWalletTableViewCell: UITableViewCell, DropMenuButtonDelegate {
             DropMenuButtonItem(LocalizedStrings.rename, isSeparate: true, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.settings, isSeparate: false, textLabel: ""),
         ]
-        self.walletMenuButton.initMenu(menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview?.superview?.superview?.superview?.superview?.superview, isShowCurrentValue: true) { [weak self] index, value in
+        self.walletMenuButton.initMenu(menuOption, align: .right,  marginHorizontal: 16, isDissmissOutside: true, superView: self.superview?.superview?.superview?.superview?.superview?.superview?.superview, isShowCurrentValue: true) { [weak self] index, value in
             guard let `self` = self else {return}
             self.delegate?.showWatchOnlyWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index + 3)!)
             
