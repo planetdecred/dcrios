@@ -78,6 +78,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var multipleWalletsPeerCountTitleLabel: UILabel!
     @IBOutlet weak var multipleWalletsSyncDetailsTableView: UITableView!
     @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var showHideButton: [UIButton]!
     
     private var multiWallet = WalletLoader.shared.multiWallet!
 
@@ -91,6 +92,7 @@ class OverviewViewController: UIViewController {
     var dcrAmountUnit: Bool = true
     var exchangeValue: NSDecimalNumber?
     var currencyConversionDisabled: Bool?
+    var isShowBalance: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,7 +177,7 @@ class OverviewViewController: UIViewController {
         let dcrAmount = multiWallet.totalBalance
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
         self.exchangeValue = usdAmount
-        self.usdBalanceLabel.isHidden = false
+        self.usdBalanceLabel.isHidden = !self.isShowBalance
         self.usdBalanceLabel.text = "$\(usdAmount.round(2).formattedWithSeparator)"
        
     }
@@ -213,6 +215,9 @@ class OverviewViewController: UIViewController {
         usdBalanceLabel.layer.borderWidth = 1.0
         usdBalanceLabel.layer.cornerRadius = 8
         usdBalanceLabel.isHidden = true
+        self.showHideButton.forEach { button in
+            if button.tag == 0 { button.isHidden = true }
+        }
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
@@ -233,7 +238,8 @@ class OverviewViewController: UIViewController {
     func updateMultiWalletBalance() {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
-        self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.text1)
+        let totalBalance = self.isShowBalance ? "\(totalAmountRoundedOff)" : "********"
+        self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalance)", siz: 17.0, TexthexColor: UIColor.appColors.text1)
         if Settings.currencyConversionOption != .None {
             displayExchangeRate(self.exchangeRate)
         }
@@ -528,6 +534,20 @@ class OverviewViewController: UIViewController {
         }
     }
     
+    @IBAction func showHideTapped(_ sender: Any) {
+        self.isShowBalance = !self.isShowBalance
+        self.showHideButton.forEach { button in
+            button.setImage(UIImage(named: self.isShowBalance ? "ic_conceal" : "ic_reveal"), for: .normal)
+        }
+        self.updateBalance()
+    }
+    
+    func updateBalance() {
+        self.updateMultiWalletBalance()
+        self.updatePageTitleTextOnScroll(using: self.parentScrollView)
+        self.updatePageSubtitleTextOnScroll(using: self.parentScrollView)
+    }
+    
     func isMixerActive() -> Bool {
         var numberOfMixers = 0
         for wallet in WalletLoader.shared.wallets {
@@ -560,7 +580,15 @@ extension OverviewViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.y < self.balanceLabel.frame.height / 2 {
             self.pageTitleLabel.text = LocalizedStrings.overview
             self.pageTitleSeparator.isHidden = true
+            self.showHideButton.forEach { button in
+                if button.tag == 0 { button.isHidden = true }
+                if button.tag == 1 { button.isHidden = false }
+            }
         } else {
+            self.showHideButton.forEach { button in
+                if button.tag == 0 { button.isHidden = false }
+                if button.tag == 1 { button.isHidden = true }
+            }
             self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
             self.pageTitleSeparator.isHidden = false
         }
@@ -576,7 +604,7 @@ extension OverviewViewController: UIScrollViewDelegate {
         } else {
             if !currencyConversionDisabled! {
                 self.pageSubtitleLabel.attributedText = self.usdBalanceLabel.attributedText!
-                self.pageSubtitleLabel.isHidden = false
+                self.pageSubtitleLabel.isHidden = !self.isShowBalance
             }
         }
     }

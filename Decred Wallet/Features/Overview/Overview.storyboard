@@ -27,17 +27,17 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3co-lt-hDe">
-                                <rect key="frame" x="24" y="60" width="366" height="50"/>
+                                <rect key="frame" x="24" y="60" width="372" height="50"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="e6W-R2-mxo">
-                                        <rect key="frame" x="0.0" y="16" width="22" height="18"/>
+                                        <rect key="frame" x="0.0" y="16" width="0.0" height="18"/>
                                         <color key="tintColor" name="text1"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MfK-mH-Spn">
-                                        <rect key="frame" x="38" y="0.0" width="328" height="50"/>
+                                        <rect key="frame" x="16" y="0.0" width="316" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-M8-itB">
-                                                <rect key="frame" x="0.0" y="12.5" width="79" height="25.5"/>
+                                                <rect key="frame" x="0.0" y="12.5" width="67" height="25.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9lv-ev-DSY"/>
                                                 </constraints>
@@ -49,7 +49,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4If-VY-GlA">
-                                                <rect key="frame" x="87" y="0.0" width="241" height="50"/>
+                                                <rect key="frame" x="75" y="0.0" width="241" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMi-Pi-sSE" customClass="PaddedLabel" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="16" width="8" height="18"/>
@@ -83,6 +83,16 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2w-fB-CQN">
+                                        <rect key="frame" x="348" y="5" width="24" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="0Ez-sd-Y6P"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_reveal"/>
+                                        <connections>
+                                            <action selector="showHideTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="Ed1-Mw-dbg"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IK4-Pz-8cc">
@@ -99,7 +109,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1877.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
-                                                <rect key="frame" x="24" y="0.0" width="366" height="40"/>
+                                                <rect key="frame" x="24" y="0.0" width="340" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="EGZ-r7-5US"/>
                                                 </constraints>
@@ -1256,17 +1266,30 @@
                                                     <constraint firstAttribute="trailing" secondItem="8t6-aj-Jtg" secondAttribute="trailing" id="oOG-yx-ntv"/>
                                                 </constraints>
                                             </stackView>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4q-pq-aaV">
+                                                <rect key="frame" x="364" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="L4q-pq-aaV" secondAttribute="height" multiplier="1:1" id="i0P-xi-e2e"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_reveal"/>
+                                                <connections>
+                                                    <action selector="showHideTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="mwZ-2h-N3y"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="DPB-YP-Vow" firstAttribute="top" secondItem="hkg-8t-e9s" secondAttribute="bottom" constant="16" id="3yp-Mk-mfE"/>
+                                            <constraint firstItem="L4q-pq-aaV" firstAttribute="leading" secondItem="GGm-T7-QFh" secondAttribute="trailing" id="78S-Oz-2qT"/>
                                             <constraint firstItem="GGm-T7-QFh" firstAttribute="top" secondItem="9pQ-ul-Ay3" secondAttribute="top" id="96H-iU-Lf0"/>
+                                            <constraint firstItem="L4q-pq-aaV" firstAttribute="top" secondItem="9pQ-ul-Ay3" secondAttribute="top" id="Aoo-Dy-A18"/>
                                             <constraint firstAttribute="trailing" secondItem="DPB-YP-Vow" secondAttribute="trailing" constant="8" id="BYe-o6-hzU"/>
-                                            <constraint firstAttribute="trailing" secondItem="GGm-T7-QFh" secondAttribute="trailing" constant="24" id="FL0-7s-adU"/>
                                             <constraint firstItem="DPB-YP-Vow" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="8" id="KkD-ks-zOh"/>
+                                            <constraint firstAttribute="trailing" secondItem="L4q-pq-aaV" secondAttribute="trailing" constant="10" id="g6J-xX-Qke"/>
                                             <constraint firstItem="hkg-8t-e9s" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="24" id="k7U-z1-rrx"/>
                                             <constraint firstItem="DPB-YP-Vow" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="8" id="kU9-tI-L9U"/>
                                             <constraint firstItem="hkg-8t-e9s" firstAttribute="top" secondItem="GGm-T7-QFh" secondAttribute="bottom" constant="4" id="owM-0Y-Gdt"/>
+                                            <constraint firstItem="L4q-pq-aaV" firstAttribute="height" secondItem="GGm-T7-QFh" secondAttribute="height" id="qVF-6O-Fya"/>
                                             <constraint firstItem="GGm-T7-QFh" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="24" id="rAL-FI-7RN"/>
                                             <constraint firstAttribute="bottom" secondItem="DPB-YP-Vow" secondAttribute="bottom" constant="130" id="rDi-TM-Jis"/>
                                             <constraint firstAttribute="trailing" secondItem="DPB-YP-Vow" secondAttribute="trailing" constant="8" id="ze2-sw-wie"/>
@@ -1288,7 +1311,7 @@
                         <constraints>
                             <constraint firstItem="Zw5-BT-lXr" firstAttribute="top" secondItem="3co-lt-hDe" secondAttribute="bottom" constant="16" id="Esc-nd-A7m"/>
                             <constraint firstAttribute="bottom" secondItem="Zw5-BT-lXr" secondAttribute="bottom" id="GqE-gf-3fE"/>
-                            <constraint firstItem="qer-Ed-q0D" firstAttribute="trailing" secondItem="3co-lt-hDe" secondAttribute="trailing" constant="24" id="Ip2-0a-ABb"/>
+                            <constraint firstItem="qer-Ed-q0D" firstAttribute="trailing" secondItem="3co-lt-hDe" secondAttribute="trailing" constant="18" id="Ip2-0a-ABb"/>
                             <constraint firstItem="3co-lt-hDe" firstAttribute="leading" secondItem="qer-Ed-q0D" secondAttribute="leading" constant="24" id="ME2-iH-9iv"/>
                             <constraint firstItem="Zw5-BT-lXr" firstAttribute="trailing" secondItem="fOh-bl-3Dk" secondAttribute="trailing" id="gCo-vu-n1u"/>
                             <constraint firstItem="IK4-Pz-8cc" firstAttribute="leading" secondItem="qer-Ed-q0D" secondAttribute="leading" id="hqv-in-DLV"/>
@@ -1345,11 +1368,13 @@
                         <outlet property="totalSyncProgressView" destination="4ot-bj-xT3" id="0Yv-6w-2tV"/>
                         <outlet property="usdBalanceLabel" destination="hkg-8t-e9s" id="GhG-UG-DBT"/>
                         <outlet property="walletsNeedBackupLabel" destination="bke-5i-43H" id="bzB-Y7-0Cy"/>
+                        <outletCollection property="showHideButton" destination="L4q-pq-aaV" collectionClass="NSMutableArray" id="AJp-PL-Kz3"/>
+                        <outletCollection property="showHideButton" destination="f2w-fB-CQN" collectionClass="NSMutableArray" id="qFe-tc-xt1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDu-jM-obu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4032" y="-1784"/>
+            <point key="canvasLocation" x="-4033.3333333333335" y="-1784.5982142857142"/>
         </scene>
     </scenes>
     <designables>
@@ -1369,6 +1394,7 @@
         <image name="ic_decred" width="22" height="18"/>
         <image name="ic_mixer" width="24" height="24"/>
         <image name="ic_rescan" width="16" height="16"/>
+        <image name="ic_reveal" width="24" height="24"/>
         <image name="ic_wallet_alert" width="24" height="24"/>
         <namedColor name="background">
             <color red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
