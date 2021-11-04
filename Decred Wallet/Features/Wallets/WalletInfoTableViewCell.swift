@@ -116,7 +116,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
         
         self.walletMenuButton.delegate = self
         
-        self.walletMenuButton.initMenu(self.menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview, isShowCurrentValue: true) { [weak self] index, value in
+        self.walletMenuButton.initMenu(self.menuOption, align: .right, marginHorizontal: 16, isDissmissOutside: true, superView: self.superview?.superview, isShowCurrentValue: true) { [weak self] index, value in
             guard let `self` = self else {return}
             self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index))
         }

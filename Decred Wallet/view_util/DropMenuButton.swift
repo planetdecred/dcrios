@@ -15,6 +15,11 @@ protocol DropMenuButtonDelegate {
     func onOpenDrop()
 }
 
+enum DropDownAlign {
+    case left
+    case right
+}
+
 struct DropMenuButtonItem {
     var text: String
     var isSeparate: Bool = false
@@ -44,8 +49,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     private var widthCell: CGFloat = 300
     private var widthSuperView: CGFloat = 300
     private var heightSuperView: CGFloat = 300
-    private var marginRightTable: CGFloat = 0
+    private var marginHorizontal: CGFloat = 0
     private var isDissmissOutside: Bool = false
+    private var alignment: DropDownAlign = .left
     private var widthText: CGFloat = 0
     private var labelBGColor: UIColor = UIColor.appColors.primary
     private var labelColor: UIColor = UIColor.white
@@ -55,7 +61,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var superSuperView = UIView()
     var containerView = UIView()
     var viewGesture = UIView()
-    var minTableWidth: CGFloat = 130 {
+    var minTableWidth: CGFloat = 100 {
         didSet {
             self.layoutIfNeeded()
         }
@@ -96,15 +102,16 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     func initMenu(_ items: [String], actions: CallBack? = nil) {
         let _items = items.map{DropMenuButtonItem($0)}
-        self.initMenu(_items, marginRight: 0, isDissmissOutside: false , superView: nil, isShowCurrentValue: false, actions: actions)
+        self.initMenu(_items, align: .left, marginHorizontal: 0, isDissmissOutside: false , superView: nil, isShowCurrentValue: false, actions: actions)
     }
     
-    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, isDissmissOutside: Bool, superView: UIView?, isShowCurrentValue: Bool, actions: CallBack? = nil)
+    func initMenu(_ items: [DropMenuButtonItem], align: DropDownAlign = .left, marginHorizontal: CGFloat, isDissmissOutside: Bool, superView: UIView?, isShowCurrentValue: Bool, actions: CallBack? = nil)
     {
         self.isShowCurrentValue = isShowCurrentValue
-        self.marginRightTable = marginRight
+        self.marginHorizontal = marginHorizontal
         self.isDissmissOutside = isDissmissOutside
         self.items = items
+        self.alignment = align
         act = actions
         self.caculateWidthCell()
 
@@ -199,7 +206,11 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         let containerHeight = self.isDissmissOutside ? self.heightSuperView : max(tableFrameHeight, frame.height)
         self.viewGesture.frame = CGRect(x: 0, y: 0, width: containerWith, height: containerHeight)
         containerView.frame = CGRect(x: self.isDissmissOutside ? 0 : auxPoint2.x, y: self.isDissmissOutside ? 0 : auxPoint2.y, width: containerWith, height: containerHeight)
-        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - self.marginRightTable, y: self.isDissmissOutside ? (auxPoint2.y + 30): 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
+        var tableFrameX = CGFloat(auxPoint2.x + self.marginHorizontal)
+        if (self.alignment == .right) {
+            tableFrameX = containerWith - max(minTableWidth, frame.width) - self.marginHorizontal
+        }
+        table.frame = CGRect(x: tableFrameX, y: self.isDissmissOutside ? (auxPoint2.y + 30): 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
         

@@ -67,15 +67,15 @@ class PoliteiaController: UIViewController {
             print("PoliteiaController.setupFilter get politeia instance false")
             return
         }
-        var filterOptions: [String] = []
+        var filterOptions: [DropMenuButtonItem] = []
         DispatchQueue.global(qos: .userInitiated).async {
-            filterOptions.append(politeia.categoryCount(category: .pre))
-            filterOptions.append(politeia.categoryCount(category: .active))
-            filterOptions.append(politeia.categoryCount(category: .approved))
-            filterOptions.append(politeia.categoryCount(category: .rejected))
-            filterOptions.append(politeia.categoryCount(category: .abandoned))
+            filterOptions.append(DropMenuButtonItem(politeia.categoryCount(category: .pre)))
+            filterOptions.append(DropMenuButtonItem(politeia.categoryCount(category: .active)))
+            filterOptions.append(DropMenuButtonItem(politeia.categoryCount(category: .approved)))
+            filterOptions.append(DropMenuButtonItem(politeia.categoryCount(category: .rejected)))
+            filterOptions.append(DropMenuButtonItem(politeia.categoryCount(category: .abandoned)))
             DispatchQueue.main.async {
-                self.filterCategoryMenu.initMenu(filterOptions) { [weak self] index, value in
+                self.filterCategoryMenu.initMenu(filterOptions, marginHorizontal: 0, isDissmissOutside: true, superView: self.view, isShowCurrentValue: true) { [weak self] index, value in
                     self?.reloadPoliteiaWithFilter()
                 }
             }
@@ -90,8 +90,8 @@ class PoliteiaController: UIViewController {
     }
     
     func setupSortOrderDropDown() {
-        let sortOptions = [ LocalizedStrings.newest, LocalizedStrings.oldest ]
-        self.sortOrderMenu.initMenu(sortOptions) { [weak self] index, value in
+        let sortOptions = [ DropMenuButtonItem(LocalizedStrings.newest), DropMenuButtonItem(LocalizedStrings.oldest) ]
+        self.sortOrderMenu.initMenu(sortOptions, marginHorizontal: 0, isDissmissOutside: true, superView: self.view, isShowCurrentValue: true) { [weak self] index, value in
             self?.reloadPoliteiaWithFilter()
         }
     }

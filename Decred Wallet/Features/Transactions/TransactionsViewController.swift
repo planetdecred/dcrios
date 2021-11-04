@@ -166,8 +166,8 @@ class TransactionsViewController: UIViewController {
     }
 
     func setupTxSortOrderDropDown() {
-        let sortOptions = [ LocalizedStrings.newest, LocalizedStrings.oldest ]
-        self.txSortOrderDropDown.initMenu(sortOptions) { [weak self] index, value in
+        let sortOptions = [DropMenuButtonItem(LocalizedStrings.newest), DropMenuButtonItem(LocalizedStrings.oldest)]
+        self.txSortOrderDropDown.initMenu(sortOptions, marginHorizontal: 0, isDissmissOutside: true, superView: self.view, isShowCurrentValue: true) { [weak self] index, value in
             self?.reloadTxsForCurrentFilter()
         }
     }
@@ -175,47 +175,51 @@ class TransactionsViewController: UIViewController {
     func setupTxFilterDropDown() {
         let wallet = WalletLoader.shared.wallets[self.currentWalletSelectorIndex]
         let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterAll)
-        var filterOptions = ["\(LocalizedStrings.all) (\(count))"]
+        var filterOptions = [DropMenuButtonItem("\(LocalizedStrings.all) (\(count))", isSeparate: false, textLabel: "")]
+        
         self.txFilters = [DcrlibwalletTxFilterAll]
 
         
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent)
-            filterOptions.append("\(LocalizedStrings.sent) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.sent) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterSent)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived)
-            filterOptions.append("\(LocalizedStrings.received) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.received) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterReceived)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred)
-            filterOptions.append("\(LocalizedStrings.yourself) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.yourself) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterTransferred)
         }
         
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterMixed) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterMixed)
-            filterOptions.append("\(LocalizedStrings.mixed) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.mixed) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterMixed)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking)
-            filterOptions.append("\(LocalizedStrings.staking) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.staking) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterStaking)
         }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase) > 0 {
             let count = wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase)
-            filterOptions.append("\(LocalizedStrings.coinbase) (\(count))")
+            filterOptions.append(DropMenuButtonItem("\(LocalizedStrings.coinbase) (\(count))", isSeparate: false, textLabel: ""))
             self.txFilters.append(DcrlibwalletTxFilterCoinBase)
         }
 
-        self.txFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
+//        self.txFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
+//            self?.reloadTxsForCurrentFilter()
+//        }
+        self.txFilterDropDown.initMenu(filterOptions, marginHorizontal: 0, isDissmissOutside: true, superView: self.view, isShowCurrentValue: true){ [weak self] index, value in
             self?.reloadTxsForCurrentFilter()
         }
     }
