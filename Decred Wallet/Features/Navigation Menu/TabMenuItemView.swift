@@ -10,7 +10,10 @@ import UIKit
 
 class TabMenuItemView: UIView {
     let iconView = UIImageView(frame: CGRect.zero)
+    let itemTitleLabel = UILabel(frame: CGRect.zero)
     var isSelected = false
+    
+    var menuItem: MenuItem? = nil
     
     var topBorderWidth: CGFloat {
         return self.frame.size.width - 20
@@ -34,6 +37,7 @@ class TabMenuItemView: UIView {
     
     convenience init(for menuItem: MenuItem) {
         self.init(frame: CGRect.zero)
+        self.menuItem = menuItem
         
         self.backgroundColor = UIColor.appColors.surface
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +63,7 @@ class TabMenuItemView: UIView {
     }
     
     func display(menuItemTitle: String) {
-        let itemTitleLabel = UILabel(frame: CGRect.zero)
+        
         itemTitleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
         itemTitleLabel.text = menuItemTitle
         itemTitleLabel.numberOfLines = 0
@@ -86,6 +90,8 @@ class TabMenuItemView: UIView {
     // Sets this menu item icon alpha to 1 and adds a top border to this view.
     func activate() {
         
+        self.iconView.image = self.menuItem?.iconSelected?.withRenderingMode(.automatic)
+        self.itemTitleLabel.textColor = UIColor.appColors.text1
         let borderLayer = CALayer()
         borderLayer.backgroundColor = UIColor.appColors.green.cgColor
         borderLayer.name = "active border"
@@ -100,6 +106,8 @@ class TabMenuItemView: UIView {
     // Sets this menu item icon alpha to 0.5 and removes the top border previously added to this view.
     func deactivate() {
         
+        self.iconView.image = self.menuItem?.iconDarkTheme?.withRenderingMode(.automatic)
+        self.itemTitleLabel.textColor = UIColor.appColors.text4
         let borderLayers = self.layer.sublayers!.filter({ $0.name == "active border" })
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
             borderLayers.forEach({ $0.removeFromSuperlayer() })

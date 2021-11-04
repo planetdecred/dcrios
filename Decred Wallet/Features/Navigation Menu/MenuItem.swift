@@ -62,6 +62,22 @@ enum MenuItem: String, CaseIterable {
         }
     }
     
+    var iconSelected: UIImage? {
+        switch self {
+        case .overview:
+            return UIImage(named: "nav_menu/ic_overview")
+        
+        case .transactions:
+            return UIImage(named: "nav_menu/ic_transactions")
+        
+        case .wallets:
+            return UIImage(named: "nav_menu/ic_wallet")
+        
+        case .more:
+            return UIImage(named: "nav_menu/ic_menu")
+        }
+    }
+    
     var iconDarkTheme: UIImage? {
         switch self {
         case .overview:
