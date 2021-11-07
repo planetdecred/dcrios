@@ -39,8 +39,8 @@
 
 /*Import Watch-only wallet*/
 "watchWalletImported" = "تم استيراد محفظة المراقبة فقط";
-"extendPublicKeyInfo" = "في ديكريديتون، ضمن قسم الحسابات، قم بتوسيع الحساب الذي تريد مشاهدته، وانقر على أكشف المفتاح العام Pubkey";
-"watchWalletTitle" = "إنشاء محفظة المراقبة فقط";
+"extendPublicKeyInfo" = "في ديكريديتون، ضمن قسم الحسابات، قم بتوسيع الحساب الذي تريد مشاهدته، وانقر على أكشف المفتاح العام ";
+"watchWalletTitle" = "إنشاء محفظة مراقبة فقط";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "فتح مع بدء التشغيل %@";
@@ -73,10 +73,10 @@
 
 /* Request Biometric */
 "promptStartupPassOrPIN" = "استخدم رقم التعريف الشخصي/كلمة المرور الخاصة ببدء التشغيل";
-"promptTouchIDUsageUsage" = "مطلوب مُعرِّف اللمس Touch ID لاستخدام محفظة ديكريد";
-"promptFaceIDUsageUsage" = "مطلوب مُعرِّف الوجه Face ID لاستخدام محفظة ديكريد";
-"useFaceID" = "إستخدام مُعرِّف الوجه Face ID";
-"useTouchId" = "إستخدام مُعرِّف اللمس Touch ID";
+"promptTouchIDUsageUsage" = "مطلوب مُعرِّف اللمس لاستخدام محفظة ديكريد";
+"promptFaceIDUsageUsage" = "مطلوب مُعرِّف الوجه لاستخدام محفظة ديكريد";
+"useFaceID" = "إستخدام مُعرِّف الوجه";
+"useTouchId" = "إستخدام مُعرِّف اللمس";
 "enableWithStartupCode" = "التمكين مع بدء التشغيل %@";
 
 /* Overview - unlock wallets for account discovery */
@@ -96,11 +96,11 @@
 "headersScannedProgress" = "فحص رؤوس الكتل · %d%%";
 "bestBlockAgebehind" = "%@ خلف";
 "blockHeaderScanned" = "تم فحص رأسية الكتلة";
-"addressDiscoveryProgressOver" = "~%d%% (أكثر)";
+"addressDiscoveryProgressOver" = "~%d%% (انتهى)";
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "المزامنة...";
-"syncTotalProgress" = "%d%% مكتملة، %@ متبقية.";
+"syncTotalProgress" = "%d%% مكتملة، %@ متبقي.";
 "total"  = "المجموع:";
 "latestBlockAge" = "أحدث كتلة%d% :- %@";
 "blockHeadersFetched" = "إحضار رؤوس الكتلة";
@@ -129,12 +129,12 @@
 "rescanningBlocks" = "إعادة فحص الكتل...";
 "blocksLeft" = "%d المتبقية";
 "errorSyncInProgress" = "يتعذر بدء إعادة الفحص أثناء إجراء المزامنة";
-"errorRescanInProgress" = "يتعذر بدء إعادة الفحص أثناء تشغيل عملية إعادة فحص أخرى بالفعل";
+"errorRescanInProgress" = "يتعذر بدء إعادة الفحص أثناء تشغيل عملية إعادة فحص أخرى";
 "rescanProgressNotification" = "تحقق من التقدم في النظرة العامة!";
-"stepCfilter" = "إعادة إحضار مرشحات cfilters للتحديث";
-"fetchingCFilter" = "إحضار مرشحات cfilters · %d%%";
-"cfilterFetched" = "تم إحضار مرشحات CFilters";
-"cfiltersLeft" = "%d مرشحات cfilters المتبقية";
+"stepCfilter" = "إعادةإحضار مرشحات سي للتحديث";
+"fetchingCFilter" = "إحضار مرشحات سي · %d%%";
+"cfilterFetched" = "تم إحضار مرشحات سي ";
+"cfiltersLeft" = "%d مرشحات سي المتبقية";
 "cfilterFetchedTotal" = "%d of %d";
 
 /* Navigation Menu Items */
@@ -144,9 +144,9 @@
 "more" = "المزيد";
 
 /* Overview */
-"oneWalletNeedBackup" = "تحتاج محفظة واحدة للنسخ الاحتياطي";
+"oneWalletNeedBackup" = " محفظة واحدة تحتاج للنسخ الاحتياطي";
 "walletsNeedBackup" = "هل تريد عمل نسخة احتياطية من كلمات البذرة الخاصة بك الآن؟";
-"seedBackupRecommendation" = "اكتب عبارة البذرة الخاصة بك حتى تتمكن من استرداد أموالك عند الحاجة.";
+"seedBackupRecommendation" = "قَيّد عبارة البذرة الخاصة بك حتى تتمكن من استرداد أموالك عند الحاجة.";
 "goToWallets" = "إنتقل إلى المحافظ";
 "currentTotalBalance" = "الرصيد الإجمالي الحالي";
 "recentTransactions" = "المعاملات الأخيرة";
@@ -196,7 +196,7 @@
 "viewOnDcrdata" = "عرض على dcrdata";
 "sgCopied" = "تم نسخ %@";
 "amount" = "المبلغ";
-"fee" = "الرسوم";
+"fee" = "الرسم";
 "type" = "نوع";
 "lastBlockValid" = "آخر كتلة صالحة";
 "version" = "النسخة";
@@ -237,7 +237,7 @@
 "invalidMainnetAddress" = "هذا ليس عنوان صحيح للشبكة الرئيسية لديكريد.";
 "invalidDestAddr" = "عنوان الوجهة غير صحيح.";
 "from" = "من:";
-"sendHeaderInfo" = "أدخل أو امسح عنوان وجهة المحفظة والمبلغ بوحدات ديكريد لإرسال الأموال.";
+"sendHeaderInfo" = "أدخل أو دَقَّق عنوان وجهة المحفظة والمبلغ بوحدات ديكريد لإرسال الأموال.";
 "destAddr" = "عنوان الوجهة";
 "exchangeRateNotFetched" = "لم يتم استرداد سعر الصرف";
 "confirmToSend" = "تأكيد الإرسال";
@@ -317,7 +317,7 @@
 "spendingPinPassChanged" = "تم تغيير رقم التعريف الشخصي/كلمة المرور للإنفاق";
 
 /* Wallet Settings -> Notifications */
-"silent" = "صامتة";
+"silent" = "صامت";
 "vibrationOnly" = "الاهتزاز فقط";
 "soundOnly" = "الصوت فقط";
 "soundAndVibration" = "الصوت و الإهتزاز";
@@ -354,15 +354,15 @@
 "createNewAccountNotice" = "لا يمكن حذف الحسابات بمجرد إنشائها.";
 
 /* Security Tools */
-"securityTools" = "أدوات الأمن";
-"securityToolsInfo" = "ستجد هنا الأدوات المختلفة التي تساعد في جوانب مختلفة من أمن العملة الرقمية المشفرة.";
+"securityTools" = "أدوات الأمان";
+"securityToolsInfo" = "ستجد هنا الأدوات المختلفة التي تساعد في جوانب مختلفة من أمان العملة الرقمية المشفرة.";
 "validateAddresses" = "التحقق من صحة العناوين";
 "validAddress" = "عنوان صحيح";
 "validOwnAddr" = "تعود ملكيته لهذه المحفظة";
 "validNotOwnAddr" = "لا تعود ملكيته لهذه المحفظة";
 "invalidAddr" = "عنوان خاطئ";
-"validate" = "تحقق من صحة";
-"enterAnAddressToValidate" = "أدخل عنوانًا للتحقق من صحة:";
+"validate" = "التحقق ";
+"enterAnAddressToValidate" = "أدخل عنوانًا للتحقق :";
 "address" = "العنوان";
 "verifyMsgHeaderInfo" = "أدخل العنوان والتوقيع والرسالة المراد للتحقق:";
 "verifyMessage" = "التحقق من الرسالة";
@@ -383,7 +383,7 @@
 "politeia" = "بوليتيا";
 "politeiaDetail" = "تفاصيل الإقتراح";
 "poliAbandoned" = "متخلى عنها";
-"poliInvalid" = "لاغية";
+"poliInvalid" = "لاغٍ";
 "poliNotAuthorized" = "لم يتم إعطاء الإذن من المؤلف";
 "poliAuthorized" = "تم إعطاء الإذن من المؤلف";
 "poliVoteStarted" = "بدأ التصويت";
@@ -431,9 +431,9 @@
 "net" = "الشبكة";
 "connectPeer" = "الأقران المتصلون";
 "colorTheme" = "موضوع اللون";
-"light" = "الإضاءة";
-"dark" = "المظلم";
-"deviceDefault" = "الجهاز التلقائي";
+"light" = "فاتح";
+"dark" = "داكن";
+"deviceDefault" = "الجهاز الإفتراضي";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "كلمة مرور %@ جديدة";
@@ -494,20 +494,20 @@
 "notNow" = "ليس الآن";
 
 /* Other Text */
-"send" = "الإرسال";
-"receive" = "الإستلام";
+"send" = "إرسال";
+"receive" = "إستلام";
 "settings" = "الإعدادات";
 "help" = "مساعدة";
 "gotIt" = "فهمت";
-"security" = "الأمن";
+"security" = "الأمان";
 
 /* Seed Backup Reminder */
 "keepInMind" = "ضع في اعتبارك";
 "viewSeedPhrase" = "عرض عبارة البذرة";
 "reminderLabel1" = "<bold>عبارة البذرة المكونة من 33 كلمة</bold> مهمة للغاية.";
 "reminderLabel2" = "عبارة البذرة هي <bold>الطريقة الوحيدة<bold> لاستعادة محفظتك.";
-"reminderLabel3" = "يوصى بتخزين عبارة البذرة الخاصة بك في <green>نسق مادي</green> (على سبيل المثال تدوينها على ورقة).";
-"reminderLabel4" = "لا يُنصح بتخزين عبارة البذرة بأي <orange>تنسيق رقمي</orange> (مثل لقطة شاشة).";
+"reminderLabel3" = "يوصى بتخزين عبارة البذرة الخاصة بك في <green>صيغة مادية</green> (على سبيل المثال تدوينها على ورقة).";
+"reminderLabel4" = "لا يُنصح بتخزين عبارة البذرة بأي <orange>صيغة رقمية</orange> (مثل لقطة شاشة).";
 "reminderLabel5" = "يمكن لأي شخص لديه عبارة البذرة الخاصة بك <orange>أن يسرق أموالك</orange>. لا تُرِيها لأي شخص.";
 
 /* Seed Words Display */
@@ -599,7 +599,7 @@
 "mixed" = "مخلوط";
 "mix" = "خلط";
 "newLabel" = "جديد";
-"mixTxChangeSummaryEnabled" = "سيذهب التغيير على المعاملات من جميع الحسابات إلى  غير مخلوط";
-"mixTxChangeSummaryDisabled" = "التغيير في المعاملات المخلوطة سيذهب إلى غير مخلوط";
+"mixTxChangeSummaryEnabled" = "ستذهب فكّة المعاملات من جميع الحسابات إلى  غير مخلوط";
+"mixTxChangeSummaryDisabled" = "فكّة المعاملات المخلوطة ستذهب إلى غير مخلوط";
 "mixTxChange" = "تغيير الخلط";
 "changeSummary" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 14px; color: #596D81\">Change of <b>%@ DCR</b> will return to \'<b>%@</b>\'";
