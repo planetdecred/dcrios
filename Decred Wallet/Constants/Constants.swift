@@ -29,6 +29,7 @@ struct GlobalConstants {
         static let BADGER = "badgerdb"
         static let BDB = "bdb"
         static let COLORTHEME = "color_theme"
+        static let SHOW_HIDE_BALANCE = "shown_hide_balance"
     }
     
     struct Wallet {

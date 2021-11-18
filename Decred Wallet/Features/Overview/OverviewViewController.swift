@@ -19,6 +19,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var parentScrollView: UIScrollView!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var usdBalanceLabel: UILabel!
+    @IBOutlet weak var usdBalanceLabelHeight: NSLayoutConstraint!
     
     // MARK: Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
@@ -92,7 +93,6 @@ class OverviewViewController: UIViewController {
     var dcrAmountUnit: Bool = true
     var exchangeValue: NSDecimalNumber?
     var currencyConversionDisabled: Bool?
-    var isShowBalance: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,7 @@ class OverviewViewController: UIViewController {
         if !currencyConversionDisabled! {
             self.fetchExchangeRate()
         } else {
-            usdBalanceLabel.isHidden = true
+            self.usdBalanceLabelHeight.constant = 0
         }
         
     }
@@ -177,7 +177,7 @@ class OverviewViewController: UIViewController {
         let dcrAmount = multiWallet.totalBalance
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
         self.exchangeValue = usdAmount
-        self.usdBalanceLabel.isHidden = !self.isShowBalance
+        self.usdBalanceLabelHeight.constant = self.getShowHideBalance() ? 30 : 0
         self.usdBalanceLabel.text = "$\(usdAmount.round(2).formattedWithSeparator)"
        
     }
@@ -185,6 +185,8 @@ class OverviewViewController: UIViewController {
     func initializeViews() {
         // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
         self.parentScrollView.delegate = self
+        
+        
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.tintColor = UIColor.lightGray
@@ -214,9 +216,9 @@ class OverviewViewController: UIViewController {
         usdBalanceLabel.layer.borderColor = UIColor.appColors.text5.cgColor
         usdBalanceLabel.layer.borderWidth = 1.0
         usdBalanceLabel.layer.cornerRadius = 8
-        usdBalanceLabel.isHidden = true
+        self.usdBalanceLabelHeight.constant = 0
         self.showHideButton.forEach { button in
-            if button.tag == 0 { button.isHidden = true }
+            if button.tag == 0 || button.tag == 3 { button.isHidden = true }
         }
     }
     
@@ -238,7 +240,7 @@ class OverviewViewController: UIViewController {
     func updateMultiWalletBalance() {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
-        let totalBalance = self.isShowBalance ? "\(totalAmountRoundedOff)" : "********"
+        let totalBalance = self.getShowHideBalance() ? "\(totalAmountRoundedOff)" : "********"
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalance)", siz: 17.0, TexthexColor: UIColor.appColors.text1)
         if Settings.currencyConversionOption != .None {
             displayExchangeRate(self.exchangeRate)
@@ -535,11 +537,25 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func showHideTapped(_ sender: Any) {
-        self.isShowBalance = !self.isShowBalance
+        self.setShowHideBalance(value: !self.getShowHideBalance())
         self.showHideButton.forEach { button in
-            button.setImage(UIImage(named: self.isShowBalance ? "ic_conceal" : "ic_reveal"), for: .normal)
+            button.setImage(UIImage(named: self.getShowHideBalance() ? "ic_conceal" : "ic_reveal"), for: .normal)
+            if button.tag == 3 {
+                button.isHidden = self.pageSubtitleLabel.isHidden
+            }
+            if button.tag == 0 {
+                button.isHidden = !self.pageSubtitleLabel.isHidden
+            }
         }
         self.updateBalance()
+    }
+    
+    func getShowHideBalance() -> Bool {
+        return WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.SHOW_HIDE_BALANCE, defaultValue: true)
+    }
+    
+    func setShowHideBalance(value: Bool) {
+        WalletLoader.shared.multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOW_HIDE_BALANCE, value: value)
     }
     
     func updateBalance() {
@@ -581,12 +597,15 @@ extension OverviewViewController: UIScrollViewDelegate {
             self.pageTitleLabel.text = LocalizedStrings.overview
             self.pageTitleSeparator.isHidden = true
             self.showHideButton.forEach { button in
-                if button.tag == 0 { button.isHidden = true }
-                if button.tag == 1 { button.isHidden = false }
+//                if button.tag == 0 { button.isHidden = true }
+                if button.tag == 1 { button.isHidden = false } else {
+                    button.isHidden = true
+                }
             }
         } else {
             self.showHideButton.forEach { button in
-                if button.tag == 0 { button.isHidden = false }
+                if button.tag == 0 { button.isHidden = !self.getShowHideBalance() }
+                if button.tag == 3 { button.isHidden = self.getShowHideBalance() }
                 if button.tag == 1 { button.isHidden = true }
             }
             self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
@@ -604,7 +623,7 @@ extension OverviewViewController: UIScrollViewDelegate {
         } else {
             if !currencyConversionDisabled! {
                 self.pageSubtitleLabel.attributedText = self.usdBalanceLabel.attributedText!
-                self.pageSubtitleLabel.isHidden = !self.isShowBalance
+                self.pageSubtitleLabel.isHidden = !self.getShowHideBalance()
             }
         }
     }
