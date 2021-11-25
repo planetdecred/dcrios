@@ -541,6 +541,15 @@
                                                                                 <color key="textColor" name="text1"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
+                                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMA-aN-gjZ">
+                                                                                <rect key="frame" x="118" y="87" width="20" height="20"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                                <state key="normal" image="ic_info"/>
+                                                                                <connections>
+                                                                                    <action selector="txByteSizeInfoButtonTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="7XF-tC-qi9"/>
+                                                                                </connections>
+                                                                            </button>
                                                                         </subviews>
                                                                         <color key="backgroundColor" name="background"/>
                                                                         <constraints>
