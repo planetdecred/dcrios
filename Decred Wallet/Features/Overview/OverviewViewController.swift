@@ -186,8 +186,6 @@ class OverviewViewController: UIViewController {
         // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
         self.parentScrollView.delegate = self
         
-        
-        
         self.refreshControl = UIRefreshControl()
         self.refreshControl.tintColor = UIColor.lightGray
         self.refreshControl.addTarget(self, action: #selector(self.refreshRecentActivityAndUpdateBalance), for: .valueChanged)
@@ -551,7 +549,7 @@ class OverviewViewController: UIViewController {
     }
     
     func getShowHideBalance() -> Bool {
-        return WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.SHOW_HIDE_BALANCE, defaultValue: true)
+        return WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.SHOW_HIDE_BALANCE, defaultValue: false)
     }
     
     func setShowHideBalance(value: Bool) {
@@ -597,7 +595,6 @@ extension OverviewViewController: UIScrollViewDelegate {
             self.pageTitleLabel.text = LocalizedStrings.overview
             self.pageTitleSeparator.isHidden = true
             self.showHideButton.forEach { button in
-//                if button.tag == 0 { button.isHidden = true }
                 if button.tag == 1 { button.isHidden = false } else {
                     button.isHidden = true
                 }
