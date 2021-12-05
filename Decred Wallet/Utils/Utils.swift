@@ -162,11 +162,11 @@ struct Utils {
             return atrStr
         }
         
-        if (tmpString.length > 3) {
+        if (tmpString.length > 3 && !tmpString.contains("*")) {
             return NSMutableAttributedString(string: Int(tmpString)!.formattedWithSeparator.appending(" DCR") )
         }
         
-        return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
+        return NSMutableAttributedString(string: tmpString.appending(" DCR"), attributes: [NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: siz)])
     }
     
     static func renameDefaultAccountToLocalLanguage(wallet: DcrlibwalletWallet) {
