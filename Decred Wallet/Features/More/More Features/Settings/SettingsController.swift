@@ -15,8 +15,6 @@ import SwiftKeychainWrapper
 
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
-    @IBOutlet weak var connectPeer_cell: UITableViewCell!
-    @IBOutlet weak var startupPinOrPasswordCell: UITableViewCell!
     @IBOutlet weak var cellularSyncSwitch: UISwitch!
     @IBOutlet weak var connectPeerIpLabel: UILabel!
     @IBOutlet weak var spendUnconfirmedFundSwitch: UISwitch!
@@ -27,8 +25,8 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var currencySubtitleLabel: UILabel!
     @IBOutlet weak var connectIpLabel: UILabel!
     @IBOutlet weak var biometricTypeLabel: UILabel!
-    @IBOutlet weak var colorThemeCell: UITableViewCell!
     @IBOutlet weak var colorThemeSubtitleLabel: UILabel!
+    @IBOutlet weak var governanceSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +34,7 @@ class SettingsController: UITableViewController  {
         self.beepForNewBlockSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.politeiaNotificationSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.governanceSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
     
@@ -54,6 +53,10 @@ class SettingsController: UITableViewController  {
             
         case self.politeiaNotificationSwitch:
             fieldToUpdate = DcrlibwalletPoliteiaNotificationConfigKey
+            
+        case self.governanceSwitch:
+            fieldToUpdate = GlobalConstants.Strings.GOVERNANCE_SETTING
+            self.tableView.reloadData()
             
         default:
             return
@@ -95,10 +98,9 @@ class SettingsController: UITableViewController  {
         self.connectPeerIpLabel?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
         self.beepForNewBlockSwitch?.isOn = Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
         self.politeiaNotificationSwitch?.isOn = Settings.readBoolValue(for: DcrlibwalletPoliteiaNotificationConfigKey)
-        
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
-        
         self.useBiometricSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey)
+        self.governanceSwitch.isOn = Settings.readBoolValue(for: GlobalConstants.Strings.GOVERNANCE_SETTING)
         
         switch Settings.currencyConversionOption {
         case .None:
@@ -241,6 +243,10 @@ class SettingsController: UITableViewController  {
             default:
                 return 44
             }
+        }
+        
+        if indexPath == IndexPath.init(row: 1, section: 2) {
+            return self.governanceSwitch.isOn ? 44 : 0
         }
         return 44
     }

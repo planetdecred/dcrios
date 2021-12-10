@@ -25,7 +25,14 @@ class MoreMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             settingsVC.modalPresentationStyle = .currentContext
             self.present(settingsVC, animated: false, completion: nil)
         } else {
-                self.navigationController?.pushViewController(menuItem.viewController, animated: true)
+            let viewcontroller = menuItem.viewController
+            if viewcontroller is PoliteiaWelcomeController {
+                viewcontroller.modalPresentationStyle = .currentContext
+                (viewcontroller as! PoliteiaWelcomeController).navi = self.navigationController
+                self.navigationController?.navigationController?.present(viewcontroller, animated: false, completion: nil)
+                return
+            }
+            self.navigationController?.pushViewController(viewcontroller, animated: true)
         }
        }
     
