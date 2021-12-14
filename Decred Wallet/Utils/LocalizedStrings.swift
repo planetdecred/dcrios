@@ -455,6 +455,9 @@ struct LocalizedStrings {
     static let allowOnce = NSLocalizedString("allowOnce", comment: "")
     static let alwaysAllow = NSLocalizedString("alwaysAllow", comment: "")
     static let notNow = NSLocalizedString("notNow", comment: "")
+    static let lowStorageSpace = NSLocalizedString("lowStorageSpace", comment: "")
+    static let lowStorageMessage = NSLocalizedString("lowStorageMessage", comment: "")
+    static let exitCap = NSLocalizedString("exitCap", comment: "")
 
     /* Other text */
     static let security = NSLocalizedString("security", comment: "")
