@@ -59,7 +59,7 @@ class SeedBackupVerifyViewController: UIViewController {
     }
 
     @IBAction func backbtn(_ sender: Any) {
-        self.dismissView()
+        self.goBackHome()
     }
 
     @IBAction func onConfirm(_ sender: Any) {

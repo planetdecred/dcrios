@@ -56,4 +56,17 @@ extension UIView {
             self.layer.shadowPath = UIBezierPath(roundedRect: shadowRect, cornerRadius: self.layer.cornerRadius).cgPath
         }
     }
+    
+    func secureView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            let field = UITextField()
+            field.isSecureTextEntry = true
+            self.addSubview(field)
+            field.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            field.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+            self.layer.superlayer?.addSublayer(field.layer)
+            field.layer.sublayers?.first?.addSublayer(self.layer)
+        }
+    }
 }

@@ -76,6 +76,6 @@ class SeedBackupReminderViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.dismissView()
+        self.goBackHome()
     }
 }

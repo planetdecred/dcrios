@@ -85,6 +85,19 @@ extension UIViewController {
         }
     }
     
+    func goBackHome() {
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let viewControllers = self.navigationController?.viewControllers.filter{$0 is NavigationMenuTabBarController}
+            if let vcs = viewControllers, vcs.count > 0 {
+                self.navigationController?.popToViewController(vcs[0], animated: true)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     func showMessageDialog(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { (action) in

@@ -16,6 +16,7 @@ protocol WalletInfoTableViewCellDelegate {
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
     func gotoPrivacy(_ wallet: Wallet)
     func indexDropdownOpen(index: IndexPath)
+    func gotoSeedBackup(vc: UIViewController)
 }
 
 class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
@@ -146,10 +147,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
         seedBackupReminderVC.seedBackupCompleted = {
             self.delegate?.walletSeedBackedUp()
         }
-        
-        let modalVC = seedBackupReminderVC.wrapInNavigationcontroller()
-        modalVC.modalPresentationStyle = .overFullScreen
-        AppDelegate.shared.window?.rootViewController?.present(modalVC, animated: true)
+        self.delegate?.gotoSeedBackup(vc: seedBackupReminderVC)
     }
     
     @IBAction func checkMixerStatus(_ sender: Any) {
