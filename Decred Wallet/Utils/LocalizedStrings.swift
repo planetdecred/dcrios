@@ -314,6 +314,7 @@ struct LocalizedStrings {
     static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
     static let disconnectDeleteWallet = NSLocalizedString("disconnectDeleteWallet", comment: "")
     static let removeWatchWalletPrompt = NSLocalizedString("removeWatchWalletPrompt", comment: "")
+    static let confirmToUseBiometric = NSLocalizedString("confirmToUseBiometric", comment: "")
     
      /* Wallets -> Account */
     static let spendable = NSLocalizedString("spendable", comment: "")

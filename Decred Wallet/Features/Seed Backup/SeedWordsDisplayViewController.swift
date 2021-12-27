@@ -56,6 +56,30 @@ class SeedWordsDisplayViewController: UIViewController {
         self.bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
+    private func requestAuthenticationToShowSeed() {
+        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.walletID) {
+            let (result, _) = WalletAuthentication.isBiometricSupported()
+            guard let reason = result else { return }
+            WalletAuthentication.localAuthenticaion(reason: reason) { error in
+                if error == nil {
+                    var error: NSError? = nil
+                    if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(passOrPin.utf8Bits, error: &error) {
+                        if error == nil {
+                            self.seed = decryptedSeed
+                            self.displaySeed()
+                        } else {
+                            Utils.showBanner(in: self.view, type: .error, text: error!.localizedDescription)
+                        }
+                    }
+                } else {
+                    self.requestPassOrPINandDisplaySeed()
+                }
+            }
+        } else {
+            self.requestPassOrPINandDisplaySeed()
+        }
+    }
+    
     func requestPassOrPINandDisplaySeed() {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
         Security.spending(initialSecurityType: privatePassType)

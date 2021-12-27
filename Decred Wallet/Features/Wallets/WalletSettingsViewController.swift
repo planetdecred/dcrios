@@ -8,6 +8,8 @@
 
 import UIKit
 import Dcrlibwallet
+import LocalAuthentication
+import SwiftKeychainWrapper
 
 class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var walletNameLabel: UILabel!
@@ -16,6 +18,10 @@ class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var securityHeader: UIView!
     @IBOutlet weak var changePassOrPIN: UIView!
     @IBOutlet weak var databaseType: UILabel!
+    @IBOutlet weak var biometricView: UIView!
+    @IBOutlet weak var lineBiometricView: UIView!
+    @IBOutlet weak var biometricSwich: UISwitch!
+    @IBOutlet weak var biometricLabel: UILabel!
     
     var wallet: DcrlibwalletWallet!
     var walletSettings: WalletSettings!
@@ -32,6 +38,19 @@ class WalletSettingsViewController: UIViewController {
         self.securityHeader.isHidden = self.wallet.isWatchingOnlyWallet()
         self.changePassOrPIN.isHidden = self.wallet.isWatchingOnlyWallet()
         self.databaseType.text = self.wallet.dbDriver
+        
+        let (result, _) = WalletAuthentication.isBiometricSupported()
+        if let res = result {
+            self.biometricLabel.text = res
+        }
+        self.biometricView.isHidden = (result == nil) || self.wallet.isWatchingOnlyWallet()
+        self.lineBiometricView.isHidden = (result == nil) || self.wallet.isWatchingOnlyWallet()
+        let pinOrPass = KeychainWrapper.standard.string(forKey: self.walletKey())
+        self.biometricSwich.isOn = pinOrPass != nil
+    }
+    
+    func walletKey() -> String {
+        return String(format: GlobalConstants.Strings.BIOMATRIC_AUTHEN, self.wallet.id_)
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -43,8 +62,38 @@ class WalletSettingsViewController: UIViewController {
     }
     
     @IBAction func changeSpendingPINPassword(_ sender: Any) {
-        SpendingPinOrPassword.begin(sender: self, walletID: self.wallet.id_) {
+        SpendingPinOrPassword.begin(sender: self, walletID: self.wallet.id_, type: SpendingPinOrPasswordType.change, title: LocalizedStrings.confirmToChange) {_ in
             Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.spendingPinPassChanged)
+        }
+    }
+    @IBAction func biometrictSwiched(_ sender: UISwitch) {
+        let (result, _) = WalletAuthentication.isBiometricSupported()
+        guard let reason = result else { return }
+        if !sender.isOn {
+            WalletAuthentication.localAuthenticaion(reason: reason) { err in
+                if err == nil {
+                    print(" Remove use Biomatric successfully")
+                    KeychainWrapper.standard.removeObject(forKey: self.walletKey())
+                } else {
+                    //handle error
+                    sender.isOn = true
+                }
+            }
+        } else {
+            sender.isOn = false
+            SpendingPinOrPassword.begin(sender: self, walletID: self.wallet.id_, type: SpendingPinOrPasswordType.verify, title: LocalizedStrings.confirmToUseBiometric) { code in
+                WalletAuthentication.localAuthenticaion(reason: reason) { err in
+                    if err == nil {
+                        sender.isOn = true
+                        print("Setup use Biomatric successfully")
+                        KeychainWrapper.standard.set(code, forKey: self.walletKey())
+                    } else {
+                        sender.isOn = false
+                        print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: err!._code))
+                        self.showMessageDialog(title: "Error", message: err!.localizedDescription)
+                    }
+                }
+            }
         }
     }
     

@@ -65,12 +65,47 @@ class SeedBackupVerifyViewController: UIViewController {
     @IBAction func onConfirm(_ sender: Any) {
         if self.btnConfirm!.isLoading { return } // prevent multiple click/tap attempts.
         
+        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.walletID) {
+            let (result, _) = WalletAuthentication.isBiometricSupported()
+            guard let reason = result else { return }
+            WalletAuthentication.localAuthenticaion(reason: reason) { error in
+                if error == nil {
+                    self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
+                    let userEnteredSeed = self.selectedWords.joined(separator: " ")
+                    var errorValue: ObjCBool = false
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        do {
+                            try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID, seedMnemonic: userEnteredSeed, privpass: passOrPin.utf8Bits, ret0_: &errorValue)
+                            if errorValue.boolValue == true {
+                                DispatchQueue.main.async {
+                                    self.seedBackupCompleted?()
+                                    self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
+                                }
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                DcrlibwalletLogT("verify seed:", error.localizedDescription)
+                                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                            }
+                        }
+                    }
+                } else {
+                    self.verifyByPinOrPass()
+                }
+            }
+        } else {
+            self.verifyByPinOrPass()
+        }
+    }
+    
+    private func verifyByPinOrPass() {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
-               Security.spending(initialSecurityType: privatePassType)
-               .with(prompt: LocalizedStrings.confirmToVerifySeed)
-               .with(submitBtnText: LocalizedStrings.confirm)
-               .should(showCancelButton: true)
-               .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
+        Security.spending(initialSecurityType: privatePassType)
+            .with(prompt: LocalizedStrings.confirmToVerifySeed)
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .should(showCancelButton: true)
+            .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
                 let userEnteredSeed = self.selectedWords.joined(separator: " ")
                 var errorValue: ObjCBool = false
@@ -103,7 +138,7 @@ class SeedBackupVerifyViewController: UIViewController {
                         }
                     }
                 }
-        }
+            }
     }
 
     private func loadSeedWordsList() -> [String] {
