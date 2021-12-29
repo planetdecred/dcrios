@@ -17,7 +17,7 @@
 "myWallet" = "Ví của tôi";
 "default_" = "mặc định";
 "migratingWallet" = "Migrating Ví";
-"dataFileErrorMsg" = "Bạn có một thiết bị cũ với ít ram. Để nó hoạt động bình thường, chúng tôi cần nâng cấp cơ sở dữ liệu đang được sử dụng cho ví của bạn. Bạn sẽ cần phải nhập lại seed phrase của mình. Việc tiếp tục sẽ xóa dữ liệu ví nên bạn có thể khôi phục dữ liệu từ seed của mình. Bạn có chắc muốn tiếp tục?";
+"dataFileErrorMsg" = "Bạn có một thiết bị cũ với ít ram. Để nó hoạt động bình thường, chúng tôi cần nâng cấp cơ sở dữ liệu đang được sử dụng cho ví của bạn. Bạn sẽ cần phải nhập lại seed words của mình. Việc tiếp tục sẽ xóa dữ liệu ví nên bạn có thể khôi phục dữ liệu từ seed của mình. Bạn có chắc muốn tiếp tục?";
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Thiết lập Ví Decred";
@@ -30,8 +30,8 @@
 "wordNumber" = "%d";
 "notAllSeedsAreEntered" = "Không phải tất cả các seed được nhập vào. Vui lòng kiểm tra các dữ liệu đầu vào và nhập tất cả các seed.";
 "incorrectSeedEntered" = "Khôi phục thất bại. Vui lòng kiểm tra lại tất cả các từ và thử lại.";
-"seedRestoreHeader" = "Khôi phục từ seed phrase";
-"seedRestoreInfo" = "Hãy nhập seed phrase của bạn theo đúng thứ tự.";
+"seedRestoreHeader" = "Khôi phục từ seed words";
+"seedRestoreInfo" = "Hãy nhập seed words của bạn theo đúng thứ tự.";
 "restore" = "Khôi phục";
 "success" = "Thành công";
 "getStarted" = "Bắt đầu";
@@ -146,7 +146,7 @@
 /* Overview */
 "oneWalletNeedBackup" = "1 ví cần sao lưu";
 "walletsNeedBackup" = "Bạn có muốn sao lưu seed words của mình ngay bây giờ không?";
-"seedBackupRecommendation" = "Viết lại seed phrase của mình để bạn có thể lấy lại tiền của mình khi cần thiết.";
+"seedBackupRecommendation" = "Viết lại seed words của mình để bạn có thể lấy lại tiền của mình khi cần thiết.";
 "goToWallets" = "Đi tới Các Ví";
 "currentTotalBalance" = "Tổng số dư hiện tại";
 "recentTransactions" = "Giao dịch gần đây";
@@ -271,8 +271,8 @@
 
  /* Wallets -> Backup seed */
  "notBackedUp" = "Chưa được sao lưu";
- "backupSeedPhrase" = "Sao lưu seed phrase";
- "backupWarningText" = "Xác minh bản sao lưu seed phrase của bạn để bạn có thể khôi phục tiền của mình khi cần.";
+ "backupSeedPhrase" = "Sao lưu seed words";
+ "backupWarningText" = "Xác minh bản sao lưu seed words của bạn để bạn có thể khôi phục tiền của mình khi cần.";
 
 /* Wallets -> Add new wallet */
 "createOrImportWallet" = "Tạo hoặc nhập vào một ví";
@@ -323,7 +323,7 @@
 "soundAndVibration" = "Rung và tiếng";
 
 /* Wallets -> Remove wallet */
-"removeWalletWarning" = "Đảm bảo đã sao lưu seed phrase trước khi xóa ví.";
+"removeWalletWarning" = "Đảm bảo đã sao lưu seed words trước khi xóa ví.";
 "confirmToRemove" = "Xác nhận để xóa";
 "walletRemoved" = "Ví đã bị xóa";
 "removeWatchWalletPrompt" = "Xóa ví watch-only khỏi thiết bị?";
@@ -505,31 +505,31 @@
 
 /* Seed Backup Reminder */
 "keepInMind" = "Hãy ghi nhớ";
-"viewSeedPhrase" = "Xem seed phrase";
-"reminderLabel1" = "<bold>33 từ seed phrase</bold> RẤT QUAN TRỌNG.";
-"reminderLabel2" = "Seed phrase là <bold>cách duy nhất</bold> để khôi phục ví của bạn.";
-"reminderLabel3" = "Bạn nên lưu trữ seed phrase ở <green>dạng vật lý</green> (VD: viết vào một tờ giấy).";
-"reminderLabel4" = "Rất không khuyến khích lưu trữ seed phrase ở <orange>dạng số</orange> (VD: chụp màn hình).";
-"reminderLabel5" = "Bất kỳ ai có seed phrase <orange>có thể lấy tiền của bạn</orange>. KHÔNG hiển thị nó cho bất kỳ ai.";
+"viewSeedPhrase" = "Xem seed words";
+"reminderLabel1" = "<bold>33 từ seed words</bold> RẤT QUAN TRỌNG.";
+"reminderLabel2" = "Seed words là <bold>cách duy nhất</bold> để khôi phục ví của bạn.";
+"reminderLabel3" = "Bạn nên lưu trữ seed words ở <green>dạng vật lý</green> (VD: viết vào một tờ giấy).";
+"reminderLabel4" = "Rất không khuyến khích lưu trữ seed words ở <orange>dạng số</orange> (VD: chụp màn hình).";
+"reminderLabel5" = "Bất kỳ ai có seed words <orange>có thể lấy tiền của bạn</orange>. KHÔNG hiển thị nó cho bất kỳ ai.";
 
 /* Seed Words Display */
-"writeDownSeedPhrase" = "Viết lại seed phrase";
+"writeDownSeedPhrase" = "Viết lại seed words";
 "writeDownStep1_2" = "Bước 1/2";
 "writeDownStep2_2" = "Bước 2/2";
 
 /* Seed Backup Verify */
 "writeDownAll33Words" = "Viết ra tất cả 33 từ theo đúng thứ tự.";
-"your33word" = "Seed phrase 33 từ";
+"your33word" = "Seed words 33 từ";
 "iHaveWroteDown" = "Tôi đã viết ra tất cả 33 từ";
 "verify" = "Xác minh";
-"backupSuccessTitle" = "Bản sao lưu seed phrase của bạn đã được xác minh";
-"backupSuccessDesc" = "Đảm bảo lưu trữ bản sao lưu seed phrase của bạn ở một vị trí an toàn.";
+"backupSuccessTitle" = "Bản sao lưu seed words của bạn đã được xác minh";
+"backupSuccessDesc" = "Đảm bảo lưu trữ bản sao lưu seed words của bạn ở một vị trí an toàn.";
 "backToWallets" = "Quay lại Ví";
 "failedToVerify" = "Không xác minh được. Vui lòng xem qua từng từ và thử lại.";
 "verifying" = "Đang xác minh ...";
-"verifySeedPhrase" = "Xác minh seed phrase";
+"verifySeedPhrase" = "Xác minh seed words";
 "selectTheCorrectWordsToVerify" = "Chọn các từ chính xác để xác minh.";
-"enterSeedOnNextScreen" = "Bạn sẽ được yêu cầu nhập seed phrase trên màn hình tiếp theo.";
+"enterSeedOnNextScreen" = "Bạn sẽ được yêu cầu nhập seed words trên màn hình tiếp theo.";
 
 /* Statistics */
 "build" = "Build";
