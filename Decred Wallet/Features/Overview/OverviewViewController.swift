@@ -147,7 +147,7 @@ class OverviewViewController: UIViewController {
         } else {
             self.usdBalanceLabelHeight.constant = 0
         }
-        
+        self.checkStorageSpace()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
