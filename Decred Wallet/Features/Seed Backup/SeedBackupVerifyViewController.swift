@@ -64,12 +64,9 @@ class SeedBackupVerifyViewController: UIViewController {
 
     @IBAction func onConfirm(_ sender: Any) {
         if self.btnConfirm!.isLoading { return } // prevent multiple click/tap attempts.
-        
-        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.walletID) {
-            let (result, _) = WalletAuthentication.isBiometricSupported()
-            guard let reason = result else { return }
-            WalletAuthentication.localAuthenticaion(reason: reason) { error in
-                if error == nil {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.walletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.walletID) { result, err in
+                if let passOrPin = result {
                     self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
                     let userEnteredSeed = self.selectedWords.joined(separator: " ")
                     var errorValue: ObjCBool = false

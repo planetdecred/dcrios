@@ -57,11 +57,9 @@ class SeedWordsDisplayViewController: UIViewController {
     }
     
     private func requestAuthenticationToShowSeed() {
-        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.walletID) {
-            let (result, _) = WalletAuthentication.isBiometricSupported()
-            guard let reason = result else { return }
-            WalletAuthentication.localAuthenticaion(reason: reason) { error in
-                if error == nil {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.walletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.walletID) { result, _ in
+                if let passOrPin = result {
                     var error: NSError? = nil
                     if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(passOrPin.utf8Bits, error: &error) {
                         if error == nil {

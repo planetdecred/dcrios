@@ -123,11 +123,9 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     }
     
     @IBAction func signMessage(_ sender: UIButton) {
-        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.wallet.id_) {
-            let (result, _) = WalletAuthentication.isBiometricSupported()
-            guard let reason = result else { return }
-            WalletAuthentication.localAuthenticaion(reason: reason) { error in
-                if error == nil {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.wallet.id_) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.wallet.id_, completed: { result, error in
+                if let passOrPin = result {
                     self.processSignMsg(privatePass: passOrPin) { error in
                         if error == nil {
                             self.viewContHeightContraint.constant = 382
@@ -148,7 +146,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                 } else {
                     self.signMessage()
                 }
-            }
+            })
         } else {
             self.signMessage()
         }

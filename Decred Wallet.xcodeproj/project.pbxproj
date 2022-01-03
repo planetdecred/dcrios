@@ -52,6 +52,7 @@
 		60778AE026274DA9006B1FC2 /* WalletMixerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60778ADF26274DA9006B1FC2 /* WalletMixerCell.swift */; };
 		608BC0D327620EFD00C92E84 /* PoliteiaWelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608BC0D227620EFD00C92E84 /* PoliteiaWelcomeController.swift */; };
 		60C76D432779BF3100E9EE7A /* WalletAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76D422779BF3100E9EE7A /* WalletAuthentication.swift */; };
+		60C76D432779BF3100E9EE7A /* LocalAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76D422779BF3100E9EE7A /* LocalAuthentication.swift */; };
 		60C7E54124ED8738009E4569 /* PlainHorizontalProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */; };
 		60C7E54624ED88B8009E4569 /* Politeia.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C7E54324ED88B8009E4569 /* Politeia.storyboard */; };
 		60C7E54724ED88B8009E4569 /* PoliteiaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */; };
@@ -271,7 +272,7 @@
 		60778ADF26274DA9006B1FC2 /* WalletMixerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMixerCell.swift; sourceTree = "<group>"; };
 		608BC0D227620EFD00C92E84 /* PoliteiaWelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliteiaWelcomeController.swift; sourceTree = "<group>"; };
 		6091E9A8255000CE0028E67F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		60C76D422779BF3100E9EE7A /* WalletAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAuthentication.swift; sourceTree = "<group>"; };
+		60C76D422779BF3100E9EE7A /* LocalAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthentication.swift; sourceTree = "<group>"; };
 		60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainHorizontalProgressBar.swift; sourceTree = "<group>"; };
 		60C7E54324ED88B8009E4569 /* Politeia.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Politeia.storyboard; sourceTree = "<group>"; };
 		60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaTableViewCell.swift; sourceTree = "<group>"; };
@@ -590,6 +591,7 @@
 		B3A3EF8922937B7500008A4E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				60C76D422779BF3100E9EE7A /* LocalAuthentication.swift */,
 				250D77BC23F2BF0F00CDC256 /* DecredAddressURI.swift */,
 				B304B39323F202A400B81798 /* Settings.swift */,
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
@@ -848,7 +850,6 @@
 				B3B469F7228F0F2600A68EDD /* SpendingPinOrPassword.swift */,
 				B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */,
 				B379BA6423E2A2F1002CA92E /* SingleToMultiWalletMigration.swift */,
-				60C76D422779BF3100E9EE7A /* WalletAuthentication.swift */,
 			);
 			path = "Wallet Utils";
 			sourceTree = "<group>";
@@ -1345,7 +1346,7 @@
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				10C6610E23EC587B00754DED /* AccountSelectorDialog.swift in Sources */,
-				60C76D432779BF3100E9EE7A /* WalletAuthentication.swift in Sources */,
+				60C76D432779BF3100E9EE7A /* LocalAuthentication.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
 				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,

@@ -128,11 +128,9 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
-        if let passOrPin = WalletAuthentication.getPinOrPassWallet(walletId: self.sourceWalletID) {
-            let (result, _) = WalletAuthentication.isBiometricSupported()
-            guard let reason = result else { return }
-            WalletAuthentication.localAuthenticaion(reason: reason) { error in
-                if error == nil {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.sourceWalletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.sourceWalletID) { result, err in
+                if let passOrPin = result {
                     self.broadcastUnsignedTxInBackground(privatePass: passOrPin) { err in
                         if err == nil {
                             self.dismissView()
