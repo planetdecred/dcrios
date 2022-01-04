@@ -17,7 +17,8 @@ class FloatingPlaceholderTextField: UITextField {
         return UIButton(type: .custom)
     }()
 
-    let textPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    var textPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    
 
     override var placeholder: String? {
         didSet {
@@ -40,6 +41,11 @@ class FloatingPlaceholderTextField: UITextField {
     }
 
     private func initView() {
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            textPadding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+        }
         self.layer.addSublayer(borderLayer)
         self.layer.masksToBounds = false
 
@@ -84,7 +90,14 @@ class FloatingPlaceholderTextField: UITextField {
 
     func addTogglePasswordVisibilityButton() {
         self.pwdVisibilityToggleBtn.setImage(UIImage(named: "ic_reveal"), for: .normal)
-        self.pwdVisibilityToggleBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.pwdVisibilityToggleBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
+        } else {
+            self.pwdVisibilityToggleBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        }
+        
         self.pwdVisibilityToggleBtn.frame = CGRect(x: CGFloat(self.frame.size.width - 22), y: CGFloat(16), width: CGFloat(22), height: CGFloat(16))
         self.rightView = self.pwdVisibilityToggleBtn
         self.rightViewMode = .always

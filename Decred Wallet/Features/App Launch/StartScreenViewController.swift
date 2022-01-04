@@ -62,6 +62,22 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
             }
         }
+        
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            createWalletBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            restoreWalletBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            importWatchWalletBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            
+            createWalletBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            restoreWalletBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            importWatchWalletBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            
+            createWalletBtn.contentHorizontalAlignment = .right
+            importWatchWalletBtn.contentHorizontalAlignment = .right
+            restoreWalletBtn.contentHorizontalAlignment = .right
+        }
        
         
         if #available(iOS 13.0, *) {
@@ -419,5 +435,25 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             }
             print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
         }
+    }
+}
+
+extension UIButton {
+    func setInsets(
+        forContentPadding contentPadding: UIEdgeInsets,
+        imageTitlePadding: CGFloat
+    ) {
+        self.contentEdgeInsets = UIEdgeInsets(
+                    top: contentPadding.top,
+                    left: contentPadding.left,
+                    bottom: contentPadding.bottom,
+                    right: contentPadding.right + imageTitlePadding
+                )
+                self.titleEdgeInsets = UIEdgeInsets(
+                    top: 0,
+                    left: imageTitlePadding,
+                    bottom: 0,
+                    right: -imageTitlePadding
+                )
     }
 }
