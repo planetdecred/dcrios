@@ -218,6 +218,13 @@ class OverviewViewController: UIViewController {
         self.showHideButton.forEach { button in
             if button.tag == 0 || button.tag == 3 { button.isHidden = true }
         }
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.syncCurrentStepReportLabel.textAlignment = .left
+            self.syncCurrentStepProgressLabel.textAlignment = .left
+            self.syncConnectionButton.imageEdgeInsets = UIEdgeInsets(top: -8, left: 0, bottom: -8, right: -7)
+        }
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {

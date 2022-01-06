@@ -21,6 +21,11 @@ open class WalletMixerCell: UITableViewCell {
     }
     
     override open func awakeFromNib() {
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            balanceValueLabel.textAlignment = .left
+        }
     }
     
     func render(_ walletName: String, balance: String) {
