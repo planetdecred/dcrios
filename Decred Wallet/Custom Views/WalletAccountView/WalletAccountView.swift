@@ -57,6 +57,12 @@ import Dcrlibwallet
         ])
         
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
+        
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.accountBalanceLabel.textAlignment = .left
+        }
     }
     
     @objc func showAccountSelectorDialog(_ sender: Any) {

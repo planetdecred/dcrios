@@ -23,6 +23,16 @@ class TransactionTableViewCell: UITableViewCell {
     override class func height() -> CGFloat {
         return 56
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.txDateLabel.textAlignment = .left
+            self.daysCounterLabel.textAlignment = .left
+        }
+    }
 
     func displayInfo(for transaction: Transaction, hideWalletLabel: Bool = true) {
         let txConfirmations = transaction.confirmations

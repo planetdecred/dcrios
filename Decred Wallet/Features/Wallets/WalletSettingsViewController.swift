@@ -16,6 +16,8 @@ class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var securityHeader: UIView!
     @IBOutlet weak var changePassOrPIN: UIView!
     @IBOutlet weak var databaseType: UILabel!
+    @IBOutlet weak var changeSpendingPinPass: UIButton!
+    @IBOutlet weak var rescanBlockChain: UIButton!
     
     var wallet: DcrlibwalletWallet!
     var walletSettings: WalletSettings!
@@ -32,6 +34,15 @@ class WalletSettingsViewController: UIViewController {
         self.securityHeader.isHidden = self.wallet.isWatchingOnlyWallet()
         self.changePassOrPIN.isHidden = self.wallet.isWatchingOnlyWallet()
         self.databaseType.text = self.wallet.dbDriver
+        
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.incomingTxAlertButton.contentHorizontalAlignment = .left
+            self.databaseType.textAlignment = .left
+            self.changeSpendingPinPass.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 24)
+            self.rescanBlockChain.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 24)
+        }
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
