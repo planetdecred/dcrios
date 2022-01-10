@@ -61,6 +61,12 @@ class PrivacyViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
         self.setMixerStatus()
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.unmixedBalance.textAlignment = .left
+            self.mixedBalance.textAlignment = .left
+        }
     }
     
     func updateMixerSettingsInfo() {
