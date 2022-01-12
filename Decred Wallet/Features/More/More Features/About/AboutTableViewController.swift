@@ -32,6 +32,13 @@ class AboutTableViewController: UITableViewController {
         barButtonTitle.tintColor = UIColor.appColors.text1
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            build.textAlignment = .left
+            version.textAlignment = .left
+            net.textAlignment = .left
+        }
         
         loadAboutData()
     }

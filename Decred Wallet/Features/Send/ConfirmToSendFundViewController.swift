@@ -120,6 +120,14 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         self.balanceAfterSendLabel.text = "\(self.unsignedTxSummary.dcrBalanceAfterSending.round(8).formattedWithSeparator) DCR"
         
         self.sendButton.setTitle("\(LocalizedStrings.send.capitalizingFirstLetter()) \(self.unsignedTxSummary.dcrAmount.round(8).formattedWithSeparator) DCR", for: .normal)
+        
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.txFeeLabel.textAlignment = .left
+            self.totalCostLabel.textAlignment = .left
+            self.balanceAfterSendLabel.textAlignment = .left
+        }
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
