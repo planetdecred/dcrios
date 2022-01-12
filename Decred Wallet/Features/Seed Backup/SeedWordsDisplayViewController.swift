@@ -24,6 +24,7 @@ class SeedWordsDisplayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        self.viewSeedWords.secureView()
         self.requestPassOrPINandDisplaySeed()
     }
     
@@ -39,7 +40,6 @@ class SeedWordsDisplayViewController: UIViewController {
     }
     
     func displaySeed() {
-        self.viewSeedWords.secureView()
         self.seedWords = self.seed.components(separatedBy: " ")
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
