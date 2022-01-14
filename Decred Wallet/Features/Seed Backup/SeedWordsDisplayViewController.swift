@@ -13,6 +13,7 @@ class SeedWordsDisplayViewController: UIViewController {
     @IBOutlet weak var seedWordsTableView: UITableView!
     @IBOutlet weak var topCorneredView: UIView!
     @IBOutlet weak var bottomCorneredView: UIView!
+    @IBOutlet weak var viewSeedWords: UIView!
     
     var walletID: Int!
     var seedBackupCompleted: (() -> Void)?
@@ -20,14 +21,10 @@ class SeedWordsDisplayViewController: UIViewController {
     var seed: String = ""
     var seedWords = [String]()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        self.viewSeedWords.secureView()
         self.requestPassOrPINandDisplaySeed()
     }
     
@@ -39,7 +36,7 @@ class SeedWordsDisplayViewController: UIViewController {
     }
 
     @IBAction func backAction(_ sender: UIButton) {
-        self.dismissView()
+        self.goBackHome()
     }
     
     func displaySeed() {
@@ -63,8 +60,8 @@ class SeedWordsDisplayViewController: UIViewController {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
         Security.spending(initialSecurityType: privatePassType)
             .with(prompt: LocalizedStrings.confirmToShowSeed)
-        .with(submitBtnText: LocalizedStrings.confirm)
-        .should(showCancelButton: true)
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .should(showCancelButton: true)
             .requestCurrentCode(sender: self, dismissSenderOnCancel: true) { privatePass, _, dialogDelegate in
                 var error: NSError? = nil
                 if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: &error) {
@@ -82,7 +79,7 @@ class SeedWordsDisplayViewController: UIViewController {
                         
                     }
                 }
-        }
+            }
     }
 }
 
@@ -94,7 +91,6 @@ extension SeedWordsDisplayViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordsDisplayTableViewCell") as! SeedWordsDisplayTableViewCell
-
         if self.seedWords.indices.contains(indexPath.row) {
             cell.serialNumberLbl1?.text = String(indexPath.row + 1)
             cell.seedWordLbl1?.text = self.seedWords[indexPath.row]
@@ -113,7 +109,6 @@ extension SeedWordsDisplayViewController: UITableViewDataSource {
            cell.serialNumberLbl2?.isHidden = true
            cell.seedWordLbl2?.isHidden = true
        }
-
        return cell
     }
 }
