@@ -13,10 +13,6 @@ class PoliteiaWelcomeController: UIViewController {
     
     var navi: UINavigationController?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
     }
