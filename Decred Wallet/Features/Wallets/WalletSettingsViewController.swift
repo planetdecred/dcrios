@@ -9,7 +9,6 @@
 import UIKit
 import Dcrlibwallet
 import LocalAuthentication
-import SwiftKeychainWrapper
 
 class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var walletNameLabel: UILabel!
@@ -45,12 +44,7 @@ class WalletSettingsViewController: UIViewController {
         }
         self.biometricView.isHidden = (self.bioResult == nil) || self.wallet.isWatchingOnlyWallet()
         self.lineBiometricView.isHidden = (self.bioResult == nil) || self.wallet.isWatchingOnlyWallet()
-        let pinOrPass = KeychainWrapper.standard.string(forKey: self.walletKey())
-        self.biometricSwich.isOn = pinOrPass != nil
-    }
-    
-    func walletKey() -> String {
-        return String(format: GlobalConstants.Strings.BIOMATRIC_AUTHEN, self.wallet.id_)
+        self.biometricSwich.isOn = LocalAuthentication.isWalletSetupBiometric(walletId: self.wallet.id_)
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -83,7 +77,7 @@ class WalletSettingsViewController: UIViewController {
                 LocalAuthentication.localAuthenticaionWithWallet(walletId: self.wallet.id_) { _, err in
                     if err == nil {
                         sender.isOn = true
-                        print("Setup use Biomatric successfully")
+                        print("Setup use Biomatric successfully--", code)
                         LocalAuthentication.setWalletPassword(walletId: self.wallet.id_, password: code)
                     } else {
                         sender.isOn = false

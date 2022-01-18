@@ -25,7 +25,7 @@ class SeedWordsDisplayViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         self.viewSeedWords.secureView()
-        self.requestPassOrPINandDisplaySeed()
+        self.requestAuthenticationToShowSeed()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

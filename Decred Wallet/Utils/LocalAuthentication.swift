@@ -15,18 +15,18 @@ class LocalAuthentication {
     
     private static func getPinOrPassWallet(walletId: Int) -> (String?) {
         let key = String(format: GlobalConstants.Strings.BIOMATRIC_AUTHEN, walletId)
-        guard let passOrPin = SwiftKeychainWrapper.KeychainWrapper.standard.string(forKey: key) else { return nil }
+        guard let passOrPin = KeychainWrapper.standard.string(forKey: key) else { return nil }
         return passOrPin
     }
     
     static func setWalletPassword(walletId: Int, password: String) {
         let key = String(format: GlobalConstants.Strings.BIOMATRIC_AUTHEN, walletId)
-        SwiftKeychainWrapper.KeychainWrapper.standard.set(key, forKey: password)
+        KeychainWrapper.standard.set(password, forKey: key)
     }
     
     static func removeWalletPassword(walletId: Int) {
         let key = String(format: GlobalConstants.Strings.BIOMATRIC_AUTHEN, walletId)
-        SwiftKeychainWrapper.KeychainWrapper.standard.removeObject(forKey: key)
+        KeychainWrapper.standard.removeObject(forKey: key)
     }
     
     static func isWalletSetupBiometric(walletId: Int) -> Bool {
