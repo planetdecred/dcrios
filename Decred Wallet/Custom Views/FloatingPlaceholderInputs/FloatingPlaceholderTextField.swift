@@ -45,6 +45,7 @@ class FloatingPlaceholderTextField: UITextField {
         let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
         if layoutDirection == .rightToLeft {
             textPadding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            self.textAlignment = .right
         }
         self.layer.addSublayer(borderLayer)
         self.layer.masksToBounds = false

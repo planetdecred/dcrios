@@ -56,6 +56,12 @@ class PoliteiaController: UIViewController {
         self.footerView.isHidden = true
         self.startListeningForNotifications()
         self.updateSyncingStatus()
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            sortOrderMenu.contentHorizontalAlignment = .right
+            filterCategoryMenu.contentHorizontalAlignment = .right
+        }
     }
     
     func startListeningForNotifications() {

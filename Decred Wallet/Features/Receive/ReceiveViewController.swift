@@ -18,7 +18,8 @@ class ReceiveViewController: UIViewController {
     @IBOutlet weak var walletAddressLabel: UILabel!
     @IBOutlet weak var tapToCopyContainerView: UIView!
     @IBOutlet weak var shareButtonContainerView: UIView!
-
+    @IBOutlet weak var shareBtn: Button!
+    
     var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
 
@@ -43,6 +44,13 @@ class ReceiveViewController: UIViewController {
             
             return true
         }
+        
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.shareBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 0)
+        }
+        
         self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
         self.selectedAccountView.selectFirstValidWalletAccount()
         // register for new transactions notifications

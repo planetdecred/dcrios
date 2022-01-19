@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,7 @@
                                     <action selector="backAction:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="8Al-hx-958"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Keep in mind" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAa-56-GDQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Keep in mind" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAa-56-GDQ">
                                 <rect key="frame" x="42.5" y="16" width="316.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" name="text1"/>
@@ -50,7 +50,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWu-DL-2Tv">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The &lt;bold&gt;33-word seed phrase&lt;/bold&gt; is EXTREMELY IMPORTANT." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-9z-04I">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The &lt;bold&gt;33-word seed phrase&lt;/bold&gt; is EXTREMELY IMPORTANT." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-9z-04I">
                                                         <rect key="frame" x="80" y="12" width="245" height="75"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text2"/>
@@ -99,7 +99,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzD-lm-YlI">
                                                 <rect key="frame" x="0.0" y="99" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed phrase is &lt;bold&gt;the only way&lt;/bold&gt; to restore your wallet." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOb-XB-LXG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed phrase is &lt;bold&gt;the only way&lt;/bold&gt; to restore your wallet." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOb-XB-LXG">
                                                         <rect key="frame" x="80" y="12" width="271" height="75"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text2"/>
@@ -146,7 +146,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N00-CI-ewZ">
                                                 <rect key="frame" x="0.0" y="198" width="375" height="103.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to store your seed phrase in a &lt;green&gt;physical format&lt;/green&gt; (e.g. write down on a paper)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUc-42-42V">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to store your seed phrase in a &lt;green&gt;physical format&lt;/green&gt; (e.g. write down on a paper)." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUc-42-42V">
                                                         <rect key="frame" x="80" y="12" width="271" height="79.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text2"/>
@@ -193,7 +193,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmY-pB-8pZ">
                                                 <rect key="frame" x="0.0" y="301.5" width="375" height="103.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is highly discouraged to store your seed phrase in any &lt;orange&gt;digital format&lt;/orange&gt; (e.g. screenshot)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-A6-4vU">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is highly discouraged to store your seed phrase in any &lt;orange&gt;digital format&lt;/orange&gt; (e.g. screenshot)." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-A6-4vU">
                                                         <rect key="frame" x="80" y="12" width="271" height="79.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text2"/>
@@ -240,7 +240,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-jl-maJ">
                                                 <rect key="frame" x="0.0" y="405" width="375" height="103.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anyone with your seed phrase &lt;orange&gt;can steal your funds&lt;/orange&gt;. DO NOT show it to anyone." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-2B-J8P">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anyone with your seed phrase &lt;orange&gt;can steal your funds&lt;/orange&gt;. DO NOT show it to anyone." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-2B-J8P">
                                                         <rect key="frame" x="80" y="12" width="271" height="79.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text2"/>
@@ -461,7 +461,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="3gS-WD-NLH">
-                                    <rect key="frame" x="0.0" y="160.00000034679067" width="367" height="24"/>
+                                    <rect key="frame" x="0.0" y="178" width="367" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-aF-TAu">
@@ -482,7 +482,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="seedWordsDisplayTableViewCell" id="97R-Q2-uUC" customClass="SeedWordsDisplayTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="105.5" width="367" height="30"/>
+                                        <rect key="frame" x="0.0" y="125.5" width="367" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="97R-Q2-uUC" id="VrZ-ef-dIk">
                                             <rect key="frame" x="0.0" y="0.0" width="367" height="30"/>
@@ -494,7 +494,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itO-vF-OMd">
                                                             <rect key="frame" x="16" y="0.0" width="179.5" height="30"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phrase1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pJ-On-0ch">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phrase1" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pJ-On-0ch">
                                                                     <rect key="frame" x="38" y="5" width="141.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Semibold" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" name="text2"/>
@@ -532,7 +532,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pX-7m-T9y">
                                                             <rect key="frame" x="195.5" y="0.0" width="155.5" height="30"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phrase2" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-89-5zz">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phrase2" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-89-5zz">
                                                                     <rect key="frame" x="46" y="5" width="109.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Semibold" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" name="text2"/>
@@ -696,7 +696,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4b7-yc-b5w">
                                 <rect key="frame" x="42.5" y="16" width="316.5" height="47.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Step 2/2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2R-hs-DSf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Step 2/2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2R-hs-DSf">
                                         <rect key="frame" x="0.0" y="29.5" width="316.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" name="text4"/>
@@ -705,7 +705,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="writeDownStep2_2"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Verify seed phrase" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-e9-l2C">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Verify seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-e9-l2C">
                                         <rect key="frame" x="0.0" y="0.0" width="316.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
@@ -757,7 +757,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="tripleSeedCell" id="0ln-fz-Rh2" customClass="SeedBackupVerifyTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="68.5" width="375" height="122"/>
+                                        <rect key="frame" x="0.0" y="88.5" width="375" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0ln-fz-Rh2" id="kFS-6y-Kes">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
@@ -1040,7 +1040,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Your seed phrase backup is verified" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJe-yu-JPp">
-                                <rect key="frame" x="24" y="252" width="327" height="56"/>
+                                <rect key="frame" x="24" y="252" width="327" height="60.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
                                 <color key="textColor" name="text1"/>
                                 <nil key="highlightedColor"/>
@@ -1056,7 +1056,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Be sure to store your seed phrase backup in a secure location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vy-UB-jfM">
-                                <rect key="frame" x="24" y="324" width="327" height="37.5"/>
+                                <rect key="frame" x="24" y="328.5" width="327" height="40.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" name="text2"/>
                                 <nil key="highlightedColor"/>
@@ -1065,7 +1065,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-Al-wic">
-                                <rect key="frame" x="24" y="590" width="327" height="33"/>
+                                <rect key="frame" x="24" y="588" width="327" height="35"/>
                                 <accessibility key="accessibilityConfiguration" identifier="backToWallet"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <state key="normal" title="Back to Wallets">
