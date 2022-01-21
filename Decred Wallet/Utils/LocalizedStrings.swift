@@ -483,6 +483,12 @@ struct LocalizedStrings {
     static let politeiaVersion = NSLocalizedString("politeiaVersion", comment: "")
     static let noPoliteia = NSLocalizedString("noPoliteia", comment: "")
     static let syncPoliteiaTryAgain = NSLocalizedString("syncPoliteiaTryAgain", comment: "")
+    static let fetchProposal = NSLocalizedString("fetchProposal", comment: "")
+    static let governanceHow = NSLocalizedString("governanceHow", comment: "")
+    static let poliCommunityInfo = NSLocalizedString("poliCommunityInfo", comment: "")
+    static let poliStakeholdersInfo = NSLocalizedString("poliStakeholdersInfo", comment: "")
+    static let poliWelcomInfo = NSLocalizedString("poliWelcomInfo", comment: "")
+    static let governance = NSLocalizedString("governance", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
