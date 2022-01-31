@@ -85,6 +85,19 @@ extension UIViewController {
         }
     }
     
+    func goBackHome() {
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let viewControllers = self.navigationController?.viewControllers.filter{$0 is NavigationMenuTabBarController}
+            if let vcs = viewControllers, vcs.count > 0 {
+                self.navigationController?.popToViewController(vcs[0], animated: true)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     func showMessageDialog(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { (action) in
@@ -158,6 +171,31 @@ extension UIViewController {
                            completion: { _ in toastView.removeFromSuperview() }
             )
         })
+    }
+    
+    func deviceRemainingFreeSpaceInBytes () -> Int64? {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+            guard
+                let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: documentDirectory),
+                let freeSize = systemAttributes[.systemFreeSize] as? NSNumber
+            else {
+                return nil
+            }
+            return freeSize.int64Value
+    }
+    
+    func checkStorageSpace() {
+        if let storage = self.deviceRemainingFreeSpaceInBytes() {
+            let currentTime = Date().timeIntervalSince1970
+            let estimatedBlocksSinceGenesis = (Int(currentTime) - BuildConfig.GenesisTimestamp) / BuildConfig.TargetTimePerBlock
+            let estimatedHeadersSize = estimatedBlocksSinceGenesis/1000
+            if estimatedHeadersSize > storage {
+                //warning low storage for user
+                let alertController = UIAlertController(title: LocalizedStrings.lowStorageSpace, message: String(format: LocalizedStrings.lowStorageMessage, estimatedHeadersSize, storage), preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
 }
 

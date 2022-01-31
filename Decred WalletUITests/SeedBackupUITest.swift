@@ -66,7 +66,7 @@ class SeedBackupUITest: XCTestCase {
         sleep(1)
         
         let tablesQuery = app.tables
-        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Verify your seed phrase backup so you can recover your funds when needed."]/*[[".cells.staticTexts[\"Verify your seed phrase backup so you can recover your funds when needed.\"]",".staticTexts[\"Verify your seed phrase backup so you can recover your funds when needed.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Verify your seed words backup so you can recover your funds when needed."]/*[[".cells.staticTexts[\"Verify your seed words backup so you can recover your funds when needed.\"]",".staticTexts[\"Verify your seed words backup so you can recover your funds when needed.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let element = app.scrollViews.children(matching: .other).element(boundBy: 0)
         element.children(matching: .other).element(boundBy: 0).children(matching: .button).element.tap()
@@ -75,7 +75,7 @@ class SeedBackupUITest: XCTestCase {
         element.children(matching: .other).element(boundBy: 3).children(matching: .button).element.tap()
         element.children(matching: .other).element(boundBy: 4).children(matching: .button).element.tap()
         
-        app.buttons["View seed phrase"].tap()
+        app.buttons["View seed words"].tap()
         
         sleep(2)
         

@@ -56,6 +56,32 @@
                                             <segue destination="9uL-G4-nI1" kind="show" id="DZA-a4-bna"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8G8-GF-55P">
+                                        <rect key="frame" x="0.0" y="93" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8G8-GF-55P" id="oiK-FV-fCj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Governance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B20-7f-fm7">
+                                                    <rect key="frame" x="16" y="11.5" width="286" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nh1-7f-kz1">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nh1-7f-kz1" secondAttribute="trailing" id="KLx-dY-eNS"/>
+                                                <constraint firstItem="B20-7f-fm7" firstAttribute="leading" secondItem="oiK-FV-fCj" secondAttribute="leadingMargin" id="KcZ-uE-q8e"/>
+                                                <constraint firstItem="nh1-7f-kz1" firstAttribute="centerY" secondItem="oiK-FV-fCj" secondAttribute="centerY" id="bOJ-iJ-5le"/>
+                                                <constraint firstItem="B20-7f-fm7" firstAttribute="centerY" secondItem="oiK-FV-fCj" secondAttribute="centerY" id="l7P-AT-u7x"/>
+                                                <constraint firstItem="nh1-7f-kz1" firstAttribute="leading" secondItem="B20-7f-fm7" secondAttribute="trailing" constant="8" id="sye-jI-ZQG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gwk-Qc-ec9">
                                         <rect key="frame" x="0.0" y="93" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -369,15 +395,13 @@
                         <outlet property="biometricTypeLabel" destination="fZi-Vb-BjG" id="BND-8b-oTP"/>
                         <outlet property="cellularSyncSwitch" destination="M8i-z0-RGC" id="CVQ-DC-EFS"/>
                         <outlet property="changeStartPINCell" destination="CCv-sw-rUR" id="iZt-ET-rna"/>
-                        <outlet property="colorThemeCell" destination="KT2-87-LNq" id="Izc-OK-6rQ"/>
                         <outlet property="colorThemeSubtitleLabel" destination="Jqq-Wr-d82" id="MhK-qC-pkJ"/>
                         <outlet property="connectIpLabel" destination="wHH-qq-PBK" id="Qzb-M1-OqC"/>
                         <outlet property="connectPeerIpLabel" destination="uLU-Vj-txe" id="A20-Zt-14h"/>
-                        <outlet property="connectPeer_cell" destination="lvw-Xe-R2c" id="aex-WQ-Dce"/>
                         <outlet property="currencySubtitleLabel" destination="GEO-eE-V3Q" id="rOx-K8-X77"/>
+                        <outlet property="governanceSwitch" destination="nh1-7f-kz1" id="lZj-QI-aej"/>
                         <outlet property="politeiaNotificationSwitch" destination="o10-sx-ndG" id="OQz-1U-ieZ"/>
                         <outlet property="spendUnconfirmedFundSwitch" destination="UQm-nI-5Hn" id="EF9-wH-PWU"/>
-                        <outlet property="startupPinOrPasswordCell" destination="fQb-dI-sZt" id="RAk-Ui-4ke"/>
                         <outlet property="startupPinOrPasswordSwitch" destination="HzW-fb-ioM" id="tbB-cX-aRx"/>
                         <outlet property="useBiometricSwitch" destination="hl5-33-U0A" id="pJm-bz-22X"/>
                     </connections>

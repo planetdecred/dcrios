@@ -27,7 +27,11 @@ enum MoreMenuItem: String, CaseIterable {
             return SecurityToolsViewController.instantiate(from: .SecurityTools)
             
         case .politeia:
-            return PoliteiaController.instantiate(from: .Politeia)
+            let multiWallet = WalletLoader.shared.multiWallet!
+            if multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.HAS_SHOW_POLITEIA_WELCOME, defaultValue: false) {
+                return PoliteiaController.instantiate(from: .Politeia)
+            }
+            return PoliteiaWelcomeController.instantiate(from: .Politeia)
             
         case .help:
             return HelpTableViewController.instantiate(from: .Help)

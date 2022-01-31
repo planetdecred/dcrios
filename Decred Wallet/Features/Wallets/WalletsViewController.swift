@@ -315,6 +315,10 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
+    func gotoSeedBackup(vc : UIViewController) {
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func indexDropdownOpen(index: IndexPath) {
         self.indexDropDownShow = index
     }

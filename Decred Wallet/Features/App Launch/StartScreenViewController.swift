@@ -260,6 +260,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         } else {
             self.displayWalletSetupScreen()
             self.imageViewContainer.isUserInteractionEnabled = false
+            self.checkStorageSpace()
         }
     }
     

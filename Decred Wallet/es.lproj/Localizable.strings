@@ -17,7 +17,7 @@
 "myWallet" = "mywallet";
 "default_" = "default";
 "migratingWallet" = "Migrating wallet";
-"dataFileErrorMsg" = "You have an older device with less ram. For it to work properly we need to upgrade the database being used for your wallet. You will need to re-enter your seed phrase. Proceeding will clear the wallet data so you can recover from your seed phrase. Are you sure you want to proceed?";
+"dataFileErrorMsg" = "You have an older device with less ram. For it to work properly we need to upgrade the database being used for your wallet. You will need to re-enter your seed words. Proceeding will clear the wallet data so you can recover from your seed words. Are you sure you want to proceed?";
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Configurando Cartera Decred";
@@ -30,8 +30,8 @@
 "wordNumber" = "%d";
 "notAllSeedsAreEntered" = "No todas las semillas han sido introducidas. Por favor, verifica los campos y vuelve a ingresar las semillas.";
 "incorrectSeedEntered" = "Failed to restore. Please verify all words and try again.";
-"seedRestoreHeader" = "Restore from seed phrase";
-"seedRestoreInfo" = "Enter your seed phrase in the correct order.";
+"seedRestoreHeader" = "Restore from seed words";
+"seedRestoreInfo" = "Enter your seed words in the correct order.";
 "restore" = "Restore";
 "success" = "Success";
 "getStarted" = "Get started";
@@ -146,7 +146,7 @@
 /* Overview */
 "oneWalletNeedBackup" = "1 wallet needs backup";
 "walletsNeedBackup" = "Would you like to backup your seed words now?";
-"seedBackupRecommendation" = "Write down your seed phrase so that you can recover your funds when needed.";
+"seedBackupRecommendation" = "Write down your seed words so that you can recover your funds when needed.";
 "goToWallets" = "Go to Wallets";
 "currentTotalBalance" = "Saldo total actual";
 "recentTransactions" = "Recent Transactions";
@@ -271,8 +271,8 @@
 
 /* Wallets -> Backup seed */
 "notBackedUp" = "Not backed up";
-"backupSeedPhrase" = "Back up seed phrase";
-"backupWarningText" = "Verify your seed phrase backup so you can recover your funds when needed.";
+"backupSeedPhrase" = "Back up seed words";
+"backupWarningText" = "Verify your seed words backup so you can recover your funds when needed.";
 
 /* Wallets -> Add new wallet */
 "createOrImportWallet" = "Create or import a wallet";
@@ -323,7 +323,7 @@
 "soundAndVibration" = "Sound and Vibration";
 
 /* Wallets -> Remove wallet */
-"removeWalletWarning" = "Make sure to have the seed phrase backed up before removing the wallet.";
+"removeWalletWarning" = "Make sure to have the seed words backed up before removing the wallet.";
 "confirmToRemove" = "Confirm to remove";
 "walletRemoved" = "Wallet removed";
 "removeWatchWalletPrompt" = "Remove watch-only wallet from device?";
@@ -394,6 +394,14 @@
 "politeiaVersion" = "version %@";
 "noPoliteia" = "Sin propuesta";
 "syncPoliteiaTryAgain" = "There was an error when sync politeia, please try again in Politeia";
+"lowStorageSpace" = "Low Storage Space";
+"lowStorageMessage" = "Your device storage space is low and is not enough to sync a wallet. Required space to sync a wallet is ~%dmb while your free internal memory is %lldmb";
+"fetchProposal" = "Fetch proposals";
+"governanceHow" = "How does Governance Work?";
+"poliCommunityInfo" = "The Decred community can participate in proposal discussions for new initiatives and request funding for these initiatives.";
+"poliStakeholdersInfo" = "Decred stakeholders can vote if these proposals should be approved and paid for by the Decred Treasury.";
+"poliWelcomInfo" = "Proposals and politeia notificationas can be enabled/disabled on the settings page.";
+"governance" = "Governance";
 
 /* Settings */
 "startupPinPass" = "PIN/Contraseña de inicio";
@@ -503,31 +511,31 @@
 
 /* Seed Backup Reminder */
 "keepInMind" = "Keep in mind";
-"viewSeedPhrase" = "View seed phrase";
-"reminderLabel1" = "The <bold>33-word seed phrase</bold> is EXTREMELY IMPORTANT.";
-"reminderLabel2" = "Seed phrase is <bold>the only way</bold> to restore your wallet.";
-"reminderLabel3" = "It is recommended to store your seed phrase in a <green>physical format</green> (e.g. write down on a paper).";
-"reminderLabel4" = "It is highly discouraged to store your seed phrase in any <orange>digital format</orange> (e.g. screenshot).";
-"reminderLabel5" = "Anyone with your seed phrase <orange>can steal your funds</orange>. DO NOT show it to anyone.";
+"viewSeedPhrase" = "View seed words";
+"reminderLabel1" = "The <bold>33-word seed words</bold> is EXTREMELY IMPORTANT.";
+"reminderLabel2" = "Seed words is <bold>the only way</bold> to restore your wallet.";
+"reminderLabel3" = "It is recommended to store your seed words in a <green>physical format</green> (e.g. write down on a paper).";
+"reminderLabel4" = "It is highly discouraged to store your seed words in any <orange>digital format</orange> (e.g. screenshot).";
+"reminderLabel5" = "Anyone with your seed words <orange>can steal your funds</orange>. DO NOT show it to anyone.";
 
 /* Seed Words Display */
-"writeDownSeedPhrase" = "Write down seed phrase";
+"writeDownSeedPhrase" = "Write down seed words";
 "writeDownStep1_2" = "Step 1/2";
 "writeDownStep2_2" = "Step 2/2";
 
 /* Seed Backup Verify */
 "writeDownAll33Words" = "Write down all 33 words in the correct order.";
-"your33word" = "Your 33-word seed phrase";
+"your33word" = "Your 33-word seed words";
 "iHaveWroteDown" = "I have wrote down all 33 words";
 "verify" = "Verify";
-"backupSuccessTitle" = "Your seed phrase backup is verified";
-"backupSuccessDesc" = "Be sure to store your seed phrase backup in a secure location.";
+"backupSuccessTitle" = "Your seed words backup is verified";
+"backupSuccessDesc" = "Be sure to store your seed words backup in a secure location.";
 "backToWallets" = "Back to Wallets";
 "failedToVerify" = "Failed to verify. Please go through every words and try again.";
 "verifying" = "Verifying...";
-"verifySeedPhrase" = "Verify seed phrase";
+"verifySeedPhrase" = "Verify seed words";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
-"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed words on the next screen.";
 
 /* Statistics */
 "build" = "Build";
