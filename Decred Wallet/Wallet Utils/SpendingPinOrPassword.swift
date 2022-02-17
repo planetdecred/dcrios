@@ -16,12 +16,33 @@ enum SpendingPinOrPasswordType {
 
 struct SpendingPinOrPassword {
     static func begin(sender: UIViewController, walletID: Int, type: SpendingPinOrPasswordType, title: String, done: ((String) -> ())? = nil) {
+        
+        if LocalAuthentication.isWalletSetupBiometric(walletId: walletID) && type == .change {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: walletID, completed: { result, error in
+                if let currentCode = result {
+                    let securityType = SpendingPinOrPassword.securityType(for: walletID)
+                    self.verifyWalletSpendingPassphrase(walletID: walletID,
+                                                        currentCode: currentCode,
+                                                        currentCodeRequestDelegate: nil,
+                                                        securityType: securityType,
+                                                        sender: sender,
+                                                        type: type,
+                                                        done: done)
+                } else {
+                    self.confirmPinPass(sender: sender, walletID: walletID, type: type, title: title, done: done)
+                }
+            })
+        } else {
+            self.confirmPinPass(sender: sender, walletID: walletID, type: type, title: title, done: done)
+        }
+    }
+    
+    private static func confirmPinPass(sender: UIViewController, walletID: Int, type: SpendingPinOrPasswordType, title: String, done: ((String) -> ())? = nil) {
         Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: walletID))
             .with(prompt: title)
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: sender) {
                 currentCode, securityType, currentCodeRequestDelegate in
-                
                 self.verifyWalletSpendingPassphrase(walletID: walletID,
                                                     currentCode: currentCode,
                                                     currentCodeRequestDelegate: currentCodeRequestDelegate,

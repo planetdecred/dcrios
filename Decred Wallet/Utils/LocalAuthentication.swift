@@ -67,15 +67,37 @@ class LocalAuthentication {
             return
         }
         let password = self.getPinOrPassWallet(walletId: walletId)
-//        if password == nil {
-//            completed(nil, NSError(domain: "dcr.ios.wallet", code: 2, userInfo: [NSLocalizedDescriptionKey: "bimetric is not setup"]))
-//            return
-//        }
         let localAuthenticationContext = LAContext()
         localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, evaluateError in
             DispatchQueue.main.async {
                 if success {
                     completed(password, nil)
+                } else {
+                    guard let error = evaluateError else {
+                        return
+                    }
+                    completed(nil ,error)
+                }
+            }
+        }
+    }
+    
+    static func isSetupStartupSecurityAndStartAppBiometric() -> Bool {
+        return KeychainWrapper.standard.string(forKey: "StartupPinOrPassword") != nil
+    }
+    
+    static func localAuthenticaionStartupSecurityAndStartApp(completed: @escaping (String?, Error?) -> ()) {
+        let (rs, error) = self.isBiometricSupported()
+        guard let reason = rs else {
+            completed(nil, error)
+            return
+        }
+        let passOrPin = KeychainWrapper.standard.string(forKey: "StartupPinOrPassword")
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, evaluateError in
+            DispatchQueue.main.async {
+                if success {
+                    completed(passOrPin, nil)
                 } else {
                     guard let error = evaluateError else {
                         return
