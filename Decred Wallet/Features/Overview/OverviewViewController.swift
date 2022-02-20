@@ -115,7 +115,7 @@ class OverviewViewController: UIViewController {
         
         // Register tx notification listener to update recent activity table for new txs.
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
-        try? multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
+        try? multiWallet.add(txNotificationListener, async: true, uniqueIdentifier: "\(self)")
         
         multiWallet.setBlocksRescanProgressListener(self)
         

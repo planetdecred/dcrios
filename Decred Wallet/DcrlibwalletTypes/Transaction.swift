@@ -158,7 +158,7 @@ struct Transaction: Codable {
     }
     
     func matchesFilter(txFilter: Int32) -> Bool {
-        return wallet.txMatchesFilter2(direction, blockHeight: blockHeight, expiry: expiry, txType: type, ticketSpender: ticketSpender, txFilter: txFilter)
+        return wallet.txMatchesFilter2(direction, blockHeight: blockHeight, txType: type, ticketSpender: ticketSpender, txFilter: txFilter)
     }
 }
 

@@ -57,7 +57,7 @@ class TransactionNotification: NSObject {
     var newTxHashes: [String] = [String]()
     
     func startListeningForNotifications() {
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, async: true, uniqueIdentifier: "\(self)")
     }
     
     func newTxNotification(_ transaction: String?) {

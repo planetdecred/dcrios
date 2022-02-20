@@ -41,7 +41,7 @@ class TransactionDetailsViewController: UIViewController {
         self.prepareTxOverview()
         
         // register for new transactions notifications
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, async: true, uniqueIdentifier: "\(self)")
     }
 
     override func viewWillAppear(_ animated: Bool) {
