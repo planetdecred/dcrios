@@ -85,7 +85,7 @@ class AccountDetailsViewController: UIViewController {
         self.dismissViewOnTapAround()
         
         // register for new transactions notifications
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, async: true, uniqueIdentifier: "\(self)")
     }
     
     func setupAccountProperties() {
