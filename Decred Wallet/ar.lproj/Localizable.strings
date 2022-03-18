@@ -1,0 +1,605 @@
+//
+//  Localizable.strings
+//  Decred Wallet
+//
+// Copyright (c) 2018-2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
+/* StartScreenViewController */
+"openingWallet" = "فتح المحفظة...";
+
+/* Wallet Setup */
+"createNewWallet" = "إنشاء محفظة جديدة";
+"restoreExistingWallet" = "استعادة محفظة موجودة";
+"wallet" = "محفظة";
+"introMessage" = "مرحبًا بكم في محفظة ديكريد،\n محفظة هاتف محمول آمنة ومفتوحة المصدر.";
+"myWallet" = "mywallet";
+"default_" = "تلقائية";
+"migratingWallet" = "ترحيل المحفظة";
+"dataFileErrorMsg" = "لديك جهاز قديم مع مساحة ذاكرة الوصول العشوائي صغيرة. لكي يعمل بشكل صحيح، نحتاج إلى تحديث قاعدة البيانات المستخدمة لمحفظتك. ستحتاج إلى إعادة إدخال البذرة الخاصة بك. ستؤدي المتابعة إلى مسح بيانات المحفظة حتى تتمكن من استعادة من عبارات البذور الخاصة بك. هل انت متأكد انك تريد المواصلة؟";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "إعداد محفظة الديكريد";
+
+/* Confirm NewWallet Seed */
+"confirmToShowSeed" = "قم بالتأكيد لإظهار البذرة";
+"confirmToVerifySeed" = "قم بالتأكيد للتحقق من البذرة";
+
+/* Recover Existing Wallet */
+"wordNumber" = "%d";
+"notAllSeedsAreEntered" = "لم يتم إدخال جميع البذور. من فضلك، تحقق من حقول الإدخال وأدخل جميع البذور.";
+"incorrectSeedEntered" = "فشل في الاستعادة. الرجاء التحقق من جميع الكلمات والمحاولة مرة أخرى.";
+"seedRestoreHeader" = "الاستعادة من عبارة البذرة";
+"seedRestoreInfo" = "أدخل عبارة البذرة بالترتيب الصحيح.";
+"restore" = "إستعادة";
+"success" = "نجاح";
+"getStarted" = "البدء";
+"restoreSuccessTitle" = "تمت استعادة محفظتك بنجاح.";
+
+/*Import Watch-only wallet*/
+"watchWalletImported" = "تم استيراد محفظة المراقبة فقط";
+"extendPublicKeyInfo" = "في ديكريديتون، ضمن قسم الحسابات، قم بتوسيع الحساب الذي تريد مشاهدته، وانقر على أكشف المفتاح العام ";
+"watchWalletTitle" = "إنشاء محفظة مراقبة فقط";
+
+/* Unlock Wallet Prompt */
+"unlockWithStartupCode" = "فتح مع بدء التشغيل %@";
+"unlock" = "فتح";
+"wrongSecurityCode" = "خطأ %@ %@. الرجاء محاولة مرة أخرى.";
+
+/* Password Setup */
+"emptyPasswordNotAllowed" = "لا يمكن أن تكون كلمة المرور فارغة";
+"passwordsDoNotMatch" = "لا تتطابق كلمات المرور";
+"createPassword" = "إنشاء %@ كلمة مرور";
+
+/* Request Password */
+"enterCurrentSpendingPassword" = "أدخل كلمة مرور الإنفاق الحالية";
+"promptStartupPassword" = "أدخل كلمة مرور بدء التشغيل الحالية";
+"password" = "كلمة المرور";
+"invalidInput" = "إدخال غير صحيح.";
+"passwordPlaceholder" = "%@ كلمة المرور";
+"confirmPasswordPlaceholder" = "تأكيد %@ كلمة المرور";
+
+/* Request PIN and PIN Setup */
+"enterPIN" = "أدخل %@ رقم التعريف الشخصي PIN";
+"enterCurrentSpendingPIN" = "أدخل رقم التعريف الشخصي الحالي للإنفاق";
+"promptStartupPIN" = "أدخل رقم التعريف الشخصي الحالي لبدء التشغيل";
+"createPIN" = "إنشاء %@ رقم التعريف الشخصي PIN";
+"confirmPIN" = "أدخل %@ رقم التعريف الشخصي مرة أخرى";
+"pinsDidNotMatch" = "أرقام التعريف الشخصية غير متطابقة. حاول مجددا.";
+"pin" = "رقم التعريف الشخصي PIN";
+"next" = "التالي";
+"create" = "إنشاء";
+
+/* Request Biometric */
+"promptStartupPassOrPIN" = "استخدم رقم التعريف الشخصي/كلمة المرور الخاصة ببدء التشغيل";
+"promptTouchIDUsageUsage" = "مطلوب مُعرِّف اللمس لاستخدام محفظة ديكريد";
+"promptFaceIDUsageUsage" = "مطلوب مُعرِّف الوجه لاستخدام محفظة ديكريد";
+"useFaceID" = "إستخدام مُعرِّف الوجه";
+"useTouchId" = "إستخدام مُعرِّف اللمس";
+"enableWithStartupCode" = "التمكين مع بدء التشغيل %@";
+
+/* Overview - unlock wallets for account discovery */
+"unlockToResumeRestoration" = "افتح لاستئناف الاستعادة";
+"unlockWalletForAccountDiscovery" = "تمت مقاطعة عملية الاستعادة لاكتشاف حساباتك في المزامنة الأخيرة.\n\n ألغ القفل %@ لاستئناف العملية.";
+
+/* No Wifi Sync Connection */
+"no" = "لا";
+"yes" = "نعم";
+"always" = "دائما";
+
+/* Sync progress view */
+"loading" = "تحميل...";
+"waitingForOtherWallets" = "في انتظار المحافظ الأخرى";
+"fetchedHeaders" = "%d of %d";
+"headersFetchProgress" = "إحضار رؤوس الكتلة · %d%%";
+"headersScannedProgress" = "فحص رؤوس الكتل · %d%%";
+"bestBlockAgebehind" = "%@ خلف";
+"blockHeaderScanned" = "تم فحص رأسية الكتلة";
+"addressDiscoveryProgressOver" = "~%d%% (انتهى)";
+"addressDiscoveryProgressThrough" = "~%d%%";
+"scanningTotalHeaders" = "%d of %d";
+"synchronizing" = "المزامنة...";
+"syncTotalProgress" = "%d%% مكتملة، %@ متبقي.";
+"total"  = "المجموع:";
+"latestBlockAge" = "أحدث كتلة%d% :- %@";
+"blockHeadersFetched" = "إحضار رؤوس الكتلة";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "%@ متبقية";
+"syncSteps" = "الخطوة %d/3";
+"syncingProgress" = "تقدم المزامنة";
+"cannotSyncWithoutNetworkConnection" = "لا يمكن المزامنة دون الاتصال بالشبكة.";
+"internetConnectionRequired" = "مطلوب الاتصال بالإنترنت.";
+"restartingSync" = "إعادة تشغيل المزامنة...";
+"discoveringUsedAddresses" = "اكتشاف العناوين المستخدمة.";
+"syncError" = "خطأ في المزامنة.";
+"now" = "الآن";
+"secondsAgo" = "%ds منذ";
+"minAgo" = "%dm منذ";
+"hrsAgo" = "%dh منذ";
+"daysAgo" = "%dd منذ";
+"weeksAgo" = "%dw منذ";
+"monthsAgo" = "%dmo منذ";
+"yearsAgo" =  "%dy منذ";
+"totalBalance" = "الرصيد الإجمالي";
+"reconnect" = "إعادة الإتصال";
+"disconnect" = "قطع الإتصال";
+"waitForSync" = "انتظر حتى تكتمل المزامنة";
+"scannedBlocks" = "الكتل التي تم فحصها";
+"rescanningBlocks" = "إعادة فحص الكتل...";
+"blocksLeft" = "%d المتبقية";
+"errorSyncInProgress" = "يتعذر بدء إعادة الفحص أثناء إجراء المزامنة";
+"errorRescanInProgress" = "يتعذر بدء إعادة الفحص أثناء تشغيل عملية إعادة فحص أخرى";
+"rescanProgressNotification" = "تحقق من التقدم في النظرة العامة!";
+"stepCfilter" = "إعادةإحضار مرشحات سي للتحديث";
+"fetchingCFilter" = "إحضار مرشحات سي · %d%%";
+"cfilterFetched" = "تم إحضار مرشحات سي ";
+"cfiltersLeft" = "%d مرشحات سي المتبقية";
+"cfilterFetchedTotal" = "%d of %d";
+
+/* Navigation Menu Items */
+"overview" = "نظرة عامة";
+"transactions" = "المعاملات";
+"wallets" = "المحافظ";
+"more" = "المزيد";
+
+/* Overview */
+"oneWalletNeedBackup" = " محفظة واحدة تحتاج للنسخ الاحتياطي";
+"walletsNeedBackup" = "هل تريد عمل نسخة احتياطية من كلمات البذرة الخاصة بك الآن؟";
+"seedBackupRecommendation" = "قَيّد عبارة البذرة الخاصة بك حتى تتمكن من استرداد أموالك عند الحاجة.";
+"goToWallets" = "إنتقل إلى المحافظ";
+"currentTotalBalance" = "الرصيد الإجمالي الحالي";
+"recentTransactions" = "المعاملات الأخيرة";
+"seeAll" = "اظهار الكل";
+"walletStatus" = "حالة المحفظة";
+"walletSynced" = "متزامنة";
+"walletNotSynced" = "غير متزامنة";
+"connectedTo" = "متصل بـ %d من النظراء";
+"online" = "مُتصل بالإنترنت";
+"offline" = "غير متصل";
+"showDetails" = "إظهار التفاصيل";
+"hideDetails" = "إخفاء التفاصيل";
+"connectedPeersCount" = "عدد الأقران المتصلين";
+"noConnectedPeer" = "لا يوجد أقران متصلون.";
+"peers" = "النظراء";
+"seeAll" = "اظهار الكل";
+"walletCreated" = "تم إنشاء المحفظة";
+"backUpYourWalletsReminder" = "تذكر عمل نسخة احتياطية لمحافظك في أسرع وقت ممكن.";
+"setupMixingAccounts" = "إعداد حسابات الخلط";
+
+/* Transactions */
+"pending" = "قيد الانتظار";
+"confirmed" = "مؤكدة";
+"voted" = "مصوّتة";
+"ticket" = "تذكرة";
+"revoked" = "مسترجعة";
+"purchased" = "مشتراة";
+"tikectPurchase" = "شراء تذكرة";
+"live" = "حية";
+"immature" = "غير ناضجة";
+"noTransactions" = "لا توجد معاملات حتى الآن.";
+"sent" = "مرسلة";
+"received" = "مستلمة";
+"yourself" = "نفسك";
+"staking" = "التحصيص";
+"coinbase" = "Coinbase";
+"all" = "الكل";
+"today" = "اليوم";
+"yesterday" = "الأمس";
+"days" = "%d أيام";
+"day" = "%d يوم";
+"newest" = "الأحدث";
+"oldest" = "الأقدم";
+
+/* Transaction Details */
+"transactionDetails" = "تفاصيل المعاملة";
+"viewOnDcrdata" = "عرض على dcrdata";
+"sgCopied" = "تم نسخ %@";
+"amount" = "المبلغ";
+"fee" = "الرسم";
+"type" = "نوع";
+"lastBlockValid" = "آخر كتلة صالحة";
+"version" = "النسخة";
+"voteBits" =  "بتات التصويت";
+"external" = "خارجية";
+"internal" = "داخلية";
+"imported" = "مستوردة";
+"nullData" = "بيانات فارغة";
+"script" = "برنامج نصي";
+"stakegen" = "stakegen";
+"inputsConsumed" = "تم استهلاك %d من المدخلات";
+"outputsCreated" = "تم إنشاء %d من المخرجات";
+"confirmations" = "%d تأكيدات";
+"confirmations" = "%d تأكيد";
+"transactionID" = "مُعرف المعاملة";
+"transferred" = "المحولة";
+"includedInBlock" = "المُدرجة في الكتلة";
+"howToCopy" = "كيفية النسخ";
+"tapOnBlueText" = "اضغط على <blue>blue text</blue> لنسخ العنصر.";
+"gotIt" = "فهمت";
+"toAccountDetail" = "نحو الحساب";
+"toDetail" = "إلى";
+"fromAccountDetail" = "من حساب";
+"fromDetail" = "من";
+"rebroadcast" = "إعادة البث";
+"rebroadcastTxSuccess" = "إعادة نشر المعاملات غير المعدنة إلى شبكة ديكريد";
+
+/* Send view */
+"invalidAmount" = "المبلغ غير صحيح.";
+"amount8Decimal" = "يحتوي المبلغ على أكثر من 8 أرقام عشرية.";
+"amount2Decimal" = "المبلغ به أكثر من رقمين عشريين.";
+"amountMaximumAllowed" = "المبلغ أكثر من الحد الأقصى المسموح به.";
+"notEnoughFunds" = "لا يوجد رصيد كافٍ.";
+"notEnoughFundsOrNotConnected" = "لا يوجد رصيد كافٍ (أو غير متصل بالإنترنت).";
+"errorGettingMaxSpendable" = "خطأ في الحصول على الحد الأقصى للمبلغ القابل للإنفاق.";
+"notConnected" = "غير متصل بشبكة ديكريد.";
+"invalidTesnetAddress" = "هذا ليس عنوان صحيح لشبكة إختبار ديكريد.";
+"invalidMainnetAddress" = "هذا ليس عنوان صحيح للشبكة الرئيسية لديكريد.";
+"invalidDestAddr" = "عنوان الوجهة غير صحيح.";
+"from" = "من:";
+"sendHeaderInfo" = "أدخل أو دَقَّق عنوان وجهة المحفظة والمبلغ بوحدات ديكريد لإرسال الأموال.";
+"destAddr" = "عنوان الوجهة";
+"exchangeRateNotFetched" = "لم يتم استرداد سعر الصرف";
+"confirmToSend" = "تأكيد الإرسال";
+"sendDCR" = "إرسال DCR";
+"paste" = "لصق";
+"selectFromAccount" = "اختر من الحساب.";
+"failedToSendTryAgain" = "فشل فى الارسال. حاول مرة اخرى.";
+"sendToSelf" = "الإرسال الذاتي";
+"sendToOthers" = "أرسل إلى جهات أخرى";
+"transactionFee" = "رسوم المعاملة";
+"processingTime" = "زمن معالجة";
+"feeRate" = "معدل الرسوم";
+"transactionSize" = "حجم المعاملة";
+"totalCost" = "التكلفة الإجمالية";
+"balanceAfterSend" = "الرصيد بعد الإرسال";
+"sendWarning" = "سيتم إرسال وحدات ديكريد الخاصة بك ولا يمكن التراجع عن هذه العملية.";
+"sendingAccount" = "حساب الإرسال";
+"toSelf" = "الإرسال الذاتي";
+"toDestinationAddress" = "إلى عنوان الوجهة";
+"destinationAddress" = "عنوان الوجهة";
+"transactionSent" = "تم إرسال المعاملة";
+
+/* Recieve */
+"walletAddrCopied" = "تم نسخ العنوان";
+"genNewAddr" = "إنشاء عنوان جديد";
+"receiveDCR" = "إستلام وحدات ديكريد DCR";
+"tapToCopy" = "(انقر للنسخ)";
+"share" = "مشاركة";
+"receivingAccount" = "حساب الاستلام";
+"receiveInfo" = "في كل مرة تطلب فيها دَفْع، سيتم إنشاء عنوان جديد لحماية خصوصيتك.";
+
+/* Wallets -> Backup seed */
+"notBackedUp" = "غير مدعومة";
+"backupSeedPhrase" = "النسخة الاحتياطية لعبارة البذرة";
+"backupWarningText" = "تحقق من النسخة الاحتياطية لعبارة البذرة حتى تتمكن من استرداد أموالك عند الحاجة.";
+
+/* Wallets -> Add new wallet */
+"createOrImportWallet" = "إنشاء أو استيراد محفظة";
+"confirmToCreateNewWallet" = "قم بالتأكيد لإنشاء محفظة جديدة";
+"confirmToImportWallet" = "قم بالتأكيد لاستيراد المحفظة";
+"walletsLimitError" = "تحديد محفظة واحدة لكل 1 جيغابايت من ذاكرة الوصول العشوائي على الجهاز";
+"walletNameReserved" = "wallet is a reserved prefix";
+"walletNameExists" = "اسم المحفظة موجود";
+"importAWatchOnlyWallet" = "استيراد محفظة المراقبة فقط";
+"createWatchOnlyWallet" = "انشاء محفظة المراقبة فقط";
+"extendedPublicKey" = "المفتاح العام الموسّع";
+"import_" = "استيراد";
+"keyIsInvalid" = "المفتاح غير صحيح";
+"disconnectAddWallet" = "قطع الاتصال/الغي المزامنة قبل إضافة المحفظة";
+
+/* Wallets -> Sign message */
+"signMessage" = "توقيع الرسالة";
+
+/* Wallets -> Verify message */
+"verifyMessage" = "التحقق من الرسالة";
+
+/* Wallets -> View property */
+"viewProperty" = "عرض الخاصية";
+
+/* Wallets -> Rename wallet */
+"rename" = "إعادة التسمية";
+"renameWallet" = "إعادة تسمية المحفظة";
+"walletName" = "إسم المحفظة";
+"walletRenamed" = "تمت إعادة تسمية المحفظة";
+
+/* Wallet Settings */
+"spendingPinPass" = "رقم التعريف السري/كلمة المرور للإنفاق";
+"changeSpendingPinPass" = "تغيير رقم التعريف السري/كلمة المرور للإنفاق";
+"notifications" = "الإشعارات";
+"incomingTransactions" = "المعاملات الواردة";
+"removeWalletFromDevice" = "إزالة المحفظة من الجهاز";
+"disconnectDeleteWallet"= "قطع الاتصال/إلغاء المزامنة قبل حذف المحفظة";
+"databaseType" = "نوع قاعدة البيانات";
+
+/* Wallet Settings -> Change Spending PIN/Password */
+"confirmToChange" = "أكد للتغيير";
+"spendingPinPassChanged" = "تم تغيير رقم التعريف الشخصي/كلمة المرور للإنفاق";
+
+/* Wallet Settings -> Notifications */
+"silent" = "صامت";
+"vibrationOnly" = "الاهتزاز فقط";
+"soundOnly" = "الصوت فقط";
+"soundAndVibration" = "الصوت و الإهتزاز";
+
+/* Wallets -> Remove wallet */
+"removeWalletWarning" = "تأكد من الاحتفاظ بنسخة احتياطية للبذرة قبل إزالة المحفظة.";
+"confirmToRemove" = "أكد للإزالة";
+"walletRemoved" = "تمت إزالة المحفظة";
+"removeWatchWalletPrompt" = "هل تريد إزالة محفظة المراقبة فقط من الجهاز؟";
+
+/* Wallets -> Account */
+"spendable" = "قابل للإنفاق";
+"immatureRewards" = "مكافآت غير ناضجة";
+"lockedByTickets" = "مقفل بالتذاكر";
+"votingAuthority" = "سلطة التصويت";
+"immatureStakeGeneration" = "إنشاء حصة غير ناضجة";
+"showProperties" = "إظهار الخصائص";
+"properties" = "الخصائص";
+"accountNumber" = "رقم الحساب";
+"hDPath" = "مسار HD";
+"keys" = "المفاتيح";
+"hideProperties" = "إخفاء الخصائص";
+"renameAccount" = "إعادة تسمية الحساب";
+"accountRenamed" = "تمت إعادة تسمية الحساب";
+"noWalletSelected" = "لم يتم تحديد المحفظة";
+"tapToSelectAccount" = "انقر لتحديد الحساب";
+"selectAccount" = "تحديد الحساب";
+
+/* Wallets -> Account -> Add new account */
+"addNewAccount" = "إضافة حساب جديد";
+"accountName" = "إسم الحساب";
+"createNewAccount" = "إنشاء حساب جديد";
+"accountCreated" = "تم إنشاء الحساب";
+"createNewAccountNotice" = "لا يمكن حذف الحسابات بمجرد إنشائها.";
+
+/* Security Tools */
+"securityTools" = "أدوات الأمان";
+"securityToolsInfo" = "ستجد هنا الأدوات المختلفة التي تساعد في جوانب مختلفة من أمان العملة الرقمية المشفرة.";
+"validateAddresses" = "التحقق من صحة العناوين";
+"validAddress" = "عنوان صحيح";
+"validOwnAddr" = "تعود ملكيته لهذه المحفظة";
+"validNotOwnAddr" = "لا تعود ملكيته لهذه المحفظة";
+"invalidAddr" = "عنوان خاطئ";
+"validate" = "التحقق ";
+"enterAnAddressToValidate" = "أدخل عنوانًا للتحقق :";
+"address" = "العنوان";
+"verifyMsgHeaderInfo" = "أدخل العنوان والتوقيع والرسالة المراد للتحقق:";
+"verifyMessage" = "التحقق من الرسالة";
+"verify" = "التحقق";
+"message" = "الرسالة";
+"signature" = "التوقيع";
+"invalidSignature" = "توقيع خاطئ";
+"verifiedSignature" = "توقيع صحيح";
+"verifyMessagepageInfo" = "بعد قيامك أنت أو الطرف المقابل بإنشاء توقيع، يمكنك استخدام هذا النموذج للتحقق من صحة التوقيع. بمجرد إدخال العنوان والرسالة والتوقيع المقابل، سترى **صحيح** إذا كان التوقيع يتطابق بشكل مناسب مع العنوان والرسالة، وإلا فإنه **غير صالح**.";
+"signMsgHeaderInfo" = "أدخل عنوانًا ورسالة للتوقيع:";
+"signMsgPageInfo" = "يتيح لك توقيع رسالة باستخدام المفتاح الخاص للعنوان إثبات أنك مالك عنوان معين لطرف مقابل محتمل.";
+"signMessage" = "توقيع الرسالة";
+"signSuccesMessage" = "رسالة موقعة";
+"signFailedMessage" = "فشل في توقيع الرسالة. الرجاء المحاولة مرة أخرى.";
+"sign" = "التوقيع";
+
+/* Politeia */
+"politeia" = "بوليتيا";
+"politeiaDetail" = "تفاصيل الإقتراح";
+"poliAbandoned" = "متخلى عنها";
+"poliInvalid" = "لاغٍ";
+"poliNotAuthorized" = "لم يتم إعطاء الإذن من المؤلف";
+"poliAuthorized" = "تم إعطاء الإذن من المؤلف";
+"poliVoteStarted" = "بدأ التصويت";
+"poliApproved" = "الموافق عليها";
+"poliRejected" = "المرفوضة";
+"poliNonExistent" = "غير موجود";
+"commentCount" = "%d تعليقات";
+"politeiaVersion" = "النسخة %@";
+"noPoliteia" = "لا توجد مقترحات للفئة المختارة.";
+"syncPoliteiaTryAgain" = "كان هناك خطأ عند تزامن بوليتيا، الرجاء المحاولة مرة أخرى في بوليتيا";
+
+/* Settings */
+"startupPinPass" = "رقم التعريف الشخصي/كلمة المرور لبدء التشغيل";
+"changeStatupPinPass" = "تغيير رقم التعريف الشخصي/كلمة المرور لبدء التشغيل";
+"spendUnconfirmedFund" = "أنفق الرصيد الغير المؤكد";
+"currencyConversion" = "تحويل العملة";
+"connectIpDesc" = "الإتصال بنظير معين";
+"userAgent" = "وكيل المستخدم";
+"userAgentInfo" = "لجلب سعر التبادل";
+"setupUserAgent" = "إعداد وكيل المستخدم";
+"syncOnWifiDesc" = "المزامنة عندما لا تكون على شبكة الواي فاي";
+"buildDate" = "تاريخ البناء";
+"walletLog" = "سجل المحفظة";
+"none" = "لا شيء";
+"rescanConfirm" = "هل أنت متأكد؟ هذا قد يستغرق بعض الوقت.";
+"rescanBlockchain" = "إعادة فحص سلسلة الكتل";
+"general" = "عام";
+"connection" = "الإتصال";
+"about" = "بخصوص";
+"debug" = "تصحيح الأخطاء";
+"notifications" = "الإشعارات";
+"checkWalletLog" = "تحقق من سجل المحفظة";
+"helpInfo" = "لمزيد من المعلومات، يرجى زيارة وثائق ديكريد.";
+"seeDocumentations" = "أنظر المستندات";
+"beepForNewBlocks" = "صوت تنبيه للكتل الجديدة";
+"enablePoliteiaNotification" = "تمكين إشعارات بوليتيا";
+"checkStatistics" = "التحقق من الإحصاءَات";
+"statistics" = "الإحصاءَات";
+"seconds" = "%d ثانية";
+"minutes" = "%d دقيقة";
+"hours" = "%d ساعات";
+"weeks" = "%d أسابيع";
+"months" = "%d أشهر";
+"years" = "%d سنة";
+"net" = "الشبكة";
+"connectPeer" = "الأقران المتصلون";
+"colorTheme" = "موضوع اللون";
+"light" = "فاتح";
+"dark" = "داكن";
+"deviceDefault" = "الجهاز الإفتراضي";
+
+/* Change startup/spending pin/pass */
+"newPasswordPlaceholder" = "كلمة مرور %@ جديدة";
+"newPINPlaceholder" = "أدخل %@ رقم التعريف الشخصي الجديد";
+"confirmNewPasswordPlaceholder" = "تأكيد %@ كلمة السر الجديدة";
+"confirmNewPINPlaceholder" = "أدخل %@ رقم التعريف الشخصي الجديد مرة أخرى";
+"change" = "تغيير";
+
+/* IP set */
+"connectToPeer" = "الاتصال بنظير";
+"peerAddressIsInvalid" = "عنوان النظير غير صحيح";
+
+/* License */
+"license" = "رخصة";
+
+/* Wallet Log */
+"copy" = "نسخ";
+"walletLogCopied" = "نسخ سجل المحفظة.";
+
+/* Transaction Notification */
+"walletNewTransaction" = "[%@] معاملة جديدة";
+"newTransaction" = "معاملة جديدة";
+"youReceived" = "لقد تلقيت %@ DCR";
+"walletTicketVoted" = "[%@] تذكرة صوتت للتو";
+"ticketVoted" = "صوتت تذكرة للتو";
+"walletTicketRevoked" = "[%@] تم إسترداد تذكرة";
+"ticketRevoked" = "تم إسترداد تذكرة";
+"voteReward" = "مكافأة الكتلة: %d DCR";
+
+/* View controller sender */
+"spending" = "الإنفاق";
+"startup" = "بدء التشغيل";
+"current" = "الحالي";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "أقل من يوم واحد";
+"oneDay" = "يوم واحد";
+"mutlipleDays" = "%d أيام";
+"minRemaining" = "%d دقيقة";
+"secRemaining" = "%d ثانية";
+
+/* Pop Ups */
+"clear" = "مسح";
+"error" = "خطأ";
+"retry" = "إعادة المحاولة";
+"ok" = "OK";
+"confirm" = "تأكيد";
+"remove" = "حذف";
+"cancel" = "إلغاء";
+"back" = "العودة";
+"clearFields" =  "مسح الحقول";
+"copiedSuccessfully" = "تم النسخ بنجاح.";
+"addrCopied" = "تم نسخ العنوان!";
+"previousOutpointCopied" = "تم نسخ نقطة النهاية السابقة!";
+"delete" = "حذف";
+"allowOnce" = "السماح مرة واحدة";
+"alwaysAllow" = "السماح دومًا";
+"notNow" = "ليس الآن";
+
+/* Other Text */
+"send" = "إرسال";
+"receive" = "إستلام";
+"settings" = "الإعدادات";
+"help" = "مساعدة";
+"gotIt" = "فهمت";
+"security" = "الأمان";
+
+/* Seed Backup Reminder */
+"keepInMind" = "ضع في اعتبارك";
+"viewSeedPhrase" = "عرض عبارة البذرة";
+"reminderLabel1" = "<bold>عبارة البذرة المكونة من 33 كلمة</bold> مهمة للغاية.";
+"reminderLabel2" = "عبارة البذرة هي <bold>الطريقة الوحيدة<bold> لاستعادة محفظتك.";
+"reminderLabel3" = "يوصى بتخزين عبارة البذرة الخاصة بك في <green>صيغة مادية</green> (على سبيل المثال تدوينها على ورقة).";
+"reminderLabel4" = "لا يُنصح بتخزين عبارة البذرة بأي <orange>صيغة رقمية</orange> (مثل لقطة شاشة).";
+"reminderLabel5" = "يمكن لأي شخص لديه عبارة البذرة الخاصة بك <orange>أن يسرق أموالك</orange>. لا تُرِيها لأي شخص.";
+
+/* Seed Words Display */
+"writeDownSeedPhrase" = "اكتب عبارة البذرة";
+"writeDownStep1_2" = "الخطوة 1/2";
+"writeDownStep2_2" = "الخطوة 2/2";
+
+/* Seed Backup Verify */
+"writeDownAll33Words" = "اكتب جميع الكلمات الـ 33 بالترتيب الصحيح.";
+"your33word" = "عبارة البذرة الخاصة بك المكونة من 33 كلمة";
+"iHaveWroteDown" = "لقد كتبتُ جميع الكلمات الـ 33";
+"verify" = "التحقق";
+"backupSuccessTitle" = "تم التحقق من النسخة الاحتياطية لعبارة البذرة";
+"backupSuccessDesc" = "تأكد من تخزين النسخة الاحتياطية لعبارة البذرة في مكان آمن.";
+"backToWallets" = "العودة إلى المحافظ";
+"failedToVerify" = "فشل في التحقق. يرجى مراجعة كل الكلمات وحاول مرة أخرى.";
+"verifying" = "جاري التحقق...";
+"verifySeedPhrase" = "تحقق من عبارة البذرة";
+"selectTheCorrectWordsToVerify" = "حدد الكلمات الصحيحة للتحقق منها.";
+"enterSeedOnNextScreen" = "سيُطلب منك إدخال عبارة البذرة في الشاشة التالية.";
+
+/* Statistics */
+"build" = "البناء";
+"peersConnected" = "النظراء المتصلون";
+"uptime" = "وقت التشغيل";
+"network" = "الشبكة";
+"bestBlock" = "أفضل كتلة";
+"bestBlockTimestamp" = "أفضل طابع زمني للكتلة";
+"bestBlockAge" = "أفضل عمر للكتلة";
+"walletFile" = "دليل بيانات المحفظة";
+"chainData" = "بيانات المحفظة";
+"accounts" = "الحسابات";
+
+/* Privacy */
+"privacy" = "الخصوصية";
+"setupMixerWithTwoAccounts" = "أعد الخلاط عن طريق إنشاء حسابين مطلوبين";
+"setupMixer" = "إعداد الخلاط";
+"beginSetup" = "بدء الإعداد";
+"setupMixerInfo" = "سيتم إنشاء حسابين مخصصين (“مخلوط” و “غير مخلوط”) من أجل استخدام الخلاط.";
+"confirmToCreateMixer" = "قم بالتأكيد لإنشاء الحسابات المطلوبة";
+"keepThisAppOpened" = "أبق هذا التطبيق مفتوحاً";
+"overviewMixerInfo" = "سيتوقف الخلاط تلقائيًا عند خلط الرصيد غير المخلوط بالكامل.";
+"mixedBalance" = "الرصيد المخلوط";
+"noUnmixedBalance" = "لا يوجد رصيد غير مخلوط";
+"mixer" = "الخلاط";
+"privacyIsHere" = "الخصوصية هنا";
+"privacyIsHereInfo" = "يمكنك الآن استخدام خلاط StakeShuffle لخلط وحدات ديكريد الخاصة بك، مباشرة في التطبيق.";
+"unmixedBalance" = "الرصيد غير المخلوط";
+"mixerSettings" = "إعدادات الخلاط";
+"unmixedAccount" = "الحساب غير المخلوط";
+"mixedAccountBranch" = "فرع الحساب المخلوط";
+"mixSever" = "خادم الخلاط";
+"serverPort" = "منفذ الخادم";
+"allowUnmixedSpending" = "السماح بالإنفاق من الحسابات غير المخلوطة";
+"allBalanceMixed" = "كل الرصيد مخلوط";
+"howCoinShuffleEnhancePrivacy" = "كيف يعزز خلاط StakeShuffle خصوصيتك؟";
+"coinShuffleInfo" = "يمكن لخلاط StakeShuffle خلط وحدات ديكريد الخاصة بك من خلال معاملات CoinJoin.";
+"mixedDCRInfo" = "يحميك استخدام وحدات ديكريد المخلوطة من كشف أنشطتك المالية للعموم (على سبيل المثال، مقدار ما تملكه، ومن يدفع لك).";
+"setUpMixerForWallet" = "إعداد خلاط لهذه المحفظة";
+"howToUseMixer" = "كيف تستخدم الخلاط؟";
+"howToUseMixerInfo" = "عند تشغيل الخلاط، سيتم خلط وحدات ديكريد غير المخلوطة في هذه المحفظة (الرصيد غير المخلوط) تدريجيًا.";
+"importantKeepThisAppRunning" = "هام: أبق هذا التطبيق مفتوحًا أثناء تشغيل الخلاط.";
+"importantKeepThisAppRunningInfo" = "سيتوقف الخلاط تلقائيًا عندما يتم خلط الرصيد غير المخلوط بالكامل.";
+"setupPrivacyHere" = "قم بإعداد الخصوصية هنا";
+"checkMixerStatus" = "تحقق من حالة الخلاط";
+"mixing" = "جاري الخلط...";
+"setupPrivacyInfo1" = "سيكون الحساب <black>المخلوط</black> هو حساب الإنفاق الخارجي.";
+"dismiss" = "رفض";
+"accountNameTaken" = "اسم الحساب مأخوذ";
+"accountNameTakenMsg" = "هناك حسابات موجودة تسمى مخلوط وغير مخلوط. يرجى تغيير الاسم إلى شيء آخر في الوقت الحالي. يمكنك تغييرها بعد الإعداد.";
+"goBackAndRename" = "عد و أعد التسمية";
+"manualSetupWarning" = "<bold>تأكد من تحديد الحسابات الموافقة للإعداد السابق</bold>. قد يؤدي عدم القيام بذلك إلى الإضرار بخصوصية المحفظة.";
+"mixedAccount" = "حساب مخلوط";
+"unMixedAccount" = "حساب غير مخلوط";
+"sameAcountCannotBeUsedForMixedAndUnmixed" = "لا يمكن استخدام نفس الحساب للخلط وغير الخلط";
+"mixerSetupCompleted" = "اكتمل إعداد الخلاط";
+"setUp" = "الإعداد";
+"manualSetup" = "الإعداد اليدوي";
+"readyToMix" = "جاهز للخلط";
+"noMixableOutput" = "الحساب غير المخلوط ليس له مخرجات قابلة للخلط";
+"mixerHasStoppedRunning" = "توقف الخلاط عن التشغيل";
+"mixerIsRuning" = "الخلاط قيد التشغيل";
+"mixersAreRuning" = "الخلاطات تعمل";
+"mixerHelperTitle" = "كيف تستخدم الخلاط؟";
+"mixerHelperDsc" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">عند تشغيل الخلاط، سيتم خلط وحدات ديكريد غير المخلوطة في هذه المحفظة (الرصيد غير المخلوط) تدريجيًا.<br/><br/><b><font color=\"#091440\">Iهام: ابق هذا التطبيق مفتوحًا أثناء تشغيل الخلاط.</font></b><br/><br/>سيتوقف الخلاط تلقائيًا عند خلط الرصيد غير المخلوط بالكامل.</span>";
+"startMixerWarning" = "سيتم إلغاء قفل محفظتك حتى يكتمل الخلط.";
+"continueText" = "المتابعة";
+"unlockToStartMixing" = "افتح محفظتك لبدء الخلط";
+"mixed" = "مخلوط";
+"mix" = "خلط";
+"newLabel" = "جديد";
+"mixTxChangeSummaryEnabled" = "ستذهب فكّة المعاملات من جميع الحسابات إلى  غير مخلوط";
+"mixTxChangeSummaryDisabled" = "فكّة المعاملات المخلوطة ستذهب إلى غير مخلوط";
+"mixTxChange" = "تغيير الخلط";
+"changeSummary" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 14px; color: #596D81\">Change of <b>%@ DCR</b> will return to \'<b>%@</b>\'";

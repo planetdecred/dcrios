@@ -18,6 +18,16 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
     
     var wallet: DcrlibwalletWallet?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            walletSyncCurrentStepReportLabel.textAlignment = .left
+            walletSyncCurrentStepProgressLabel.textAlignment = .left
+        }
+    }
+    
     func displayProgress(for wallet: DcrlibwalletWallet) {
         self.wallet = wallet
         self.walletNameLabel.text = wallet.name

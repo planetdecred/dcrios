@@ -111,6 +111,11 @@ class PoliteiaDetailController: UIViewController {
         self.yesPercentLabel.isHidden = true
         self.noPercentLabel.isHidden = true
         contentLoadingIndicator.color = UIColor.appColors.text1
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.noPercentLabel.textAlignment = .left
+        }
     }
     
     @objc func shareButtonTapped(_ sender: Any) {

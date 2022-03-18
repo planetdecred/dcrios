@@ -25,4 +25,14 @@ class AccountSelectorTableViewCell: UITableViewCell {
             self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.text1)
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.totalAccountBalanceLabel.textAlignment = .left
+            self.spendableAccountBalanceLabel.textAlignment = .left
+        }
+    }
 }

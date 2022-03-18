@@ -159,6 +159,11 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
         seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.text2.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.border.cgColor
+        let attribute = view.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            seedWordCell.seedWordAutoComplete.textAlignment = .right
+        }
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,

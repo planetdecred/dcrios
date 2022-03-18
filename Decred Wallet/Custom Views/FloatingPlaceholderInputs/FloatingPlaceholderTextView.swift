@@ -44,6 +44,14 @@ class FloatingPlaceholderTextView: UITextView {
         self.layer.addSublayer(borderLayer)
         self.layer.masksToBounds = false
         self.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .leftToRight {
+            self.textAlignment = .left
+            
+        } else {
+            self.textAlignment = .right
+        }
 
         self.addSubview(self.floatingPlaceholderLabel)
     }
@@ -62,6 +70,15 @@ class FloatingPlaceholderTextView: UITextView {
         if let lastButton = self.subviews.last(where: { $0 is UIButton }) {
             trailingAnchor = lastButton.leadingAnchor
             trailingConstant = -16
+            
+        }
+        
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .leftToRight {
+            self.textContainerInset.right += button.frame.width + abs(trailingConstant)
+        } else {
+            self.textContainerInset.right += abs(trailingConstant)
         }
 
         self.addSubview(button)
@@ -71,7 +88,6 @@ class FloatingPlaceholderTextView: UITextView {
         
         self.layoutIfNeeded()
         
-        self.textContainerInset.right += button.frame.width + abs(trailingConstant)
     }
     
     public func toggleButtonVisibility(_ button: UIButton) {

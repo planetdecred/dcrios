@@ -15,6 +15,16 @@ class WalletAccountTableViewCell: UITableViewCell {
     @IBOutlet weak var spendableAccountBalanceLabel: UILabel!
     @IBOutlet weak var separator: UIView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.totalAccountBalanceLabel.textAlignment = .left
+            self.spendableAccountBalanceLabel.textAlignment = .left
+        }
+    }
+    
     var account: DcrlibwalletAccount? {
         didSet {
             self.accountNameLabel.text = account?.name

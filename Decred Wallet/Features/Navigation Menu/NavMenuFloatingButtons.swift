@@ -33,19 +33,31 @@ class NavMenuFloatingButtons: UIView {
         self.sendButton.setImage(UIImage(named: "ic_send"), for: .normal)
         self.sendButton.setTitle(LocalizedStrings.send.localizedCapitalized, for: .normal)
         self.sendButton.set(fontSize: 17, name: "Source Sans Pro")
-        self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 24)
-        self.sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        
         self.sendButton.translatesAutoresizingMaskIntoConstraints = false
         self.sendButton.clipsToBounds = true
         self.sendButton.setTitleColor(UIColor.appColors.text, for: .normal)
         self.sendButton.addTarget(self, action: #selector(self.sendTapped), for: .touchUpInside)
 
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 22, bottom: 12, right: 10)
+            self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 8)
+            self.receiveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 8)
+            self.sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        } else {
+            self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 22)
+            self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 24)
+            self.sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+            self.receiveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        }
+    
         self.receiveButton.setImage(UIImage(named: "ic_receive"), for: .normal)
         self.receiveButton.setTitle(LocalizedStrings.receive.localizedCapitalized, for: .normal)
         self.receiveButton.set(fontSize: 17, name: "Source Sans Pro")
         self.receiveButton.setTitleColor(UIColor.appColors.text, for: .normal)
-        self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 22)
-        self.receiveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        
         self.receiveButton.translatesAutoresizingMaskIntoConstraints = false
         self.receiveButton.clipsToBounds = true
         self.receiveButton.addTarget(self, action: #selector(self.receiveTapped), for: .touchUpInside)

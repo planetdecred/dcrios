@@ -34,6 +34,15 @@ class WatchOnlyWalletTableViewCell: UITableViewCell, DropMenuButtonDelegate {
         self.setupMenuDropDown()
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            totalAccountBalanceLabel.textAlignment = .left
+        }
+    }
+    
     func setupMenuDropDown() {
         self.walletMenuButton.delegate = self
         let menuOption = [

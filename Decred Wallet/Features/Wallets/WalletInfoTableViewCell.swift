@@ -42,6 +42,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
     
     @IBOutlet weak var checkMixerStatusView: UIView!
     @IBOutlet weak var checkMixerStatusDivider: UIView!
+    @IBOutlet weak var addNewAccBtn: UIButton!
     
     var delegate: WalletInfoTableViewCellDelegate?
     var indexPath: IndexPath!
@@ -99,6 +100,17 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
                 let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
                 self.expandCollapseToggleImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
             }
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let attribute = self.semanticContentAttribute
+        let layoutDirection = UIView.userInterfaceLayoutDirection(for: attribute)
+        if layoutDirection == .rightToLeft {
+            self.addNewAccBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+            self.addNewAccBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            self.walletBalanceLabel.textAlignment = .left
         }
     }
     

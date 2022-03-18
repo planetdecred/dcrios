@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,7 +97,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="dQ1-E0-FzW"/>
                                                 </constraints>
                                             </tableView>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubD-go-W6a">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubD-go-W6a">
                                                 <rect key="frame" x="44" y="101" width="382" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="UbZ-H9-xtJ"/>
@@ -175,7 +175,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backupSeedPhrase"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify your seed words backup so you can recover your funds when needed." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HP2-nC-wPM">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify your seed phrase backup so you can recover your funds when needed." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HP2-nC-wPM">
                                                 <rect key="frame" x="56" y="40" width="314" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="YUi-OL-1u4"/>
@@ -299,6 +299,7 @@
                 <outlet property="accountsSection" destination="OnS-85-hCg" id="xVk-lm-FJi"/>
                 <outlet property="accountsTableView" destination="rkT-JM-G2U" id="Wq1-2w-a9x"/>
                 <outlet property="accountsTableViewHeightConstraint" destination="dQ1-E0-FzW" id="Bdc-S8-xAn"/>
+                <outlet property="addNewAccBtn" destination="ubD-go-W6a" id="0FG-6R-Fh1"/>
                 <outlet property="checkMixerStatusDivider" destination="cTJ-ay-uAp" id="U70-DT-7bo"/>
                 <outlet property="checkMixerStatusView" destination="hvj-xX-0DC" id="p1f-C8-j8e"/>
                 <outlet property="expandCollapseToggleImageView" destination="dbg-cF-htv" id="CPc-p2-is7"/>
