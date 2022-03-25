@@ -15,6 +15,7 @@ class ReceiveViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var addressQRCodeContainerView: UIView!
     @IBOutlet weak var addressQRCodeImageView: UIImageView!
+    @IBOutlet weak var qrCodeLogoImageView: UIImageView!
     @IBOutlet weak var walletAddressLabel: UILabel!
     @IBOutlet weak var tapToCopyContainerView: UIView!
     @IBOutlet weak var shareButtonContainerView: UIView!
@@ -82,14 +83,18 @@ class ReceiveViewController: UIViewController {
             return
         }
         
-        let swiftLeeBlackColor = UIColor.white
-        let swiftLeeLogo = UIImage(named: "ic_qr_logo")!
+        let data = address.data(using: String.Encoding.ascii)
+         if let filter = CIFilter(name: "CIQRCodeGenerator") {
+             filter.setValue(data, forKey: "inputMessage")
+             let transform = CGAffineTransform(scaleX: 3, y: 3)
 
-        if let qrURLImage = URL(string: address)?.qrImage(using: swiftLeeBlackColor, logo: swiftLeeLogo, frame: self.addressQRCodeImageView.frame) {
-            self.addressQRCodeImageView.image = UIImage(ciImage: qrURLImage)
-        } else {
-            self.addressQRCodeImageView.image = nil
-        }
+             if let output = filter.outputImage?.transformed(by: transform) {
+                self.qrCodeLogoImageView.isHidden = false
+                self.addressQRCodeImageView.image = UIImage(ciImage: output)
+             } else {
+                self.addressQRCodeImageView.image = nil
+             }
+         }
     }
 
     @IBAction func onClose(_ sender: Any) {
