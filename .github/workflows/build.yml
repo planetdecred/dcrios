@@ -29,7 +29,7 @@ jobs:
             ${{ runner.os }}-pods-
                 
       - name: CocoaPod Install
-      run: pod install
+        run: pod install
         
 #      - name: Testing Swift package
 #        run: exec sudo ./.github/scripts/test_swift_package.sh
