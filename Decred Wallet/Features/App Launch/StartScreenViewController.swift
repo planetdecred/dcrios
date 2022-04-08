@@ -370,55 +370,20 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     func authenticationWithTouchID() {
-        let localAuthenticationContext = LAContext()
-        localAuthenticationContext.localizedFallbackTitle = LocalizedStrings.promptStartupPassOrPIN
-        var authError: NSError?
-        var reasonString = ""
-        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
-            if #available(iOS 11.0, *) {
-                switch localAuthenticationContext.biometryType {
-                case .faceID:
-                    reasonString = LocalizedStrings.promptFaceIDUsageUsage
-                    break
-                case .touchID:
-                    reasonString = LocalizedStrings.promptTouchIDUsageUsage
-                    break
-                case .none:
-                    reasonString = ""
-                    break
-                @unknown default:
-                    reasonString = ""
-                    break
-                }
-            } else {
-                reasonString = ""
-            }
-            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
-                DispatchQueue.main.async {
-                if success {
-                    if let passOrPin = KeychainWrapper.standard.string(forKey: "StartupPinOrPassword") {
-                        self.openWalletsAndStartApp(startupPinOrPassword: passOrPin, dialogDelegate: nil)
-                    }
+        if LocalAuthentication.isSetupStartupSecurityAndStartAppBiometric() {
+            LocalAuthentication.localAuthenticaionStartupSecurityAndStartApp(completed: { result, error in
+                if let passOrPin = result {
+                    self.openWalletsAndStartApp(startupPinOrPassword: passOrPin, dialogDelegate: nil)
                 } else {
-                    guard let error = evaluateError else {
-                        return
-                    }
-                    print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code))
                     self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
                         self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
                     }
-                    }
                 }
-            }
+            })
         } else {
-            guard let error = authError else {
-                return
-            }
-            
             self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
                 self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
             }
-            print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
         }
     }
 }

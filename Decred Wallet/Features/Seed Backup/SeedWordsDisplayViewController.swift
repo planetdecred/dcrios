@@ -25,7 +25,7 @@ class SeedWordsDisplayViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         self.viewSeedWords.secureView()
-        self.requestPassOrPINandDisplaySeed()
+        self.requestAuthenticationToShowSeed()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -54,6 +54,28 @@ class SeedWordsDisplayViewController: UIViewController {
         self.bottomCorneredView.clipsToBounds = true
         self.bottomCorneredView.layer.cornerRadius = 14
         self.bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
+    private func requestAuthenticationToShowSeed() {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.walletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.walletID) { result, _ in
+                if let passOrPin = result {
+                    var error: NSError? = nil
+                    if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(passOrPin.utf8Bits, error: &error) {
+                        if error == nil {
+                            self.seed = decryptedSeed
+                            self.displaySeed()
+                        } else {
+                            Utils.showBanner(in: self.view, type: .error, text: error!.localizedDescription)
+                        }
+                    }
+                } else {
+                    self.requestPassOrPINandDisplaySeed()
+                }
+            }
+        } else {
+            self.requestPassOrPINandDisplaySeed()
+        }
     }
     
     func requestPassOrPINandDisplaySeed() {

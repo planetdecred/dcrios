@@ -8,6 +8,7 @@
 
 import UIKit
 import Dcrlibwallet
+import SwiftKeychainWrapper
 
 struct UnsignedTxSummary {
     var sourceAccountInfo: String
@@ -127,12 +128,30 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.sourceWalletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.sourceWalletID) { result, err in
+                if let passOrPin = result {
+                    self.broadcastUnsignedTxInBackground(privatePass: passOrPin) { err in
+                        if err == nil {
+                            self.dismissView()
+                            self.onSendCompleted?()
+                        }
+                    }
+                } else {
+                    self.sendUsingPassOrPin()
+                }
+            }
+        } else {
+            self.sendUsingPassOrPin()
+        }
+    }
+    
+    private func sendUsingPassOrPin() {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.sourceWalletID)
         Security.spending(initialSecurityType: privatePassType)
             .with(prompt: LocalizedStrings.confirmToSend)
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
-                
                 self.broadcastUnsignedTxInBackground(privatePass: privatePass) { error in
                     if error == nil {
                         dialogDelegate?.dismissDialog()

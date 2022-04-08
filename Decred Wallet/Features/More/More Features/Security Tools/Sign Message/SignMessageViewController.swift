@@ -123,7 +123,33 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     }
     
     @IBAction func signMessage(_ sender: UIButton) {
-        self.signMessage()
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.wallet.id_) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.wallet.id_, completed: { result, error in
+                if let passOrPin = result {
+                    self.processSignMsg(privatePass: passOrPin) { error in
+                        if error == nil {
+                            self.viewContHeightContraint.constant = 382
+                            self.signatureContainer.isHidden = false
+                            self.signatureText.textViewDidBeginEditing(self.signatureText)
+                            self.addressText.isUserInteractionEnabled = false
+                            self.messageText.isUserInteractionEnabled = false
+                            self.signBtn.backgroundColor = UIColor.appColors.text5
+                            self.signBtn.isEnabled = false
+                            self.signatureText.textViewDidEndEditing(self.signatureText)
+                            Utils.showBanner(in: self.viewContainer.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)
+                            
+                        } else {
+                            print("sign error:", error!.localizedDescription)
+                            Utils.showBanner(in: self.viewContainer.subviews.first!, type: .error, text: LocalizedStrings.signFailedMessage)
+                        }
+                    }
+                } else {
+                    self.signMessage()
+                }
+            })
+        } else {
+            self.signMessage()
+        }
     }
     
     @IBAction func copyInfo(_ sender: UIButton) {

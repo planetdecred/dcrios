@@ -147,43 +147,77 @@ class PrivacyViewController: UIViewController {
         
         self.showStartWarning { (ok) in
             guard ok else { return }
-            Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
-                .with(prompt: LocalizedStrings.unlockToStartMixing)
-                .with(submitBtnText: LocalizedStrings.confirm)
-                .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
-                
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        do {
-                             try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
-                             DispatchQueue.main.async {
-                                self.mixerSwitch.isOn = true
-                                dialogDelegate?.dismissDialog()
-                             }
-                         } catch let error {
-                            var errorMessage = error.localizedDescription
-                            if error.isInvalidPassphraseError {
-                                errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+            if LocalAuthentication.isWalletSetupBiometric(walletId: self.wallet.id_) {
+                LocalAuthentication.localAuthenticaionWithWallet(walletId: self.wallet.id_, completed: { result, error in
+                    if let passOrPin = result {
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            do {
+                                try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: passOrPin)
                                 DispatchQueue.main.async {
-                                    dialogDelegate?.displayError(errorMessage: errorMessage)
-                                    self.mixerSwitch.isOn = false
+                                    self.mixerSwitch.isOn = true
                                 }
-                            } else if error.localizedDescription == DcrlibwalletErrNoMixableOutput {
-                                DispatchQueue.main.async {
-                                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.noMixableOutput)
-                                    dialogDelegate?.dismissDialog()
-                                    self.mixerSwitch.isOn = false
-                                }
-                            } else {
-                                DispatchQueue.main.async {
-                                    Utils.showBanner(in: self.view, type: .error, text:errorMessage)
-                                    dialogDelegate?.dismissDialog()
-                                    self.mixerSwitch.isOn = false
+                            } catch let error {
+                                let errorMessage = error.localizedDescription
+                                if error.localizedDescription == DcrlibwalletErrNoMixableOutput {
+                                    DispatchQueue.main.async {
+                                        Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.noMixableOutput)
+                                        self.mixerSwitch.isOn = false
+                                    }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        Utils.showBanner(in: self.view, type: .error, text:errorMessage)
+                                        self.mixerSwitch.isOn = false
+                                    }
                                 }
                             }
-                         }
+                        }
+                    } else {
+                        self.mixingWithPinPass()
                     }
-                }
+                })
+            } else {
+                self.mixingWithPinPass()
+            }
         }
+    }
+    
+    func mixingWithPinPass() {
+        Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
+            .with(prompt: LocalizedStrings.unlockToStartMixing)
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
+            
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                         try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
+                         DispatchQueue.main.async {
+                            self.mixerSwitch.isOn = true
+                            dialogDelegate?.dismissDialog()
+                         }
+                     } catch let error {
+                        var errorMessage = error.localizedDescription
+                        if error.isInvalidPassphraseError {
+                            errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                            DispatchQueue.main.async {
+                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                                self.mixerSwitch.isOn = false
+                            }
+                        } else if error.localizedDescription == DcrlibwalletErrNoMixableOutput {
+                            DispatchQueue.main.async {
+                                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.noMixableOutput)
+                                dialogDelegate?.dismissDialog()
+                                self.mixerSwitch.isOn = false
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                Utils.showBanner(in: self.view, type: .error, text:errorMessage)
+                                dialogDelegate?.dismissDialog()
+                                self.mixerSwitch.isOn = false
+                            }
+                        }
+                     }
+                }
+            }
     }
     
     func showStartWarning(callback: @escaping (Bool) -> Void) {

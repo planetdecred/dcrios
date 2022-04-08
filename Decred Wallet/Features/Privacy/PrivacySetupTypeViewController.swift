@@ -61,39 +61,68 @@ class PrivacySetupTypeViewController: UIViewController {
     func AuthMixerAccount() {
         self.showReminder { ok in
             guard ok else { return }
-            Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
-                .with(prompt: LocalizedStrings.confirmToCreateMixer)
-                .with(submitBtnText: LocalizedStrings.confirm)
-                .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
-                
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        do {
-                            try self.wallet.createMixerAccounts(GlobalConstants.Strings.MIXED, unmixedAccount: GlobalConstants.Strings.UNMIXED, privPass: spendingCode)
-                            WalletLoader.shared.multiWallet.setBoolConfigValueForKey("has_setup_privacy", value: true)
-                            
-                            DispatchQueue.main.async {
-                                dialogDelegate?.dismissDialog()
+            if LocalAuthentication.isWalletSetupBiometric(walletId: self.wallet.id_) {
+                LocalAuthentication.localAuthenticaionWithWallet(walletId: self.wallet.id_, completed: { result, error in
+                    if let passOrPin = result {
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            do {
+                                try self.wallet.createMixerAccounts(GlobalConstants.Strings.MIXED, unmixedAccount: GlobalConstants.Strings.UNMIXED, privPass: passOrPin)
+                                WalletLoader.shared.multiWallet.setBoolConfigValueForKey("has_setup_privacy", value: true)
                                 
-                                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerSetupCompleted)
-                                
-                                let PrivacyViewVC = PrivacyViewController.instantiate(from: .Privacy)
-                                PrivacyViewVC.wallet = self.wallet
-                                self.navigationController?.pushViewController(PrivacyViewVC, animated: true)
-                                
-                            }
-                        } catch let error {
-                            DispatchQueue.main.async {
-                                var errorMessage = error.localizedDescription
-                                if error.isInvalidPassphraseError {
-                                    errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                DispatchQueue.main.async {
+                                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerSetupCompleted)
+                                    let PrivacyViewVC = PrivacyViewController.instantiate(from: .Privacy)
+                                    PrivacyViewVC.wallet = self.wallet
+                                    self.navigationController?.pushViewController(PrivacyViewVC, animated: true)
+                                    
                                 }
-                                Utils.showBanner(in: self.view, type: .error, text: errorMessage)
-                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                            } catch let error {
+                                print("sign error:", error.localizedDescription)
+                                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
                             }
                         }
+                    } else {
+                        self.autoSetupByPinPass()
                     }
+                })
+            } else {
+                self.autoSetupByPinPass()
             }
+        }
+    }
+    
+    func autoSetupByPinPass() {
+        Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
+            .with(prompt: LocalizedStrings.confirmToCreateMixer)
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
             
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        try self.wallet.createMixerAccounts(GlobalConstants.Strings.MIXED, unmixedAccount: GlobalConstants.Strings.UNMIXED, privPass: spendingCode)
+                        WalletLoader.shared.multiWallet.setBoolConfigValueForKey("has_setup_privacy", value: true)
+                        
+                        DispatchQueue.main.async {
+                            dialogDelegate?.dismissDialog()
+                            
+                            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerSetupCompleted)
+                            
+                            let PrivacyViewVC = PrivacyViewController.instantiate(from: .Privacy)
+                            PrivacyViewVC.wallet = self.wallet
+                            self.navigationController?.pushViewController(PrivacyViewVC, animated: true)
+                            
+                        }
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            var errorMessage = error.localizedDescription
+                            if error.isInvalidPassphraseError {
+                                errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                            }
+                            Utils.showBanner(in: self.view, type: .error, text: errorMessage)
+                            dialogDelegate?.displayError(errorMessage: errorMessage)
+                        }
+                    }
+                }
         }
     }
 
