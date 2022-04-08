@@ -31,6 +31,9 @@ jobs:
       - name: CocoaPod Install
         run: pod install
         
+      - name: Build Dcrlibwallet
+        run: ./dcrlibwallet-ci-build.sh
+        
 #      - name: Testing Swift package
 #        run: exec sudo ./.github/scripts/test_swift_package.sh
         
