@@ -39,7 +39,7 @@ class PrivacyViewController: UIViewController {
         self.walletName.text = wallet.name
         
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
-        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(txNotificationListener, async: true, uniqueIdentifier: "\(self)")
         
         let accountMixerNotification = self as DcrlibwalletAccountMixerNotificationListenerProtocol
         try? WalletLoader.shared.multiWallet.add(accountMixerNotification, uniqueIdentifier: "\(self)")
@@ -109,7 +109,7 @@ class PrivacyViewController: UIViewController {
     
     @objc func appMovedToForeground() {
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
-        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(txNotificationListener, async: true, uniqueIdentifier: "\(self)")
         self.setMixerStatus()
     }
     

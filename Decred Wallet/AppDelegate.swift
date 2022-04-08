@@ -165,6 +165,17 @@ extension AppDelegate: UIApplicationDelegate {
         }
     }
     
+    func applicationWillResignActive(_ application: UIApplication) {
+        //Blur snaphshot
+        blurPresentedView()
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        //Remove Blur
+        unblurPresentedView()
+        
+    }
+    
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if WalletLoader.shared.isInitialized {
             if SyncManager.shared.isSyncing || SyncManager.shared.isSynced {
@@ -214,5 +225,49 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound, .badge])
+    }
+}
+
+private let blurViewtag = 198489
+
+extension AppDelegate {
+    
+    func blurPresentedView() {
+        //return if bluered view with hardcoded tag is added to main window
+        if (self.window?.viewWithTag(blurViewtag) != nil){
+            return
+        }
+        
+        let snapshot  = bluredSnapshot();
+        self.window?.addSubview(snapshot!)
+    }
+    
+    //find and remove blured view
+    func unblurPresentedView() {
+        self.window?.viewWithTag(blurViewtag)?.removeFromSuperview()
+    }
+    
+    func bluredSnapshot () -> UIView? {
+        //take window snapshot
+        //and add blurView to it
+        let snapshot = self.window?.snapshotView(afterScreenUpdates: true)
+        snapshot?.addSubview(blurView(frame: (snapshot?.frame)!))
+        snapshot?.tag = blurViewtag
+        return snapshot
+    }
+    
+    func blurView(frame: CGRect)->UIView {
+        //iOS 8 and later
+        switch UIDevice.current.systemVersion.compare("8.0.0", options: .numeric) {
+        case .orderedSame, .orderedDescending:
+            let view    = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            view.frame  = frame
+            return view
+        //Other
+        case .orderedAscending:
+            let toolbar      = UIToolbar(frame: frame)
+            toolbar.barStyle = UIBarStyle.blackTranslucent;
+            return toolbar
+        }
     }
 }

@@ -46,7 +46,7 @@ class ReceiveViewController: UIViewController {
         self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
         self.selectedAccountView.selectFirstValidWalletAccount()
         // register for new transactions notifications
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, async: true, uniqueIdentifier: "\(self)")
     }
 
     @objc func copyAddress() {
