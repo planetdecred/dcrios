@@ -9,8 +9,8 @@ jobs:
       - name: Clone Repo
         uses: actions/checkout@v1
         
-      - name: Force XCode 11.3
-        run: sudo xcode-select -switch /Applications/Xcode_11.3.app
+      - name: Force XCode 13.0
+        run: sudo xcode-select -switch /Applications/Xcode_13.0.app
         
       - name: Testing Swift package
         run: exec ./.github/scripts/test_swift_package.sh
