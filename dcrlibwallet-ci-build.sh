@@ -32,4 +32,4 @@ git clone https://github.com/planetdecred/dcrlibwallet $GOPATH/src/github.com/pl
 cd $GOPATH/src/github.com/planetdecred/dcrlibwallet
 export GO111MODULE=on && go mod vendor && export GO111MODULE=off
 gomobile bind -target=ios
-cp Dcrlibwallet.xcframework $DcriosDir/libs/Dcrlibwallet.xcframework && cd $DcriosDir
+cp Dcrlibwallet.framework $DcriosDir/libs/Dcrlibwallet.framework && cd $DcriosDir
