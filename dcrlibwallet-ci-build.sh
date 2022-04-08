@@ -1,14 +1,21 @@
 installGo(){
     echo "Installing golang"
-    curl -O https://storage.googleapis.com/golang/go1.12.9.darwin-amd64.tar.gz
-    sha256sum go1.12.9.darwin-amd64.tar.gz
-    tar -xvf go1.12.9.darwin-amd64.tar.gz
+    curl -O https://storage.googleapis.com/golang/go1.16.7.darwin-amd64.tar.gz
+    sha256sum go1.16.7.darwin-amd64.tar.gz
+    tar -xvf go1.16.7.darwin-amd64.tar.gz
     sudo chown -R root:root ./go
     sudo mv go /usr/local
 }
 
+installGobind(){
+    echo "Installing gobind"
+    export GO111MODULE=off
+    go get -u golang.org/x/mobile/cmd/gobind
+}
+
 installGomobile(){
     echo "Installing gomobile"
+    export GO111MODULE=off
     go get -u golang.org/x/mobile/cmd/gomobile
     gomobile init
 }
@@ -20,9 +27,14 @@ fi
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
+if !(hash gobind 2>/dev/null); then
+    installGobind
+fi
+
 if !(hash gomobile 2>/dev/null); then
     installGomobile
 fi
+
 
 go version
 echo "Building dcrlibwallet"
