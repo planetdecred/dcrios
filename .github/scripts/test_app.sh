@@ -4,5 +4,5 @@ set -eo pipefail
 
 xcodebuild -workspace Decred\ Wallet.xcworkspace \
             -scheme Decred\ Wallet\ Testnet \
-            -destination platform=iOS\ Simulator,OS=13.3,name=iPhone\ 11 \
+            -destination platform=iOS\ Simulator,OS=15.0,name=iPhone\ 12\ Pro\ Max \
             clean test | xcpretty
