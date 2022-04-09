@@ -257,6 +257,7 @@ struct LocalizedStrings {
     static let destinationAddress = NSLocalizedString("destinationAddress", comment: "")
     static let toSelf = NSLocalizedString("toSelf", comment: "")
     static let transactionSent = NSLocalizedString("transactionSent", comment: "")
+    static let tx_size_info = NSLocalizedString("tx_size_info", comment: "")
     
     /* Recieve */
     static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")

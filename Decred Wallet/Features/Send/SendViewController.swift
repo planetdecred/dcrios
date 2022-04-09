@@ -272,6 +272,14 @@ class SendViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func txByteSizeInfoButtonTapped(_ sender: Any) {
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.transactionSize,
+                               attribMessage: LocalizedStrings.tx_size_info.htmlToAttributedString,
+                                  okButtonText: LocalizedStrings.gotIt,
+                                  callback: nil)
+    }
+    
     @IBAction func overflowMenuButtonTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
