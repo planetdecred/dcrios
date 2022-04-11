@@ -87,13 +87,12 @@ class RestoreExistingWalletUITest: XCTestCase {
         sleep(1)
                
         // display wallet menu
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let walletMenu = app.tables.buttons["more_button"]
         walletMenu.tap()
-               
+        
         sleep(1)
-               
-        //select wallet settings
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        
+        let setting = app.tables.cells.element(boundBy: 5)
         setting.tap()
                
         sleep(1)
@@ -179,13 +178,12 @@ class RestoreExistingWalletUITest: XCTestCase {
         sleep(1)
         
         // display wallet menu
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let walletMenu = app.tables.buttons["more_button"]
         walletMenu.tap()
-               
+        
         sleep(1)
         
-        //select wallet settings
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        let setting = app.tables.cells.element(boundBy: 5)
         setting.tap()
                
         sleep(1)

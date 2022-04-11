@@ -37,21 +37,21 @@ class Decred_WalletUITests: XCTestCase {
             return true
         }
         app.tap()
-        
+
         let createNewWallet = app.buttons.element(matching: .button, identifier: "createNewWallet")
         if createNewWallet.waitForExistence(timeout: 5) {
             createNewWallet.tap()
         }
-        
+
         sleep(1)
-        
+
         // switch to PIN setup
         app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
+
         sleep(1)
-        
+
         self.createPIN(app: app)
-        
+
         let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
         createBtn.tap()
         
@@ -71,12 +71,12 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let walletMenu = app.tables.buttons["more_button"]
         walletMenu.tap()
         
         sleep(1)
         
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        let setting = app.tables.cells.element(boundBy: 5)
         setting.tap()
         
         sleep(1)
@@ -146,13 +146,12 @@ class Decred_WalletUITests: XCTestCase {
         sleep(1)
         
         // display wallet menu
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let walletMenu = app.tables.buttons["more_button"]
         walletMenu.tap()
         
         sleep(1)
         
-        // select wallet settings
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        let setting = app.tables.cells.element(boundBy: 5)
         setting.tap()
         
         sleep(1)
