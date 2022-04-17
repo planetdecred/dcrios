@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,14 +22,14 @@
             <objects>
                 <viewController storyboardIdentifier="SimpleTextInputDialog" id="lI7-ED-syP" customClass="SimpleTextInputDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fo7-Pn-9G4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTz-zL-ye2">
-                                <rect key="frame" x="0.0" y="387.5" width="600" height="212.5"/>
+                                <rect key="frame" x="0.0" y="681.5" width="414" height="214.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rename wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjt-85-hFY">
-                                        <rect key="frame" x="24" y="24" width="131.5" height="23.5"/>
+                                        <rect key="frame" x="24" y="24" width="127.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
@@ -36,7 +38,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ylK-Qf-Xvq" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="72.5" width="552" height="48"/>
+                                        <rect key="frame" x="24" y="74.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="dXt-3n-nbc"/>
                                         </constraints>
@@ -45,16 +47,16 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtQ-yz-NH0">
-                                        <rect key="frame" x="40" y="124.5" width="520" height="14"/>
+                                        <rect key="frame" x="40" y="126.5" width="334" height="15.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIU-cW-IVU">
-                                        <rect key="frame" x="24" y="148.5" width="552" height="40"/>
+                                        <rect key="frame" x="24" y="150.5" width="366" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
-                                                <rect key="frame" x="385" y="0.0" width="79" height="40"/>
+                                                <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="Bxs-ka-H7H"/>
                                                 </constraints>
@@ -67,7 +69,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-Rx-7Vj" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="472" y="0.0" width="80" height="40"/>
+                                                <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="2fF-Rm-qey"/>
@@ -105,7 +107,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G04-cX-21S">
-                                        <rect key="frame" x="536" y="16" width="40" height="40"/>
+                                        <rect key="frame" x="350" y="17" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="xdp-64-69i"/>
                                         </constraints>
@@ -115,13 +117,13 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts CANNOT be deleted once created." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgi-5J-iZK">
-                                        <rect key="frame" x="47" y="67.5" width="529" height="19.5"/>
+                                        <rect key="frame" x="47" y="69.5" width="343" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" name="text3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OCN-qH-Fxa">
-                                        <rect key="frame" x="24" y="67.5" width="18" height="18"/>
+                                        <rect key="frame" x="24" y="69.5" width="18" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="18" id="57g-DN-9LQ"/>
                                             <constraint firstAttribute="height" constant="18" id="lr6-JL-JPw"/>
@@ -201,14 +203,14 @@
             <objects>
                 <viewController storyboardIdentifier="SimpleOkCancelDialog" id="LZB-Of-VZX" customClass="SimpleOkCancelDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kNU-Ch-3hY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PES-gD-iwp" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="212" width="520" height="176"/>
+                                <rect key="frame" x="40" y="362" width="334" height="182.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove wallet from device?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-2k-s0e">
-                                        <rect key="frame" x="24" y="20" width="472" height="23.5"/>
+                                        <rect key="frame" x="24" y="20" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
@@ -217,7 +219,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to have the seed words backed up before removing the wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vZ-fQ-jXH">
-                                        <rect key="frame" x="24" y="55.5" width="472" height="37.5"/>
+                                        <rect key="frame" x="24" y="57.5" width="286" height="40.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" name="text2"/>
                                         <nil key="highlightedColor"/>
@@ -226,7 +228,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
-                                        <rect key="frame" x="334" y="128" width="79" height="40"/>
+                                        <rect key="frame" x="151" y="134.5" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="d1a-d2-FwU"/>
                                         </constraints>
@@ -239,7 +241,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="421" y="128" width="91" height="40"/>
+                                        <rect key="frame" x="238" y="134.5" width="88" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="DY3-ip-ejk"/>
@@ -266,7 +268,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This action cannot be undone." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1IQ-bS-Ofp">
-                                        <rect key="frame" x="24" y="101" width="472" height="19"/>
+                                        <rect key="frame" x="24" y="106" width="286" height="20.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
@@ -328,14 +330,14 @@
             <objects>
                 <viewController storyboardIdentifier="CheckableListDialogViewController" id="1C2-Ut-oCm" customClass="CheckableListDialogViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2ZD-Ch-Wwe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JnU-Wj-3OK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="194.5" width="246" height="211.5"/>
+                                <rect key="frame" x="40" y="346.5" width="334" height="213.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming transactions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lw-6t-u7h">
-                                        <rect key="frame" x="24" y="20" width="198" height="23.5"/>
+                                        <rect key="frame" x="24" y="20" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
@@ -344,14 +346,14 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-B1-oIO">
-                                        <rect key="frame" x="0.0" y="55.5" width="246" height="100"/>
+                                        <rect key="frame" x="0.0" y="57.5" width="334" height="100"/>
                                         <color key="backgroundColor" name="surface"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Mgh-sQ-tVk"/>
                                         </constraints>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
-                                        <rect key="frame" x="71" y="163.5" width="79" height="40"/>
+                                        <rect key="frame" x="159" y="165.5" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="040-Mu-D1E"/>
                                         </constraints>
@@ -364,7 +366,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="158" y="163.5" width="80" height="40"/>
+                                        <rect key="frame" x="246" y="165.5" width="80" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="8yz-wZ-sgh"/>
@@ -440,14 +442,14 @@
             <objects>
                 <viewController storyboardIdentifier="AccountSelectorDialog" id="av6-KY-cBT" customClass="AccountSelectorDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WcX-Ey-3iX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STI-8m-ryV">
-                                <rect key="frame" x="0.0" y="383" width="600" height="217"/>
+                                <rect key="frame" x="0.0" y="645" width="414" height="251"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAW-47-8yR">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ju-bFE">
                                                 <rect key="frame" x="20" y="21" width="24" height="24"/>
@@ -462,7 +464,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVC-da-btr">
-                                                <rect key="frame" x="66" y="21.5" width="514" height="23.5"/>
+                                                <rect key="frame" x="66" y="20.5" width="328" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                                 <color key="textColor" name="text1"/>
                                                 <nil key="highlightedColor"/>
@@ -479,14 +481,14 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGa-cu-Ijj">
-                                        <rect key="frame" x="0.0" y="65" width="600" height="1"/>
+                                        <rect key="frame" x="0.0" y="65" width="414" height="1"/>
                                         <color key="backgroundColor" name="colorDivider"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="ZBu-hu-oyn"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="67" width="600" height="150"/>
+                                        <rect key="frame" x="0.0" y="67" width="414" height="150"/>
                                         <color key="backgroundColor" name="surface"/>
                                     </tableView>
                                 </subviews>
@@ -537,20 +539,20 @@
             <objects>
                 <viewController storyboardIdentifier="MultipleTextInputDialog" id="Gv8-Qc-Xel" customClass="MultipleTextInputDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PfO-3P-Ghe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jix-Yz-rr0">
-                                <rect key="frame" x="0.0" y="315" width="600" height="285"/>
+                                <rect key="frame" x="0.0" y="606" width="414" height="290"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create watch only wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="CPF-2i-5k9">
-                                        <rect key="frame" x="24" y="24" width="552" height="23.5"/>
+                                        <rect key="frame" x="24" y="24" width="366" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAs-jd-Gqe" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="71.5" width="552" height="48"/>
+                                        <rect key="frame" x="24" y="73.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="kXE-rI-pu8"/>
                                         </constraints>
@@ -559,16 +561,16 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmK-hg-wIe">
-                                        <rect key="frame" x="40" y="123.5" width="520" height="14"/>
+                                        <rect key="frame" x="40" y="125.5" width="334" height="15.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xk-ob-U2x">
-                                        <rect key="frame" x="24" y="217.5" width="552" height="40"/>
+                                        <rect key="frame" x="24" y="222.5" width="366" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
-                                                <rect key="frame" x="385" y="0.0" width="79" height="40"/>
+                                                <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="LCb-xO-O2J"/>
                                                 </constraints>
@@ -581,7 +583,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="472" y="0.0" width="80" height="40"/>
+                                                <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.76862745098039209" green="0.80000000000000004" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5yr-xc-NfZ"/>
@@ -619,7 +621,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EGJ-n8-btt" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="145.5" width="552" height="48"/>
+                                        <rect key="frame" x="24" y="149" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="7Qz-7x-2Mm"/>
                                         </constraints>
@@ -628,7 +630,7 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsG-gz-XtA">
-                                        <rect key="frame" x="40" y="197.5" width="552" height="14"/>
+                                        <rect key="frame" x="40" y="201" width="366" height="15.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -695,17 +697,17 @@
             <objects>
                 <viewController storyboardIdentifier="SimpleAlertDialog" id="w3b-qY-2hb" customClass="SimpleAlertDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qLy-Uh-r7e">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hom-zh-h19" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="178.5" width="520" height="243.5"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hom-zh-h19" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="40" y="318" width="334" height="270"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jVx-IZ-qCJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="520" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="80"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert" translatesAutoresizingMaskIntoConstraints="NO" id="d7i-SN-VeK">
-                                                <rect key="frame" x="235" y="0.0" width="50" height="80"/>
+                                                <rect key="frame" x="142" y="0.0" width="50" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="H3y-wb-KSP"/>
                                                     <constraint firstAttribute="width" constant="50" id="gUs-NH-hlf"/>
@@ -715,20 +717,20 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.040334032071347267" colorSpace="custom" customColorSpace="displayP3"/>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Name is taken" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="BTN-ql-GEd">
-                                        <rect key="frame" x="24" y="88" width="472" height="23.5"/>
+                                        <rect key="frame" x="24" y="88" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" name="text1"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yR8-ps-0nz">
-                                        <rect key="frame" x="24" y="123.5" width="472" height="56"/>
+                                        <rect key="frame" x="24" y="125.5" width="286" height="80.5"/>
                                         <string key="text">There are existing account named mixed and unmixed. Please change the name to something else for now. You can change them after the setup.</string>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" name="text2"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XI0-Td-fU0" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="346" y="195.5" width="166" height="40"/>
+                                        <rect key="frame" x="169" y="222" width="157" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Nen-0F-W7p"/>
@@ -755,7 +757,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awo-Ox-dBF">
-                                        <rect key="frame" x="24" y="187.5" width="472" height="0.0"/>
+                                        <rect key="frame" x="24" y="214" width="286" height="0.0"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -781,7 +783,7 @@
                                     <constraint firstItem="Awo-Ox-dBF" firstAttribute="leading" secondItem="hom-zh-h19" secondAttribute="leading" constant="24" id="e5e-s9-55D"/>
                                     <constraint firstItem="BTN-ql-GEd" firstAttribute="top" secondItem="jVx-IZ-qCJ" secondAttribute="bottom" constant="8" id="hVx-br-mOj"/>
                                     <constraint firstItem="XI0-Td-fU0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yR8-ps-0nz" secondAttribute="bottom" constant="16" id="llt-Q5-ZEH"/>
-                                    <constraint firstItem="BTN-ql-GEd" firstAttribute="top" relation="lessThanOrEqual" secondItem="hom-zh-h19" secondAttribute="top" constant="100" id="pzp-sq-FZc"/>
+                                    <constraint firstItem="BTN-ql-GEd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hom-zh-h19" secondAttribute="top" constant="20" id="pzp-sq-FZc"/>
                                     <constraint firstItem="BTN-ql-GEd" firstAttribute="leading" secondItem="hom-zh-h19" secondAttribute="leading" constant="24" id="rLI-hZ-2nf"/>
                                     <constraint firstItem="XI0-Td-fU0" firstAttribute="top" secondItem="Awo-Ox-dBF" secondAttribute="bottom" constant="8" id="ua3-UP-Pag"/>
                                 </constraints>
@@ -805,6 +807,7 @@
                         <outlet property="alertIcon" destination="d7i-SN-VeK" id="xr8-jU-4Al"/>
                         <outlet property="messageLabel" destination="yR8-ps-0nz" id="4jb-OA-ary"/>
                         <outlet property="okBtn" destination="XI0-Td-fU0" id="Ns8-pO-NLs"/>
+                        <outlet property="stackHeader" destination="jVx-IZ-qCJ" id="RtS-Ax-ocL"/>
                         <outlet property="titleLabel" destination="BTN-ql-GEd" id="Irg-g8-SEw"/>
                         <outlet property="warningTextLabel" destination="Awo-Ox-dBF" id="u1k-lW-HtI"/>
                     </connections>
@@ -814,6 +817,32 @@
             <point key="canvasLocation" x="3693" y="-33"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Bso-LG-2oW">
+            <size key="intrinsicContentSize" width="88" height="21"/>
+        </designable>
+        <designable name="EGJ-n8-btt">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+        <designable name="GAs-jd-Gqe">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+        <designable name="RpI-Rx-7Vj">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="US8-5M-GYa">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="XI0-Td-fU0">
+            <size key="intrinsicContentSize" width="157" height="21"/>
+        </designable>
+        <designable name="Ycs-gD-CQg">
+            <size key="intrinsicContentSize" width="52" height="21"/>
+        </designable>
+        <designable name="ylK-Qf-Xvq">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_alert" width="16" height="16"/>
         <image name="ic_close" width="24" height="24"/>

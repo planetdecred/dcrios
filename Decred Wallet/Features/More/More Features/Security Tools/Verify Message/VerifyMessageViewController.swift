@@ -119,9 +119,11 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     }
     
     @objc func pageInfo(){
-        let alertController = UIAlertController(title: LocalizedStrings.verifyMessage, message: LocalizedStrings.verifyMessagepageInfo, preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.verifyMessage,
+                               message: LocalizedStrings.verifyMessagepageInfo,
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
     
     @IBAction func verifyMsg(_ sender: Any) {
