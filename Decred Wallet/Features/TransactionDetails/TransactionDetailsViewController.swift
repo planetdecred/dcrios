@@ -272,27 +272,11 @@ class TransactionDetailsViewController: UIViewController {
     
     @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: LocalizedStrings.howToCopy,
-                                                    message: "",
-                                                    preferredStyle: UIAlertController.Style.alert)
-
-            let blueTextColorStyle = AttributedStringStyle(tag: "blue",
-                                                           font: UIFont.systemFont(ofSize: 14),
-                                                           color: UIColor.appColors.primary)
-
-            let defaultTextStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
-                                                         color: UIColor.appColors.text1)
-
-            let infoMessage = Utils.styleAttributedString(LocalizedStrings.tapOnBlueText,
-                                                           styles: [blueTextColorStyle],
-                                                           defaultStyle: defaultTextStyle)
-
-            alertController.setValue(infoMessage, forKey: "attributedMessage")
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt,
-                                                    style: UIAlertAction.Style.default,
-                                                    handler: nil))
-
-            self.present(alertController, animated: true, completion: nil)
+            SimpleAlertDialog.show(sender: self,
+                                   title: LocalizedStrings.howToCopy,
+                                   attribMessage: LocalizedStrings.tapOnBlueText.htmlToAttributedString,
+                                   okButtonText: LocalizedStrings.gotIt,
+                                   callback: nil)
         }
     }
 

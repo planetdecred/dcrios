@@ -107,9 +107,11 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     }
     
     @objc func pageInfo() {
-        let alertController = UIAlertController(title: LocalizedStrings.signMessage, message: LocalizedStrings.signMsgPageInfo, preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.signMessage,
+                               message: LocalizedStrings.signMsgPageInfo,
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
     
     @objc func textFieldChanged() {

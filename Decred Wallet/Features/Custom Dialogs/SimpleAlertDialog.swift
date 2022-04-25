@@ -14,6 +14,7 @@ class SimpleAlertDialog: UIViewController {
     @IBOutlet weak var okBtn: Button!
     @IBOutlet weak var warningTextLabel: UILabel!
     @IBOutlet weak var alertIcon: UIImageView!
+    @IBOutlet weak var stackHeader: UIStackView!
     
     private var dialogTitle: String!
     private var message: String!
@@ -29,7 +30,7 @@ class SimpleAlertDialog: UIViewController {
                      warningText: String? = nil,
                      cancelButtonText: String? = nil,
                      okButtonText: String? = nil,
-                     hideAlertIcon: Bool? = true,
+                     hideAlertIcon: Bool = true,
                      callback: ((_ ok: Bool) -> Void)?) {
         
         let dialog = SimpleAlertDialog.instantiate(from: .CustomDialogs)
@@ -51,7 +52,7 @@ class SimpleAlertDialog: UIViewController {
                      warningText: String? = nil,
                      cancelButtonText: String? = nil,
                      okButtonText: String? = nil,
-                     hideAlertIcon: Bool? = true,
+                     hideAlertIcon: Bool = true,
                      callback: ((_ ok: Bool) -> Void)?) {
         
         let dialog = SimpleAlertDialog.instantiate(from: .CustomDialogs)
@@ -81,6 +82,9 @@ class SimpleAlertDialog: UIViewController {
         self.warningTextLabel.text = self.warningText
         self.okBtn.setTitle(self.okButtonText ?? LocalizedStrings.ok, for: .normal)
         self.alertIcon.isHidden = self.hideAlertIcon
+        if self.hideAlertIcon {
+            self.stackHeader.backgroundColor = UIColor.appColors.surface
+        }
     }
     
     @IBAction func okButtonTapped(_ sender: Any) {

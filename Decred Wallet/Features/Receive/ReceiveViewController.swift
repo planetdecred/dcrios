@@ -99,13 +99,11 @@ class ReceiveViewController: UIViewController {
 
     @IBAction func infoMenuButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: LocalizedStrings.receiveDCR,
-                                                    message: LocalizedStrings.receiveInfo,
-                                                    preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt,
-                                                    style: UIAlertAction.Style.default,
-                                                    handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+            SimpleAlertDialog.show(sender: self,
+                                   title: LocalizedStrings.receiveDCR,
+                                   message: LocalizedStrings.receiveInfo,
+                                   okButtonText: LocalizedStrings.gotIt,
+                                   callback: nil)
         }
     }
 

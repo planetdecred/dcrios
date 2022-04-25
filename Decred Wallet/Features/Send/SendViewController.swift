@@ -266,18 +266,19 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func infoMenuButtonTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: LocalizedStrings.sendDCR, message: LocalizedStrings.sendHeaderInfo, preferredStyle: .alert)
-        let gotItAction = UIAlertAction(title: LocalizedStrings.gotIt, style: .cancel, handler: nil)
-        alertController.addAction(gotItAction)
-        present(alertController, animated: true, completion: nil)
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.sendDCR,
+                               message: LocalizedStrings.sendHeaderInfo,
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
     
     @IBAction func txByteSizeInfoButtonTapped(_ sender: Any) {
         SimpleAlertDialog.show(sender: self,
                                title: LocalizedStrings.transactionSize,
                                attribMessage: LocalizedStrings.tx_size_info.htmlToAttributedString,
-                                  okButtonText: LocalizedStrings.gotIt,
-                                  callback: nil)
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
     
     @IBAction func overflowMenuButtonTapped(_ sender: UIView) {

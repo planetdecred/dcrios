@@ -18,10 +18,11 @@ class PoliteiaWelcomeController: UIViewController {
     }
     
     @IBAction func onInfoTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: LocalizedStrings.governance, message: LocalizedStrings.poliWelcomInfo, preferredStyle: .alert)
-        let gotItAction = UIAlertAction(title: LocalizedStrings.gotIt, style: .cancel, handler: nil)
-        alertController.addAction(gotItAction)
-        present(alertController, animated: true, completion: nil)
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.governance,
+                               message: LocalizedStrings.poliWelcomInfo,
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
     
     @IBAction func onFetchProposalsTapped(_ sender: Any) {
