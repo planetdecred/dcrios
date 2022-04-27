@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -90,7 +90,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="877.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7K-3J-yiV">
-                                                <rect key="frame" x="8" y="0.0" width="398" height="890"/>
+                                                <rect key="frame" x="8" y="0.0" width="398" height="892.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Se0-MS-xbk" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="125"/>
@@ -141,7 +141,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yZ1-l0-nEc" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="133" width="398" height="154.5"/>
+                                                        <rect key="frame" x="0.0" y="133" width="398" height="157"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aua-j2-wqg">
                                                                 <rect key="frame" x="16" y="16" width="14.5" height="18"/>
@@ -166,10 +166,10 @@
                                                                 </connections>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kma-kO-ySG">
-                                                                <rect key="frame" x="16" y="50" width="366" height="88.5"/>
+                                                                <rect key="frame" x="16" y="50" width="366" height="91"/>
                                                                 <subviews>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-oq-YJC" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="73"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="75.5"/>
                                                                         <color key="backgroundColor" name="surface"/>
                                                                         <color key="textColor" systemColor="labelColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -180,7 +180,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Invalid address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19H-1W-F1v" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="73" width="366" height="15.5"/>
+                                                                        <rect key="frame" x="0.0" y="75.5" width="366" height="15.5"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -236,7 +236,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fie-VD-jFK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="295.5" width="398" height="140"/>
+                                                        <rect key="frame" x="0.0" y="298" width="398" height="140"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZf-lR-xrW">
                                                                 <rect key="frame" x="16" y="22" width="14.5" height="18"/>
@@ -302,7 +302,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-6r-dFg" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="443.5" width="398" height="446.5"/>
+                                                        <rect key="frame" x="0.0" y="446" width="398" height="446.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="q2W-cT-s6V">
                                                                 <rect key="frame" x="16" y="16" width="366" height="18"/>
@@ -1049,9 +1049,11 @@
                         <outlet property="balanceAfterSendLabel" destination="lPq-24-2mO" id="awH-8n-fH4"/>
                         <outlet property="destinationInfoLabel" destination="JLL-4K-S63" id="a1v-y8-OWd"/>
                         <outlet property="destinationTypeLabel" destination="0An-yk-jZi" id="LNe-Rb-hg0"/>
+                        <outlet property="infoLabel" destination="gav-BH-WCe" id="chv-ox-uct"/>
                         <outlet property="sendButton" destination="zuF-dd-eap" id="YMs-jH-ZIK"/>
                         <outlet property="sendingAmountLabel" destination="lxH-eS-8vg" id="fcR-1K-Z2n"/>
                         <outlet property="sendingFromLabel" destination="Ijc-AC-2ul" id="9Z8-1u-OOg"/>
+                        <outlet property="titleLabel" destination="xZE-vD-HWT" id="WNu-hP-SNm"/>
                         <outlet property="totalCostLabel" destination="GOq-up-oAS" id="UWQ-s7-qaH"/>
                         <outlet property="txFeeLabel" destination="KSo-oZ-Kra" id="0fX-it-9jj"/>
                     </connections>
