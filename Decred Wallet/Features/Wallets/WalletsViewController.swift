@@ -233,6 +233,7 @@ class WalletsViewController: UIViewController {
                 try WalletLoader.shared.multiWallet.wallet(withXPub: walletPubKey, ret0_: &walletID)
                 if walletID != -1 {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.wallet_with_xpub_exist)
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.wallet_with_xpub_exist, firstTextField: false)
                     return
                 }
             } catch let error {
