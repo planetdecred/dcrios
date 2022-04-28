@@ -76,7 +76,7 @@ extension Collection {
 
 extension URL {
     // Creates a QR code for the current URL in the given color.
-    func qrImage(using color: UIColor, logo: UIImage? = nil, frame: CGRect) -> CIImage? {
+    func qrImage(using color: UIColor, frame: CGRect) -> CIImage? {
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         let qrData = absoluteString.data(using: String.Encoding.ascii)
         qrFilter.setValue(qrData, forKey: "inputMessage")
@@ -84,15 +84,8 @@ extension URL {
         let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
         let scale = smallerSide/(qrFilter.outputImage?.extent.size.width)!
         let transformedImage = qrFilter.outputImage?.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-
-        let qrImage = transformedImage
         
-        let tintedQRImage = qrImage?.tinted(using: color)
-        guard let logo = logo?.cgImage else {
-               return tintedQRImage
-        }
-        
-        return tintedQRImage?.combined(with: CIImage(cgImage: logo))
+        return transformedImage
     }
 
 }
