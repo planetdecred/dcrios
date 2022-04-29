@@ -225,6 +225,25 @@ class WalletsViewController: UIViewController {
         userNamePlaceholder: LocalizedStrings.walletName,
         userPassPlaceholder: LocalizedStrings.extendedPublicKey,
         submitButtonText: LocalizedStrings.import_) { walletName, walletPubKey, dialogDelegate in
+            
+            // Compare xpub with existing wallet xpub
+            var walletID = 1
+            let op = "wallet.createWatchOnlyWallet error:"
+            do {
+                try WalletLoader.shared.multiWallet.wallet(withXPub: walletPubKey, ret0_: &walletID)
+                if walletID != -1 {
+                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.wallet_with_xpub_exist)
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.wallet_with_xpub_exist, firstTextField: false)
+                    return
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    print(op, error.localizedDescription)
+                    DcrlibwalletLogT(op, error.localizedDescription)
+                    Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                }
+            }
+            
             var errorValue: ObjCBool = false
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
