@@ -39,3 +39,62 @@ jobs:
 
 #      - name: Test Dcrios
 #        run: xcodebuild -workspace Decred\ Wallet.xcworkspace -scheme Decred\ Wallet\ Testnet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12' clean test
+
+      - name: Upload Dcrios Folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: Dcrios
+          path: /Users/runner/work/dcrios/dcrios
+
+  deploy:
+    name: Deploying to Testflight
+    runs-on: macOS-latest
+    needs: testing
+    if: success() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Download Dcrios Folder
+        uses: actions/download-artifact@v1
+        with:
+          name: Dcrios
+
+      - name: Install gpg
+        run: brew install gnupg
+
+      - name: Setup provisioning profile
+        env:
+          IOS_KEYS: ${{ secrets.IOS_KEYS }}
+        run: |
+         chmod -R 755 ./
+         chmod +x ./.github/secrets/decrypt_secrets.sh
+         ./.github/secrets/decrypt_secrets.sh
+        working-directory: Dcrios
+
+      - name: Archiving project
+        env:
+          PR_NUMBER: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        run: |
+         chmod +x ./.github/scripts/archive_app.sh
+         ./.github/scripts/archive_app.sh
+        working-directory: Dcrios
+
+      - name: Exporting .ipa
+        run: |
+         chmod +x ./.github/scripts/export_ipa.sh
+         ./.github/scripts/export_ipa.sh
+        working-directory: Dcrios
+
+      - name: Publishing app
+        if: success()
+        env:
+          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
+          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
+        run: |
+         chmod +x ./.github/scripts/publish_testflight.sh
+         ./.github/scripts/publish_testflight.sh
+        working-directory: Dcrios
+
+      - name: Delete Dcrios Folder
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: Dcrios
+          failOnError: false
