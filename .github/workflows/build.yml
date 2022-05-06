@@ -34,6 +34,11 @@ jobs:
       - name: Build Dcrlibwallet
         run: ./dcrlibwallet-ci-build.sh
 
+      - name: Run SwiftLint
+        run: |
+          set -o pipefail
+          swiftlint lint --strict --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'
+
       - name: Build Dcrios
         run: xcodebuild -workspace Decred\ Wallet.xcworkspace -scheme Decred\ Wallet\ Testnet -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12' clean
 
@@ -41,6 +46,7 @@ jobs:
 #        run: xcodebuild -workspace Decred\ Wallet.xcworkspace -scheme Decred\ Wallet\ Testnet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12' clean test
 
       - name: Upload Dcrios Folder
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v1
         with:
           name: Dcrios
@@ -82,6 +88,12 @@ jobs:
          chmod +x ./.github/scripts/export_ipa.sh
          ./.github/scripts/export_ipa.sh
         working-directory: Dcrios
+
+      - name: Upload Testnet IPA
+        uses: actions/upload-artifact@v1
+        with:
+          name: Decred Wallet Testnet (debug ipa)
+          path: Dcrios/build/Decred\ Wallet\ Testnet.ipa
 
       - name: Publishing app
         if: success()
