@@ -34,9 +34,6 @@ jobs:
       - name: Build Dcrlibwallet
         run: ./dcrlibwallet-ci-build.sh
 
-      - name: Run SwiftLint
-        run: swiftlint lint --quiet $@ | sed 's/error: /warning: /g'
-
       - name: Build Dcrios
         run: xcodebuild -workspace Decred\ Wallet.xcworkspace -scheme Decred\ Wallet\ Testnet -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12' clean
 
