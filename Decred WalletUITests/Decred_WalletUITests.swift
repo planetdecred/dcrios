@@ -59,7 +59,7 @@ class Decred_WalletUITests: XCTestCase {
         // for the user's permission to sync with mobile data
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
-        if cancelStaticText.waitForExistence(timeout: 5) {
+        if cancelStaticText.waitForExistence(timeout: 15) {
             cancelStaticText.tap()
         }
         
@@ -117,7 +117,7 @@ class Decred_WalletUITests: XCTestCase {
         app.tap()
         
         let createNewWallet = app.buttons.element(matching: .button, identifier: "createNewWallet")
-        if createNewWallet.waitForExistence(timeout: 5) {
+        if createNewWallet.waitForExistence(timeout: 15) {
             createNewWallet.tap()
         }
         
@@ -137,7 +137,7 @@ class Decred_WalletUITests: XCTestCase {
             cancelStaticText.tap()
         }
         
-        sleep(2)
+        sleep(4)
         
         // switch to wallet menu tab
         let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)

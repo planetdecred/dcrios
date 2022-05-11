@@ -52,8 +52,6 @@ class RestoreExistingWalletUITest: XCTestCase {
         
         sleep(3)
         
-        
-        
         self.createPassword(app: app)
         
         let createBtn = app.buttons.element(matching: .button, identifier: "createPassword")
@@ -61,9 +59,11 @@ class RestoreExistingWalletUITest: XCTestCase {
         
         let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
         
-        if getStarted.waitForExistence(timeout: 5) {
+        if getStarted.waitForExistence(timeout: 10) {
             getStarted.tap()
         }
+        
+        sleep(2)
         
         self.typePassword(app: app)
         
@@ -74,7 +74,7 @@ class RestoreExistingWalletUITest: XCTestCase {
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
                
-        if cancelStaticText.waitForExistence(timeout: 5) {
+        if cancelStaticText.waitForExistence(timeout: 10) {
             cancelStaticText.tap()
         }
                
@@ -130,7 +130,7 @@ class RestoreExistingWalletUITest: XCTestCase {
         app.tap()
         
         let restoreExistingWallet = app.buttons.element(matching: .button, identifier: "restoreExistingWallet")
-        if restoreExistingWallet.waitForExistence(timeout: 5) {
+        if restoreExistingWallet.waitForExistence(timeout: 10) {
             restoreExistingWallet.tap()
         }
         
@@ -152,7 +152,7 @@ class RestoreExistingWalletUITest: XCTestCase {
         
         let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
         
-        if getStarted.waitForExistence(timeout: 5) {
+        if getStarted.waitForExistence(timeout: 10) {
             getStarted.tap()
         }
         
@@ -165,7 +165,7 @@ class RestoreExistingWalletUITest: XCTestCase {
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
                
-        if cancelStaticText.waitForExistence(timeout: 5) {
+        if cancelStaticText.waitForExistence(timeout: 10) {
             cancelStaticText.tap()
         }
                
@@ -211,198 +211,273 @@ class RestoreExistingWalletUITest: XCTestCase {
         app.keys["e"].tap()
         app.keys["f"].tap()
         app.keys["o"].tap()
+        sleep(1)
         tablesQuery.staticTexts["reform"].tap()
+        sleep(1)
+        
         app.keys["a"].tap()
         app.keys["f"].tap()
         app.keys["t"].tap()
         app.keys["e"].tap()
+        sleep(1)
         tablesQuery.staticTexts["aftermath"].tap()
+        sleep(1)
         
         app.keys["p"].tap()
         app.keys["r"].tap()
         app.keys["i"].tap()
         app.keys["n"].tap()
+        sleep(1)
         tablesQuery.staticTexts["printer"].tap()
+        sleep(1)
         
         app.keys["w"].tap()
         app.keys["a"].tap()
         app.keys["r"].tap()
         app.keys["r"].tap()
+        sleep(1)
         tablesQuery.staticTexts["warranty"].tap()
+        sleep(1)
+        app.gentleSwipe(.Up)
+        sleep(1)
         
         app.keys["g"].tap()
         app.keys["r"].tap()
         app.keys["e"].tap()
         app.keys["m"].tap()
+        sleep(1)
         tablesQuery.staticTexts["gremlin"].tap()
+        sleep(1)
         
         app.keys["p"].tap()
         app.keys["a"].tap()
         app.keys["r"].tap()
         app.keys["a"].tap()
+        sleep(1)
         tablesQuery.staticTexts["paragraph"].tap()
+        sleep(1)
         
         app.keys["b"].tap()
         app.keys["e"].tap()
         app.keys["e"].tap()
         app.keys["h"].tap()
+        sleep(1)
         tablesQuery.staticTexts["beehive"].tap()
+        sleep(1)
         
         app.keys["s"].tap()
         app.keys["t"].tap()
         app.keys["e"].tap()
         app.keys["t"].tap()
+        sleep(1)
         tablesQuery.staticTexts["stethoscope"].tap()
+        sleep(1)
         
         app.keys["r"].tap()
         app.keys["e"].tap()
         app.keys["g"].tap()
         app.keys["a"].tap()
         tablesQuery.staticTexts["regain"].tap()
+        sleep(1)
+        app.gentleSwipe(.Up)
+        sleep(1)
         
         app.keys["d"].tap()
         app.keys["i"].tap()
         app.keys["s"].tap()
         app.keys["r"].tap()
+        sleep(1)
         tablesQuery.staticTexts["disruptive"].tap()
+        sleep(1)
         
         app.keys["r"].tap()
         app.keys["e"].tap()
         app.keys["g"].tap()
         app.keys["a"].tap()
+        sleep(1)
         tablesQuery.staticTexts["regain"].tap()
+        sleep(1)
         
         app.keys["b"].tap()
         app.keys["r"].tap()
         app.keys["a"].tap()
         app.keys["d"].tap()
+        sleep(1)
         tablesQuery.staticTexts["Bradbury"].tap()
+        sleep(1)
         
         app.keys["c"].tap()
         app.keys["h"].tap()
         app.keys["i"].tap()
         app.keys["s"].tap()
+        sleep(1)
         tablesQuery.staticTexts["chisel"].tap()
+        sleep(1)
         
         app.keys["o"].tap()
         app.keys["c"].tap()
         app.keys["t"].tap()
         app.keys["o"].tap()
+        sleep(1)
         tablesQuery.staticTexts["October"].tap()
+        sleep(1)
+        app.gentleSwipe(.Up)
+        sleep(1)
         
         app.keys["t"].tap()
         app.keys["r"].tap()
         app.keys["o"].tap()
         app.keys["u"].tap()
+        sleep(1)
         tablesQuery.staticTexts["trouble"].tap()
+        sleep(1)
         
         app.keys["f"].tap()
         app.keys["o"].tap()
         app.keys["r"].tap()
         app.keys["e"].tap()
+        sleep(1)
         tablesQuery.staticTexts["forever"].tap()
+        sleep(1)
         
         app.keys["a"].tap()
         app.keys["l"].tap()
         app.keys["g"].tap()
         app.keys["o"].tap()
+        sleep(1)
         tablesQuery.staticTexts["Algol"].tap()
+        sleep(1)
         
         app.keys["a"].tap()
         app.keys["p"].tap()
         app.keys["p"].tap()
         app.keys["l"].tap()
+        sleep(1)
         tablesQuery.staticTexts["applicant"].tap()
-        
+        sleep(1)
+       
         app.keys["i"].tap()
         app.keys["s"].tap()
         app.keys["l"].tap()
         app.keys["a"].tap()
+        sleep(1)
         tablesQuery.staticTexts["island"].tap()
+        sleep(1)
         
         app.keys["i"].tap()
         app.keys["n"].tap()
         app.keys["f"].tap()
         app.keys["a"].tap()
+        sleep(1)
         tablesQuery.staticTexts["infancy"].tap()
+        app.gentleSwipe(.Up)
+        sleep(1)
         
         app.keys["p"].tap()
         app.keys["h"].tap()
         app.keys["y"].tap()
         app.keys["s"].tap()
+        sleep(1)
         tablesQuery.staticTexts["physique"].tap()
+        sleep(1)
         
         app.keys["p"].tap()
         app.keys["a"].tap()
         app.keys["r"].tap()
         app.keys["a"].tap()
+        sleep(1)
         tablesQuery.staticTexts["paragraph"].tap()
+        sleep(1)
         
         app.keys["w"].tap()
         app.keys["o"].tap()
         app.keys["o"].tap()
         app.keys["d"].tap()
+        sleep(1)
         tablesQuery.staticTexts["woodlark"].tap()
+        sleep(1)
         
         app.keys["h"].tap()
         app.keys["y"].tap()
         app.keys["d"].tap()
         app.keys["r"].tap()
+        sleep(1)
         tablesQuery.staticTexts["hydraulic"].tap()
+        sleep(1)
         
         app.keys["s"].tap()
         app.keys["n"].tap()
         app.keys["a"].tap()
         app.keys["p"].tap()
+        sleep(1)
         tablesQuery.staticTexts["snapshot"].tap()
+        sleep(1)
         
         app.keys["b"].tap()
         app.keys["a"].tap()
         app.keys["c"].tap()
         app.keys["k"].tap()
+        sleep(1)
         tablesQuery.staticTexts["backwater"].tap()
+        sleep(1)
+        app.gentleSwipe(.Up)
+        sleep(1)
         
         app.keys["r"].tap()
         app.keys["a"].tap()
         app.keys["t"].tap()
         app.keys["c"].tap()
+        sleep(1)
         tablesQuery.staticTexts["ratchet"].tap()
+        sleep(1)
         
         app.keys["s"].tap()
         app.keys["u"].tap()
         app.keys["r"].tap()
         app.keys["r"].tap()
+        sleep(1)
         tablesQuery.staticTexts["surrender"].tap()
+        sleep(1)
         
         app.keys["r"].tap()
         app.keys["e"].tap()
         app.keys["v"].tap()
         app.keys["e"].tap()
+        sleep(1)
         tablesQuery.staticTexts["revenge"].tap()
+        sleep(1)
         
         app.keys["c"].tap()
         app.keys["u"].tap()
         app.keys["s"].tap()
         app.keys["t"].tap()
+        sleep(1)
         tablesQuery.staticTexts["customer"].tap()
+        sleep(1)
         
         app.keys["r"].tap()
         app.keys["e"].tap()
         app.keys["t"].tap()
         app.keys["o"].tap()
+        sleep(1)
         tablesQuery.staticTexts["retouch"].tap()
+        sleep(1)
         
         app.keys["i"].tap()
         app.keys["n"].tap()
         app.keys["t"].tap()
         app.keys["e"].tap()
+        sleep(1)
         tablesQuery.staticTexts["intention"].tap()
+        sleep(1)
         
         app.keys["m"].tap()
         app.keys["i"].tap()
         app.keys["n"].tap()
         app.keys["n"].tap()
+        sleep(1)
         tablesQuery.staticTexts["minnow"].tap()
+        sleep(1)
     }
     
     func createPassword(app: XCUIApplication) {
@@ -431,4 +506,53 @@ class RestoreExistingWalletUITest: XCTestCase {
         }
     }
 
+}
+
+
+extension XCUIElement {
+    
+    enum direction : Int {
+    case Up, Down, Left, Right
+    
+    }
+    
+    func gentleSwipe(_ direction : direction) {
+        let half : CGFloat = 0.5
+        var adjustment : CGFloat = 0.17
+//        if iPhoneX(size: UIScreen.main.bounds.size) {
+//            adjustment = 0.18
+//        }
+        
+        let pressDuration : TimeInterval = 0.05
+        let lessThanHalf = half - adjustment
+        let moreThanHalf = half + adjustment
+        let centre = self.coordinate(withNormalizedOffset: CGVector(dx: half, dy: half))
+        let aboveCentre = self.coordinate(withNormalizedOffset: CGVector(dx: half, dy: lessThanHalf))
+        let belowCentre = self.coordinate(withNormalizedOffset: CGVector(dx: half, dy: moreThanHalf))
+        let leftOfCentre = self.coordinate(withNormalizedOffset: CGVector(dx: lessThanHalf, dy: half))
+        let rightOfCentre = self.coordinate(withNormalizedOffset: CGVector(dx: moreThanHalf, dy: half))
+        switch direction {
+        case .Up:
+            centre.press(forDuration: pressDuration, thenDragTo: aboveCentre)
+            break
+        case .Down:
+            centre.press(forDuration: pressDuration, thenDragTo: belowCentre)
+            break
+        case .Left:
+            centre.press(forDuration: pressDuration, thenDragTo: leftOfCentre)
+            break
+        case .Right:
+            centre.press(forDuration: pressDuration, thenDragTo: rightOfCentre)
+            break
+        }
+    }
+    
+     func iPhoneX(size: CGSize) -> Bool {
+        // This check works regardless of orientation.
+        let result = CGFloat(812 + 375)
+        let currentPhone = size.width + size.height
+        // print(currentPhone)
+
+        return currentPhone == result
+    }
 }
