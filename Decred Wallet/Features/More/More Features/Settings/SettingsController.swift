@@ -186,35 +186,13 @@ class SettingsController: UITableViewController  {
             isWalletOpen = true
         }
         
-        let localAuthenticationContext = LAContext()
-        var authError: NSError?
         var isBiometricSupported = false
-        
-        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
-            if #available(iOS 11.0, *) {
-                switch localAuthenticationContext.biometryType {
-                case .faceID:
-                    isBiometricSupported = true
-                    self.biometricTypeLabel.text = LocalizedStrings.useFaceID
-                    break
-                    
-                case .touchID:
-                    isBiometricSupported = true
-                    self.biometricTypeLabel.text = LocalizedStrings.useTouchId
-                break
-                    
-                case .none:
-                    isBiometricSupported = false
-                break
-                    
-                @unknown default:
-                    isBiometricSupported = false
-                    break
-                }
-            } else {
-                isBiometricSupported = false
-            }
+        let (result, _) = LocalAuthentication.isBiometricSupported()
+        if let text = result {
+            self.biometricTypeLabel.text = text
+            isBiometricSupported = true
         }
+        
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:

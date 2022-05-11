@@ -83,9 +83,8 @@ class ReceiveViewController: UIViewController {
         }
         
         let swiftLeeBlackColor = UIColor.white
-        let swiftLeeLogo = UIImage(named: "ic_qr_logo")!
 
-        if let qrURLImage = URL(string: address)?.qrImage(using: swiftLeeBlackColor, logo: swiftLeeLogo, frame: self.addressQRCodeImageView.frame) {
+        if let qrURLImage = URL(string: address)?.qrImage(using: swiftLeeBlackColor, frame: self.addressQRCodeImageView.frame) {
             self.addressQRCodeImageView.image = UIImage(ciImage: qrURLImage)
         } else {
             self.addressQRCodeImageView.image = nil
@@ -99,13 +98,11 @@ class ReceiveViewController: UIViewController {
 
     @IBAction func infoMenuButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: LocalizedStrings.receiveDCR,
-                                                    message: LocalizedStrings.receiveInfo,
-                                                    preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt,
-                                                    style: UIAlertAction.Style.default,
-                                                    handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+            SimpleAlertDialog.show(sender: self,
+                                   title: LocalizedStrings.receiveDCR,
+                                   message: LocalizedStrings.receiveInfo,
+                                   okButtonText: LocalizedStrings.gotIt,
+                                   callback: nil)
         }
     }
 

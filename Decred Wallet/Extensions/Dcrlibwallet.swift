@@ -181,6 +181,22 @@ extension DcrlibwalletWallet {
         
         return transactions
     }
+    
+    func hasAccountsImported() -> Bool {
+        let names: [String] = accounts.map {
+            return $0.name
+        }
+        
+        return names.contains("imported")
+    }
+    
+    func getAccountsRaw() -> Int {
+        do {
+            return try getAccountsRaw().count
+        } catch {
+            return 0
+        }
+    }
 }
 
 extension DcrlibwalletPoliteia {

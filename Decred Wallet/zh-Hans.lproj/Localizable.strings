@@ -215,7 +215,7 @@
 "transferred" = "已转入";
 "includedInBlock" = "包含在区块中";
 "howToCopy" = "如何复制";
-"tapOnBlueText" = "轻按<blue>蓝色文本</blue>复制条目";
+"tapOnBlueText" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">轻按<font color=\"#2970FF\">蓝色文本</font>复制条目</span>";
 "gotIt" = "好的";
 "toAccountDetail" = "到账户";
 "toDetail" = "到";
@@ -254,11 +254,13 @@
 "totalCost" = "总成本";
 "balanceAfterSend" = "发送后余额";
 "sendWarning" = "点击发送后将无法撤销";
+"sendWarningSuccess" = "Your DCR has been sent and CANNOT be undone.";
 "sendingAccount" = "发送账户";
 "toSelf" = "对自己";
 "toDestinationAddress" = "发送地址";
 "destinationAddress" = "目标地址";
 "transactionSent" = "发送交易";
+"tx_size_info" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Transaction size is determined by how many inputs and outputs are required to fulfill a transaction.<br/><br/>Typically, larger quantities transacted require larger transaction sizes, which in turn create larger transaction fees.</span>";
 
 /* Recieve */
 "walletAddrCopied" = "地址已复制到剪贴板.";
@@ -287,6 +289,8 @@
 "import_" = "导入";
 "keyIsInvalid" = "密钥无效";
 "disconnectAddWallet" = "添加钱包之前断开/取消同步";
+"wallet_with_seed_exist" = "A wallet with an identical seed already exists.";
+"wallet_with_xpub_exist" = "A wallet with an identical extended public key already exists.";
 
 /* Wallets -> Sign message */
 "signMessage" = "签署消息";
@@ -311,6 +315,7 @@
 "removeWalletFromDevice" = "从设备上移除钱包";
 "disconnectDeleteWallet"= "删除钱包之前断开/取消同步";
 "databaseType" = "Database type";
+"confirmToUseBiometric" = "Confirm to use Biometric";
 
 /* Wallet Settings -> Change Spending PIN/Password */
 "confirmToChange" = "确认更改";

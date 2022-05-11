@@ -215,7 +215,7 @@
 "transferred" = "Transféré";
 "includedInBlock" = "Inclus dans le bloc";
 "howToCopy" = "Comment copier";
-"tapOnBlueText" = "Sélectionner <blue>blue text</blue> pour copier cet objet.";
+"tapOnBlueText" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Sélectionner <font color=\"#2970FF\">blue text</font> pour copier cet objet.</span>";
 "gotIt" = "Compris";
 "toAccountDetail" = "Vers compte";
 "toDetail" = "À";
@@ -254,11 +254,13 @@
 "totalCost" = "Total Cost";
 "balanceAfterSend" = "Solde après envoi";
 "sendWarning" = "Vos DCR seront envoyés et cela NE PEUT PAS être annulé.";
+"sendWarningSuccess" = "Your DCR has been sent and CANNOT be undone.";
 "sendingAccount" = "Envoi du compte";
 "toSelf" = "Vers soi-même";
 "toDestinationAddress" = "Vers adresse de destination";
 "destinationAddress" = "Adresse de destination";
 "transactionSent" = "Transaction envoyée";
+"tx_size_info" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Transaction size is determined by how many inputs and outputs are required to fulfill a transaction.<br/><br/>Typically, larger quantities transacted require larger transaction sizes, which in turn create larger transaction fees.</span>";
 
 /* Recieve */
 "walletAddrCopied" = "Adresse copiée";
@@ -287,6 +289,8 @@
 "import_" = "Importer";
 "keyIsInvalid" = "La clé est invalide";
 "disconnectAddWallet" = "Déconnecter/annuler la synchronisation avant d\'ajouter un porte-monnaie";
+"wallet_with_seed_exist" = "A wallet with an identical seed already exists.";
+"wallet_with_xpub_exist" = "A wallet with an identical extended public key already exists.";
 
 /* Wallets -> Sign message */
 "signMessage" = "Signer le message";
@@ -311,6 +315,7 @@
 "removeWalletFromDevice" = "Supprimer le porte-monnaie de cet appareil";
 "disconnectDeleteWallet"= "Déconnecter/annuler la synchronisation avant de supprimer un porte-monnaie";
 "databaseType" = "Database type";
+"confirmToUseBiometric" = "Confirm to use Biometric";
 
 /* Wallet Settings -> Change Spending PIN/Password */
 "confirmToChange" = "Confirmer le changement";

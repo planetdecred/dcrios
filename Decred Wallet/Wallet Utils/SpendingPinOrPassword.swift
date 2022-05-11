@@ -9,19 +9,46 @@
 import UIKit
 import Dcrlibwallet
 
+enum SpendingPinOrPasswordType {
+    case change
+    case verify
+}
+
 struct SpendingPinOrPassword {
-    static func begin(sender: UIViewController, walletID: Int, done: (() -> ())? = nil) {
+    static func begin(sender: UIViewController, walletID: Int, type: SpendingPinOrPasswordType, title: String, done: ((String) -> ())? = nil) {
+        
+        if LocalAuthentication.isWalletSetupBiometric(walletId: walletID) && type == .change {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: walletID, completed: { result, error in
+                if let currentCode = result {
+                    let securityType = SpendingPinOrPassword.securityType(for: walletID)
+                    self.verifyWalletSpendingPassphrase(walletID: walletID,
+                                                        currentCode: currentCode,
+                                                        currentCodeRequestDelegate: nil,
+                                                        securityType: securityType,
+                                                        sender: sender,
+                                                        type: type,
+                                                        done: done)
+                } else {
+                    self.confirmPinPass(sender: sender, walletID: walletID, type: type, title: title, done: done)
+                }
+            })
+        } else {
+            self.confirmPinPass(sender: sender, walletID: walletID, type: type, title: title, done: done)
+        }
+    }
+    
+    private static func confirmPinPass(sender: UIViewController, walletID: Int, type: SpendingPinOrPasswordType, title: String, done: ((String) -> ())? = nil) {
         Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: walletID))
-            .with(prompt: LocalizedStrings.confirmToChange)
+            .with(prompt: title)
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: sender) {
                 currentCode, securityType, currentCodeRequestDelegate in
-                
                 self.verifyWalletSpendingPassphrase(walletID: walletID,
                                                     currentCode: currentCode,
                                                     currentCodeRequestDelegate: currentCodeRequestDelegate,
                                                     securityType: securityType,
                                                     sender: sender,
+                                                    type: type,
                                                     done: done)
         }
     }
@@ -31,7 +58,8 @@ struct SpendingPinOrPassword {
                                                        currentCodeRequestDelegate: InputDialogDelegate?,
                                                        securityType: SecurityType,
                                                        sender: UIViewController,
-                                                       done: (() -> ())?) {
+                                                       type: SpendingPinOrPasswordType,
+                                                       done: ((String) -> ())?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -40,7 +68,11 @@ struct SpendingPinOrPassword {
                 wallet?.lock()
                 DispatchQueue.main.async {
                     currentCodeRequestDelegate?.dismissDialog()
-                    self.change(sender: sender, walletID: walletID, currentCode: currentCode, done: done)
+                    if type == .change {
+                        self.change(sender: sender, walletID: walletID, currentCode: currentCode, done: done)
+                    } else {
+                        done?(currentCode)
+                    }
                 }
             } catch let error {
                 DispatchQueue.main.async {
@@ -52,7 +84,7 @@ struct SpendingPinOrPassword {
         }
     }
     
-    private static func change(sender: UIViewController, walletID: Int, currentCode: String, done: (() -> ())? = nil) {
+    private static func change(sender: UIViewController, walletID: Int, currentCode: String, done: ((String) -> ())? = nil) {
         Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: walletID))
             .with(prompt: LocalizedStrings.confirmToChange)
             .with(submitBtnText: LocalizedStrings.confirm)
@@ -73,7 +105,7 @@ struct SpendingPinOrPassword {
                                                        newCode: String,
                                                        newCodeRequestDelegate: InputDialogDelegate?,
                                                        newCodeType: SecurityType,
-                                                       done: (() -> ())?) {
+                                                       done: ((String) -> ())?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -84,7 +116,7 @@ struct SpendingPinOrPassword {
                 
                 DispatchQueue.main.async {
                     newCodeRequestDelegate?.dismissDialog()
-                    done?()
+                    done?(newCode)
                 }
             } catch let error {
                 DispatchQueue.main.async {

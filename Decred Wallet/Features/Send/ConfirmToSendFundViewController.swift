@@ -8,6 +8,7 @@
 
 import UIKit
 import Dcrlibwallet
+import SwiftKeychainWrapper
 
 struct UnsignedTxSummary {
     var sourceAccountInfo: String
@@ -29,6 +30,8 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var balanceAfterSendLabel: UILabel!
     @IBOutlet weak var sendButton: Button!
     
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     var sourceWalletID: Int!
     var unsignedTxSummary: UnsignedTxSummary!
     var unsignedTx: DcrlibwalletTxAuthor!
@@ -127,16 +130,57 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        if LocalAuthentication.isWalletSetupBiometric(walletId: self.sourceWalletID) {
+            LocalAuthentication.localAuthenticaionWithWallet(walletId: self.sourceWalletID) { result, err in
+                if let passOrPin = result {
+                    self.broadcastUnsignedTxInBackground(privatePass: passOrPin) { err in
+                        if err == nil {
+                            self.showSuccess()
+                            self.onSendCompleted?()
+                        }
+                    }
+                } else {
+                    self.sendUsingPassOrPin()
+                }
+            }
+        } else {
+            self.sendUsingPassOrPin()
+        }
+    }
+    
+    private func showSuccess() {
+        self.titleLabel.text = LocalizedStrings.transactionDetails
+        let mainTextColor = UIColor.appColors.text1
+        let subTextColor = UIColor.appColors.text2
+        let sourceAccountInfo = Utils.styleAttributedString(
+            String(format: "Sent from <bold>%@</bold>", self.unsignedTxSummary.sourceAccountInfo), // localize!
+            styles: [
+                AttributedStringStyle(tag: "bold", fontFamily: "SourceSansPro-SemiBold", fontSize: 14, color: mainTextColor)
+            ],
+            defaultStyle: AttributedStringStyle(fontFamily: "SourceSansPro-Regular", fontSize: 14, color: subTextColor)
+        )
+        self.sendingFromLabel.attributedText = sourceAccountInfo
+        
+        self.infoLabel.text = LocalizedStrings.sendWarningSuccess
+        
+        self.sendButton.setImage(UIImage(named: "success_checked"), for: .normal)
+        self.sendButton.setTitle(LocalizedStrings.success, for: .normal)
+        self.sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.sendButton.setTitleColor(UIColor.appColors.green, for: .normal)
+        self.sendButton.isUserInteractionEnabled = false
+        self.sendButton.backgroundColor = UIColor.clear
+    }
+    
+    private func sendUsingPassOrPin() {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.sourceWalletID)
         Security.spending(initialSecurityType: privatePassType)
             .with(prompt: LocalizedStrings.confirmToSend)
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
-                
                 self.broadcastUnsignedTxInBackground(privatePass: privatePass) { error in
                     if error == nil {
                         dialogDelegate?.dismissDialog()
-                        self.dismissView()
+                        self.showSuccess()
                         self.onSendCompleted?()
                     } else if error!.isInvalidPassphraseError {
                         let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sourceWalletID)

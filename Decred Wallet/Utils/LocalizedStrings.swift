@@ -46,6 +46,7 @@ struct LocalizedStrings {
     static let watchWalletImported = NSLocalizedString("watchWalletImported", comment: "")
     static let extendPublicKeyInfo = NSLocalizedString("extendPublicKeyInfo", comment: "")
     static let watchWalletTitle = NSLocalizedString("watchWalletTitle", comment: "")
+    static let wallet_with_xpub_exist = NSLocalizedString("wallet_with_xpub_exist", comment: "")
     
     /* Unlock Wallet Prompt */
     static let unlockWithStartupCode = NSLocalizedString("unlockWithStartupCode", comment: "")
@@ -252,11 +253,13 @@ struct LocalizedStrings {
     static let totalCost = NSLocalizedString("totalCost", comment: "")
     static let balanceAfterSend = NSLocalizedString("balanceAfterSend", comment: "")
     static let sendWarning = NSLocalizedString("sendWarning", comment: "")
+    static let sendWarningSuccess = NSLocalizedString("sendWarningSuccess", comment: "")
     static let sendingAccount = NSLocalizedString("sendingAccount", comment: "")
     static let toDestinationAddress = NSLocalizedString("toDestinationAddress", comment: "")
     static let destinationAddress = NSLocalizedString("destinationAddress", comment: "")
     static let toSelf = NSLocalizedString("toSelf", comment: "")
     static let transactionSent = NSLocalizedString("transactionSent", comment: "")
+    static let tx_size_info = NSLocalizedString("tx_size_info", comment: "")
     
     /* Recieve */
     static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
@@ -279,6 +282,7 @@ struct LocalizedStrings {
     static let walletNameExists = NSLocalizedString("walletNameExists", comment: "")
     static let walletNameReserved = NSLocalizedString("walletNameReserved", comment: "")
     static let disconnectAddWallet = NSLocalizedString("disconnectAddWallet", comment: "")
+    static let wallet_with_seed_exist = NSLocalizedString("wallet_with_seed_exist", comment: "")
     
     /* Wallets -> Sign message */
     static let signMessage = NSLocalizedString("signMessage", comment: "")
@@ -314,6 +318,7 @@ struct LocalizedStrings {
     static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
     static let disconnectDeleteWallet = NSLocalizedString("disconnectDeleteWallet", comment: "")
     static let removeWatchWalletPrompt = NSLocalizedString("removeWatchWalletPrompt", comment: "")
+    static let confirmToUseBiometric = NSLocalizedString("confirmToUseBiometric", comment: "")
     
      /* Wallets -> Account */
     static let spendable = NSLocalizedString("spendable", comment: "")

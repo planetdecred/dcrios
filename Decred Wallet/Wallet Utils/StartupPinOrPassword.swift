@@ -34,6 +34,25 @@ struct StartupPinOrPassword {
             return
         }
         
+        if LocalAuthentication.isSetupStartupSecurityAndStartAppBiometric() {
+            LocalAuthentication.localAuthenticaionStartupSecurityAndStartApp(completed: { result, error in
+                if let currentCode = result {
+                    self.verifyWalletPublicPassphrase(currentCode: currentCode,
+                                                      currentCodeRequestDelegate: nil,
+                                                      securityType: StartupPinOrPassword.currentSecurityType(),
+                                                      sender: sender,
+                                                      done: done)
+                } else {
+                    self.confirmPinPass(sender: sender, done: done)
+                }
+            })
+        } else {
+            self.confirmPinPass(sender: sender, done: done)
+        }
+        
+    }
+    
+    static private func confirmPinPass(sender: UIViewController, done: (() -> Void)? = nil) {
         Security.startup()
             .with(prompt: LocalizedStrings.confirmToChange)
             .with(submitBtnText: LocalizedStrings.confirm)

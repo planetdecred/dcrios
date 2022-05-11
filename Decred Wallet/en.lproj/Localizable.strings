@@ -215,7 +215,7 @@
 "transferred" = "Transferred";
 "includedInBlock" = "Included in block";
 "howToCopy" = "How to copy";
-"tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
+"tapOnBlueText" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Tap on <font color=\"#2970FF\">blue text</font> to copy the item.</span>";
 "gotIt" = "Got it";
 "toAccountDetail" = "To account";
 "toDetail" = "To";
@@ -254,11 +254,13 @@
 "totalCost" = "Total Cost";
 "balanceAfterSend" = "Balance after send";
 "sendWarning" = "Your DCR will be sent and CANNOT be undone.";
+"sendWarningSuccess" = "Your DCR has been sent and CANNOT be undone.";
 "sendingAccount" = "Sending Account";
 "toSelf" = "To self";
 "toDestinationAddress" = "To destination address";
 "destinationAddress" = "Destination Address";
 "transactionSent" = "Transaction sent";
+"tx_size_info" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Transaction size is determined by how many inputs and outputs are required to fulfill a transaction.<br/><br/>Typically, larger quantities transacted require larger transaction sizes, which in turn create larger transaction fees.</span>";
 
 /* Recieve */
 "walletAddrCopied" = "Address copied";
@@ -287,6 +289,9 @@
 "import_" = "Import";
 "keyIsInvalid" = "Key is invalid";
 "disconnectAddWallet" = "Disconnect/cancel sync before adding a wallet";
+"wallet_with_seed_exist" = "A wallet with an identical seed already exists.";
+"wallet_with_xpub_exist" = "A wallet with an identical extended public key already exists.";
+
 
 /* Wallets -> Sign message */
 "signMessage" = "Sign message";
@@ -311,6 +316,7 @@
 "removeWalletFromDevice" = "Remove wallet from device";
 "disconnectDeleteWallet"= "Disconnect/cancel sync before deleting wallet";
 "databaseType" = "Database type";
+"confirmToUseBiometric" = "Confirm to use Biometric";
 
 /* Wallet Settings -> Change Spending PIN/Password */
 "confirmToChange" = "Confirm to change";

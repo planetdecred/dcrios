@@ -32,6 +32,7 @@ struct GlobalConstants {
         static let SHOW_HIDE_BALANCE = "shown_hide_balance"
         static let HAS_SHOW_POLITEIA_WELCOME = "has_show_politeia_welcome"
         static let GOVERNANCE_SETTING = "governance_setting"
+        static let BIOMATRIC_AUTHEN = "biomatric_authen_%d"
     }
     
     struct Wallet {

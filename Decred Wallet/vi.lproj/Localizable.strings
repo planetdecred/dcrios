@@ -215,7 +215,7 @@
 "transferred" = "Đã chuyển";
 "includedInBlock" = "Có trong block";
 "howToCopy" = "Cách copy";
-"tapOnBlueText" = "Bấm vào <blue>dòng text xanh</blue> để copy";
+"tapOnBlueText" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Bấm vào <font color=\"#2970FF\">dòng text xanh</font> để copy</span>";
 "gotIt" = "Đã hiểu";
 "toAccountDetail" = "Đi tới tài khoản";
 "toDetail" = "Đi tới";
@@ -254,11 +254,13 @@
 "totalCost" = "Tổng chi phí";
 "balanceAfterSend" = "Số dư sau khi gửi";
 "sendWarning" = "DCR của bạn sẽ được gửi và KHÔNG THỂ hoàn tác.";
+"sendWarningSuccess" = "DCR của bạn đã được gửi và KHÔNG THỂ hoàn tác.";
 "sendingAccount" = "Tài khoản gửi";
 "toSelf" = "Gửi cho bản thân";
 "toDestinationAddress" = "Đến địa chỉ đích";
 "destinationAddress" = "Địa chỉ đích";
 "transactionSent" = "Giao dịch đã được gửi";
+"tx_size_info" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Transaction size is determined by how many inputs and outputs are required to fulfill a transaction.<br/><br/>Typically, larger quantities transacted require larger transaction sizes, which in turn create larger transaction fees.</span>";
 
 /* Recieve */
 "walletAddrCopied" = "Địa chỉ được sao chép vào clipboard.";
@@ -287,6 +289,8 @@
 "import_" = "Nhập vào";
 "keyIsInvalid" = "Key không hợp lệ";
 "disconnectAddWallet" = "Ngắt kết nối / hủy đồng bộ hóa trước khi thêm ví";
+"wallet_with_seed_exist" = "A wallet with an identical seed already exists.";
+"wallet_with_xpub_exist" = "A wallet with an identical extended public key already exists.";
 
 /* Wallets -> Sign message */
 "signMessage" = "Ký tin nhắn";
@@ -311,6 +315,7 @@
 "removeWalletFromDevice" = "Xóa ví khỏi thiết bị";
 "disconnectDeleteWallet"= "Ngắt kết nối / hủy đồng bộ hóa trước khi xóa ví";
 "databaseType" = "Loại Database";
+"confirmToUseBiometric" = "Confirm to use Biometric";
 
 /* Wallet Settings -> Change Spending PIN/Password */
 "confirmToChange" = "Xác nhận để thay đổi";

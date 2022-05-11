@@ -101,6 +101,23 @@ class RestoreExistingWalletViewController: UIViewController {
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.incorrectSeedEntered)
             return
         }
+        
+        // Compare seed with existing wallet seed
+        var walletID = 1
+        let op = "wallet.restoreWallet error:"
+        do {
+            try WalletLoader.shared.multiWallet.wallet(withSeed: seed, ret0_: &walletID)
+            if walletID != -1 {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.wallet_with_seed_exist)
+                return
+            }
+        } catch let error {
+            DispatchQueue.main.async {
+                print(op, error.localizedDescription)
+                DcrlibwalletLogT(op, error.localizedDescription)
+                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+            }
+        }
 
         self.tableView.isUserInteractionEnabled = false
         self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)

@@ -40,9 +40,11 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
        }
     
     @objc func pageInfo() {
-        let alertController = UIAlertController(title: LocalizedStrings.securityTools, message: LocalizedStrings.securityToolsInfo, preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        SimpleAlertDialog.show(sender: self,
+                               title: LocalizedStrings.securityTools,
+                               message: LocalizedStrings.securityToolsInfo,
+                               okButtonText: LocalizedStrings.gotIt,
+                               callback: nil)
     }
        
     func navigateSecurityPage(to menuItem: SecurityToolsItem) {

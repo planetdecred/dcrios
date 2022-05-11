@@ -215,7 +215,7 @@
 "transferred" = "Przeniesione";
 "includedInBlock" = "Zawarto w bloku";
 "howToCopy" = "Jak kopiować";
-"tapOnBlueText" = "Kliknij na <blue>niebieski tekst</blue>, aby skopiować jego zawartość.";
+"tapOnBlueText" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Kliknij na <font color=\"#2970FF\">niebieski tekst</font>, aby skopiować jego zawartość.</span>";
 "gotIt" = "Rozumiem";
 "toAccountDetail" = "Na konto";
 "toDetail" = "Na";
@@ -254,11 +254,13 @@
 "totalCost" = "Całkowity koszt";
 "balanceAfterSend" = "Saldo po transakcji";
 "sendWarning" = "Twoje DCR zostaną wysłane; tej operacji NIE DA SIĘ cofnąć.";
+"sendWarningSuccess" = "Your DCR has been sent and CANNOT be undone.";
 "sendingAccount" = "Konto wysyłające";
 "toSelf" = "Do siebie";
 "toDestinationAddress" = "Na adres docelowy";
 "destinationAddress" = "Destination Address";
 "transactionSent" = "Transaction sent";
+"tx_size_info" = "<span style=\"font-family: 'SourceSansPro-Regular'; font-size: 16px; color: #3D5873\">Transaction size is determined by how many inputs and outputs are required to fulfill a transaction.<br/><br/>Typically, larger quantities transacted require larger transaction sizes, which in turn create larger transaction fees.</span>";
 
 /* Recieve */
 "walletAddrCopied" = "Skopiowano adres do schowka";
@@ -287,6 +289,8 @@
 "import_" = "Import";
 "keyIsInvalid" = "Key is invalid";
 "disconnectAddWallet" = "Disconnect/cancel sync before adding a wallet";
+"wallet_with_seed_exist" = "A wallet with an identical seed already exists.";
+"wallet_with_xpub_exist" = "A wallet with an identical extended public key already exists.";
 
 /* Wallets -> Sign message */
 "signMessage" = "Podpisz wiadomość";
@@ -311,6 +315,7 @@
 "removeWalletFromDevice" = "Usuń portfel z urządzenia";
 "disconnectDeleteWallet"= "Disconnect/cancel sync before deleting wallet";
 "databaseType" = "Database type";
+"confirmToUseBiometric" = "Confirm to use Biometric";
 
 /* Wallet Settings -> Change Spending PIN/Password */
 "confirmToChange" = "Potwierdź, aby dokonać zmiany";
