@@ -1,0 +1,646 @@
+//
+//  Localizable.strings
+//  Decred Wallet
+//
+// Copyright (c) 2018-2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
+
+"wallet" = "Wallet";
+"crash_dialog_text" = "An unexpected error occurred forcing the application to stop. Please help us fix this by sending us your device specification and app log, all you have to do is click OK. This will help us prevent the error from occurring again";
+"send_dcr_info" = "Input or scan the destination wallet address and the amount in DCR to send funds.";
+"type" = "Type";
+"loading" = "Loading";
+//"dcr" translatable="false" = "DCR";
+"help" = "Help";
+"about" = "About";
+"statistics" = "Statistics";
+"build" = "Build";
+"uptime" = "Uptime";
+"network" = "Network";
+"best_block" = "Best block";
+"best_block_timestamp" = "Best block timestamp";
+"best_block_age" = "Best block age";
+"wallet_data_directory" = "Wallet data directory";
+"wallet_data" = "Wallet data";
+"debug" = "Debug";
+"overview" = "Overview";
+"permission" = "Permission";
+"denied_permission" = "You denied the permission!!!";
+"receive" = "Receive";
+"send" = "Send";
+"cancel" = "Cancel";
+"connection" = "Connection";
+"testnet" = "testnet";
+"general" = "General";
+"view_on_dcrdata" = "View on dcrdata";
+//"https_docs_decred_org" translatable="false" = "https://docs.decred.org";
+"exit_cap" = "EXIT";
+"delete" = "Delete";
+"no" = "No";
+"yes" = "Yes";
+"confirm" = "Confirm";
+//"usd" translatable="false" = "USD";
+"settings" = "Settings";
+"more" = "More";
+"syncing" = "Syncing";
+"syncing_ellipsis" = "Syncing…";
+"connected_to_a_peer" = "Connected to a peer";
+"connected_to_n_peer" = "Connected to %1$d peers";
+"ok" = "OK";
+"_continue" = "Continue";
+"user_agent" = "User agent";
+"user_agent_dialog_title" = "Set up user agent";
+"peer_ip_dialog_title" = "Set up persistent peer";
+"peer_ip_pref_hint" = "IP Address";
+"log_file_not_found" = "Log file not found";
+"wallet_log_copied" = "Wallet log copied";
+"_copy" = "Copy";
+"address_not_found" = "Address not found.";
+"share" = "Share";
+"clear_fields" = "Clear fields";
+"retry_caps" = "RETRY";
+"share_address_via" = "Share the QR code image to";
+"license" = "License";
+"always" = "Always";
+"rename" = "Rename";
+"create" = "Create";
+"_import" = "Import";
+"dcr_amount" = "%1$s DCR";
+"rename_wallet_sheet_title" = "Rename wallet";
+"wallet_name" = "Wallet Name";
+"privacy" = "Privacy";
+"remove" = "Remove";
+"confirm_to_remove" = "Confirm to remove";
+"remove_wallet" = "Remove wallet from device";
+"remove_wallet_prompt" = "Remove wallet from device?";
+"remove_watch_wallet_prompt" = " Remove watch-only wallet from device?";
+"remove_wallet_message" = "Make sure to have the seed phrase backed up before removing the wallet.";
+"error_copied" = "Error copied";
+
+//<plurals name="mixed_dcr_amount" = "
+//    <item quantity="one" = "%1$s DCR</item = "
+//    <item quantity="other" = "%1$s DCR\t x%2$d</item = "
+//</plurals = "
+///* General */
+//
+///* Peers */
+//"connected_peers_details" = "
+//    ID: %1$d
+//    \nAddr: %2$s
+//    \nAddr Local: %3$s
+//    \nServices: %4$s
+//    \nVersion: %5$d
+//    \nSubVer: %6$s
+//    \nStarting height: %7$d
+//    \nBan score: %8$d
+//";
+"version" = "Version";
+"build_date" = "Build date";
+"net" = "Net";
+"connecting_to_peers" = "Connecting to peers";
+
+/* Account */
+"account_number" = "Account Number";
+"account_name" = "Account Name";
+"hd_path" = "HD Path";
+"external" = "External";
+"rename_account" = "Rename Account";
+
+/* Seed */
+"save_seed_instruction" = "Write down all 33 words in the correct order.";
+"backup_seed_phrase" = "Back up seed phrase";
+"verify_seed_info" = "Verify your seed phrase backup so you can recover your funds when needed.";
+
+/* Balance */
+"label_spendable" = "Spendable";
+"immature_stake_generation" = "Immature Stake Gen";
+"label_immature_rewards" = "Immature Rewards";
+"label_locked_by_tickets" = "Locked by Tickets";
+"label_voting_authority" = "Voting Authority";
+"current_total_balance" = "Current Total Balance";
+"total_balance" = "Total Balance";
+
+/* Wallet */
+"create_a_new_wallet" = "Create a new wallet";
+"restore_existing_wallet" = "Restore an existing wallet";
+"import_existing_wallet" = "Import an existing wallet";
+"import_watching_only_wallet" = "Import a watch-only wallet";
+"opening_wallet" = "Opening wallet…";
+"opening_wallets" = "Opening wallets…";
+"invalid_passphrase" = "Passphrase entered was not valid.";
+"invalid_pin" = "PIN entered was not valid.";
+"invalid_password" = "Password entered was not valid.";
+"failed_to_open_wallet" = "Failed to open wallet";
+
+/* Transaction */
+"recent_transactions" = "Recent Transactions";
+"from" = "From";
+"to" = "To";
+"destination_address" = "Destination Address";
+"transaction_fee" = "Transaction fee";
+"Transaction_details" = "Transaction details";
+"transactions" = "Transactions";
+"pending" = "Pending";
+"vote" = "Vote";
+"revoked" = "Revoked";
+"amount_invalid_decimal_places" = "Amount has more than %1$d decimal places";
+"new_transaction" = "New Transaction";
+"wallet_new_transaction" = "[%1$s] New Transaction";
+//"tx_details_confirmations" = "<![CDATA[<font color="#41be53" = "Confirmed</font = " &centerdot; %1$d Confirmations]] = "";
+//"tx_details_pending_confirmation" = "<![CDATA[<font color="#8997A5" = "Pending</font = " &centerdot; %1$d Confirmation]] = "";
+"wallet_ticket_voted" = "[%1$s] A ticket just voted";
+"ticket_voted" = "A ticket just voted";
+"wallet_ticket_revoked" = "[%1$s] A ticket was revoked";
+"ticket_revoked" = "A ticket was revoked";
+"vote_reward" = "Vote Reward: %1$s DCR";
+
+//<string-array name="timestamp_sort" = "
+//    <item = "Newest</item = "
+//    <item = "Oldest</item = "
+//</string-array = "
+
+/* Sync Messages */
+"remaining_minute_sync_eta" = "%1$d%% completed, %2$d min remaining.";
+"remaining_seconds_sync_eta" = "%1$d%% completed, %2$d sec remaining.";
+"remaining_sync_eta_less_than_seconds" = "%1$d%% completed, &lt;1 seconds remaining.";
+"synchronizing" = "Synchronizing";
+"scanned_blocks" = "Scanned blocks";
+
+/* QR Code */
+"camera_permission_scan" = "This application needs camera permission to scan QRCode for a wallet address, Please allow the permissions in the next dialog.";
+
+/* Address */
+"address_copy_text" = "Address copied";
+"your_address" = "Your address";
+"generate_new_address" = "Generate new address";
+"receive_fund_privacy_info" = "Each time you request a payment, a new address is created to protect your privacy.";
+"invalid_address" = "Not a valid address.";
+
+/* Preference */
+"unconfirmed_funds" = "Spend unconfirmed funds";
+"logging_level" = "Logging level";
+"view_wallets_log" = "View wallets log";
+"view_connected_peers" = "View connected peers";
+"currency_conversion" = "Currency conversion";
+"user_agent_summary" = "For exchange rate fetching";
+"change" = "Change";
+"color_theme" = "Color theme";
+
+//<string-array name="color_themes" = "
+//    <item = "Light</item = "
+//    <item = "Dark</item = "
+//    <item = "Device default</item = "
+//</string-array = "
+//
+//<string-array name="currency_conversion" = "
+//    <item = "None</item = "
+//    <item = "USD (bittrex)</item = "
+//</string-array = "
+//
+//<string-array name="logging_levels" translatable="false" = "
+//    <item = "Trace</item = "
+//    <item = "Debug</item = "
+//    <item = "Info</item = "
+//    <item = "Warn</item = "
+//    <item = "Error</item = "
+//    <item = "Critical</item = "
+//</string-array = "
+//
+//
+//<string-array name="notification_options" = "
+//    <item = "None</item = "
+//    <item = "Silent</item = "
+//    <item = "Vibration only</item = "
+//    <item = "Sound only</item = "
+//    <item = "Sound and Vibration</item = "
+//</string-array = "
+
+/* History Fragment */
+"transferred" = "Transferred";
+"sent" = "Sent";
+"received" = "Received";
+
+/* Error Messages */
+"not_enough_funds" = "Not enough funds.";
+"empty_seed" = "Empty Seed";
+"not_connected" = "Not connected to Decred network";
+"watch_only_wallet_error" = "Only wallet is watching only";
+"passphrase_required" = "Private Passphrase is required";
+"wallet_not_loaded" = "Wallet Not Loaded";
+"err_no_peers" = "Decred network is unreachable due to a lack of peers.";
+"not_enough_funds_synced" = "Not enough funds (or not connected).";
+"error_occurred" = "Error occurred";
+
+/* Security Fragment */
+"sign_message" = "Sign message";
+"sign" = "Sign";
+"message" = "Message";
+"signature" = "Signature";
+"valid_signature" = "This signature verifies against the message and address.";
+"invalid_signature" = "This signature does not verify against the message and address.";
+"sign_message_description" = "Signing a message with an address\' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
+//"verify_message_description" = "<![CDATA[After you or your counterparty has generated a signature, you can use this form to verify the validity of the signature.<br/ = "<br/ = "Once you have entered the address, the message and the corresponding signature, you will see <font color="#41be53" = "VALID</font = " if the signature appropriately matches the address and message, otherwise <font color="#ed6d47" = "INVALID</font = ".]] = "";
+
+/* Send Fragment */
+"_0_bytes" = "0 bytes";
+"x_bytes" = "%1$d bytes";
+"fee" = "Fee";
+"send_to_account" = "Send to account";
+"send_to_address" = "Send to address";
+
+/* Security */
+"pin" = "PIN";
+"create_spending_pin" = "Create a spending PIN";
+"create_spending_pass" = "Create a spending Password";
+"change_spending_pass" = "Change spending password";
+"change_spending_pin" = "Change spending PIN";
+"mismatch_passcode" = "PINs do not match";
+"mismatch_password" = "Password do not match";
+"password" = "Password";
+"enter_spending_pin" = "Enter spending PIN";
+"enter_spending_pin_again" = "Enter spending PIN again";
+"enter_startup_pin" = "Enter startup PIN";
+"enter_startup_password" = "Enter startup password";
+"enter_new_startup_pin" = "Enter new startup PIN";
+"enter_new_startup_pin_again" = "Enter new startup PIN again";
+"create_startup_pin" = "Create a startup PIN";
+"create_startup_password" = "Create a startup Password";
+"change_startup_password" = "Change startup password";
+"change_startup_pin" = "Change startup PIN";
+"change_spending_pin_password" = "Change spending PIN/password";
+"startup_pin_password" = "Startup PIN/Password";
+"startup_pin__password" = "Startup PIN/password";
+"change_startup_pin_password" = "Change startup PIN/password";
+"spending_pin_password" = "Spending PIN/Password";
+"spending_password" = "Spending password";
+
+/* Crash Report */
+"dont_send" = "Don\'t send";
+"send_report" = "Send Report";
+"app_crashed" = "App Crashed";
+"crash_report_copied" = "Crash report copied successfully";
+"hide_report" = "Hide Report";
+"view_report" = "View Report";
+
+/* WIFI Sync */
+"wifi_data_sync_title" = "Sync when not on WiFi";
+"wifi_sync_notice" = "Would you like to sync anyways?";
+"not_connected_to_wifi" = "Not connected to WiFi.";
+"sync" = "Sync";
+"not_now" = "Not now";
+
+"tx_details_account" = "%1$s DCR (%2$s)";
+
+/* Time */
+"am" = "am";
+"pm" = "pm";
+"time_left_minutes" = "%1$d min left";
+"time_left_seconds" = "%1$d sec left";
+"days_behind" = "%1$d days behind";
+"one_day_behind" = "1 day behind";
+"x_days" = "%1$d days";
+"one_day" = "1 day";
+"x_hours" = "%1$d hours";
+"one_hour" = "1 hour";
+"x_minutes" = "%1$d minutes";
+"one_minute" = "1 minute";
+"x_seconds" = "%1$d seconds";
+"one_second" = "1 second";
+
+"connected_peers_count" = "Connected peers count";
+"wallet_status" = "Wallet Status";
+"offline" = "Offline";
+"online" = "Online";
+"no_transactions_yet" = "No transactions yet.";
+"not_syncing" = "Not syncing";
+"rebroadcast" = "Rebroadcast";
+"reconnect" = "Reconnect";
+"disconnect" = "Disconnect";
+"connect" = "Connect";
+"show_details" = "Show details";
+"hide_details" = "Hide Details";
+"block_header_fetched" = "Block header fetched";
+"cfilters_fetched" = "CFilters fetched";
+"cfilters_left" = " %1$d CFilters left";
+"step_cfilters" = "Refetching cfilters for upgrade";
+//"step_1_3" tools:ignore="TypographyFractions" = "Step 1/3";
+"step_2_3" = "Step 2/3";
+"step_2_2" = "Step 2/2";
+"step_3_3" = "Step 3/3";
+//"fetching_cfilters" = "<![CDATA[Fetching cfilters <font color="#8997a5" = "&centerdot;</font = " %1$d%%]] = "";
+//"fetching_block_headers" = "<![CDATA[Fetching block headers <font color="#8997a5" = "&centerdot;</font = " %1$d%%]] = "";
+//"scanning_block_headers" = "<![CDATA[Scanning block headers <font color="#8997a5" = "&centerdot;</font = " %1$d%%]] = "";
+//"discovering_addresses" = "<![CDATA[Discovering used addresses <font color="#8997a5" = "&centerdot;</font = " %1$d%%]] = "";
+"syncing_progress" = "Syncing progress";
+"percentage" = "%1$d%%";
+"syncing_state" = "Syncing…";
+"block_header_fetched_count" = "%1$d of %2$d";
+"blocks_left" = "%1$d blocks left";
+"synced" = "Synced";
+
+//"synced_latest_block_time" = "<![CDATA[Latest block <font color="#091440" = "%1$d</font = " &centerdot; <font color="#091440" = "%2$s</font = " ago]] = "";
+//"latest_block_time" = "<![CDATA[Synced to block <font color="#091440" = "%1$d</font = " &centerdot; <font color="#091440" = "%2$s</font = " ago]] = "";
+//"connected_to_n_peers" = "<![CDATA[Connected to <font color="#091440" = "%1$d</font = " peers.]] = "";
+"no_connected_peers" = "No connected peers.";
+"connected_peers" = "Connected peers";
+"peers_connected" = "Peers connected";
+"_default" = "default";
+"starting_up" = "Starting up";
+"waiting_for_other_wallets" = "Waiting for other wallets";
+"resume_account_discovery_title" = "Unlock to resume restoration";
+"multi_resume_account_discovery_title" = "Unlock %1$s to resume restoration";
+"resume_account_discovery_desc" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock the wallet to resume the process.";
+"unlock" = "Unlock";
+"wallets" = "Wallets";
+"add_new_account" = "Add new account";
+"key_count" = "%1$d external, %2$d internal, %3$d imported";
+"keys" = "Keys";
+"properties" = "Properties";
+"show_properties" = "Show properties";
+"hide_properties" = "Hide properties";
+"wallet_renamed" = "Wallet renamed";
+"account_renamed" = "Account renamed";
+"account_created" = "Account created";
+"create_account_warning" = "Accounts CANNOT be deleted once created.";
+"create_new_account" = "Create new account";
+"confirm_to_create_account" = "Confirm to create account";
+"unlock_to_start_mixing" = "Unlock your wallet to start mixing";
+"not_backed_up" = "Not backed up";
+"seed_phase_2_briefing" = "You will be asked to enter the seed phrase on the next screen.";
+"verify" = "Verify";
+//"seed_instruction_1" = "The <b = "33-word seed phrase</b = " is EXTREMELY IMPORTANT.";
+//"seed_instruction_2" = "Seed phrase is <b = "the only way</b = " to restore your wallet.";
+//"seed_instruction_3" = "It is recommended to store your seed phrase in a <b = "<font color="#71b054" = "physical format</font = "</b = " (e.g. write down on a paper).";
+//"seed_instruction_4" = "It is highly discouraged to store your seed phrase in any <b = "<font color="#ed6d47" = "digital format</font = "</b = " (e.g. screenshot).";
+//"seed_instruction_5" = "Anyone with your seed phrase <b = "<font color="#ed6d47" = "can steal your funds</font = "</b = ". DO NOT show it to anyone.";
+"view_seed_phrase" = "View seed phrase";
+"seed_verification_failed" = "Failed to verify. Please go through every word and try again.";
+"back_to_wallets" = "Back to Wallets";
+"tx_sort_all" = "All (%1$d)";
+"tx_sort_sent" = "Sent (%1$d)";
+"tx_sort_received" = "Received (%1$d)";
+"tx_sort_transferred" = "Transferred (%1$d)";
+"tx_sort_mixed" = "Mixed (%1$d)";
+"tx_sort_staking" = "Staking (%1$d)";
+"tx_sort_coinbase" = "Coinbase (%1$d)";
+"ticket_purchase" = "Ticket Purchase";
+"voted" = "Voted";
+"unmined" = "Unmined";
+"immature" = "Immature";
+"live" = "Live";
+"purchased" = "Purchased";
+"receive_dcr" = "Receive DCR";
+"selected_account_name" = "%1$s (%2$s)";
+"decred_qr_address_prefix" = "decred:%1$s";
+"got_it" = "Got It";
+"tap_to_copy" = "(Tap to copy)";
+"wallet_created" = "Wallet created";
+"watch_only_wallet_created" = "Watch-only wallet imported";
+"amount" = "Amount";
+"processing_time" = "Processing time";
+"fee_rate" = "Fee rate";
+"transaction_size" = "Transaction size";
+"total_cost" = "Total cost";
+"next" = "Next";
+"send_dcr" = "Send DCR";
+"spendable_bal_format" = "Spendable: %1$s DCR";
+"send_x_dcr" = "Send %1$s DCR";
+
+"x_dcr" = "%1$s DCR";
+"x_usd" = "%1$s USD";
+"usd_symbol_format" = "$%1$s";
+//"_dcr" = "<![CDATA[<font color="#596D81" = "—</font = " DCR]] = "";
+//"_dcr_usd" = "<![CDATA[<font color="#596d81" = "—</font = " DCR <font color="#8997a5" = "(— USD)</font = "]] = "";
+//"x_dcr_usd" = "<![CDATA[%1$s DCR <font color="#8997a5" = "($%2$s USD)</font = "]] = "";
+"balance_after_send" = "Balance after send";
+"confirm_to_send" = "Confirm to send";
+"confirm_show_seed" = ""Confirm to show seed"";
+"confirm_verify_seed" = ""Confirm to verify seed"";
+//"send_from_account" = "<![CDATA[Sending from <font color="#091440" = "<b = "%1$s (%2$s)</b = "</font = "]] = "";
+"send_invalid" = "Not valid for send";
+"to_destination_address" = "To destination address";
+"send_dcr_warning" = "Your DCR will be sent and CANNOT be undone.";
+"to_self" = "To self";
+"processing_ellipsis" = "Processing…";
+"success" = "Success";
+"transaction_sent" = "Transaction sent";
+"from_account" = "From account";
+"included_in_block" = "Included in block";
+"transaction_id" = "Transaction ID";
+"tx_id_copied" = "Transaction ID copied";
+"to_account" = "To account";
+"how_to_copy" = "How to copy";
+//"tx_details_copy_info" = "<![CDATA[Tap on <font color="#2970FF" = "blue text</font = " to copy the item.]] = "";
+"x_inputs_consumed" = "%1$d Inputs consumed";
+"x_output_created" = "%1$d Outputs created";
+"previous_outpoint_copied" = "Previous outpoint copied";
+"to_address" = "To address";
+"paste" = "Paste";
+"qr_code_scan_hint" = "Place QR code in the frame";
+"source_account_changed" = "Source account changed";
+"source_account_picker_title" = "Sending account";
+"dest_account_picker_title" = "Receiving account";
+"none" = "None";
+"notifications" = "Notifications";
+"incoming_transactions" = "Incoming transactions";
+"beep_for_new_blocks" = "Beep for new blocks";
+"connect_to_specific_peer" = "Connect to specific peer";
+"validate_addresses" = "Validate Addresses";
+"validate_address_instruction" = "Enter an address to validate:";
+"validate" = "Validate";
+"clear" = "Clear";
+"valid_address" = "Valid address";
+"external_valid_address" = "NOT owned by this wallet";
+"internal_valid_address" = "Owned by %1$s";
+"address" = "Address";
+"sign_message_instruction" = "Enter an address and message to sign:";
+"signature_copied" = "Signature copied";
+"confirm_to_sign" = "Confirm to sign";
+"confirm_to_change" = "Confirm to change";
+"sign_using_external_address_error" = "Address does not belong to wallet";
+"verify_message_instruction" = "Enter the address, signature, and message to verify:";
+"clear_all" = "Clear All";
+"verify_message" = "Verify message";
+"invalid_base64_string" = "Not a base64 string.";
+"help_description" = "For more information, please visit the Decred documentation.";
+"see_documentations" = "See documentations";
+"exchange_rate_fetch_error" = "Exchange rate not fetched";
+"retry" = "Retry";
+"message_signed" = "Message signed";
+"restore_wallet_title" = "Restore from seed phrase";
+"verify_seed_phrase" = "Verify seed phrase";
+"restore" = "Restore";
+"restore_wallet_instruction" = "Enter your seed phrase in the correct order.";
+"keep_in_mind" = "Keep in mind";
+"invalid_restore_seed" = "Failed to restore. Please verify all words and try again.";
+"create_watch_only_wallet" = "Create watch-only wallet";
+"extended_public_key2" = "Extended public key";
+//"ext_pub_key_info" = "<![CDATA[In <b = "Decrediton</b = ", under the <b = "Accounts</b = " section, expand the account you want to watch, and tap on <b = "Reveal Pubkey</b = ".]] = "";
+"wallet_name_exists" = "Wallet name exists";
+"reserved_wallet_name" = "\'wallet-\' is a reserved prefix";
+"invalid_key" = "Key is invalid";
+"unusable_key" = "Key is unusable";
+"biometric_lockout_error" = "Too many attempts. Try again later.";
+"biometric_permanent_lockout_error" = "Biometric disabled. Unlock your device with a strong authentication (PIN/Pattern/Password)";
+"invalid_peer_ip" = "Enter a valid ip address";
+"your_wallet_is_successfully_restored" = "Your wallet is successfully restored";
+"get_started" = "Get started";
+"back" = "Back";
+"use_fingerprint" = "Use fingerprint";
+"overview_backup_seed_instruction" = "Write down your seed phrase so that you can recover your funds when needed.";
+"go_to_wallets" = "Go to Wallets";
+"wallets_need_backup" = "Would you like to backup your seed words now?";
+"startup_password" = "Startup Password";
+"new_startup_password" = "New startup password";
+"new_spending_password" = "New spending password";
+"confirm_new_startup_password" = "Confirm new startup password";
+"confirm_new_spending_password" = "Confirm new spending password";
+"remove_startup_security" = "Remove startup security";
+"close_backup_warning" = "Close backup warning";
+"close_backup_warning_dialog_message" = "Remember to back up your wallets as soon as possible.";
+"startup_pin_prompt_title" = "Unlock with startup PIN";
+"startup_password_prompt_title" = "Unlock with startup password";
+"startup_fingerprint_prompt_title" = "Unlock with fingerprint";
+"use_password" = "Use password";
+"use_pin" = "Use PIN";
+"startup_security_changed" = "Startup PIN/password changed";
+"spending_passphrase_changed" = "Spending PIN/password changed";
+"wallets_log" = "Wallets log";
+"write_down_seed_phrase" = "Write down seed phrase";
+//"step_1_2" tools:ignore="TypographyFractions" = "Step 1/2";
+"your_33_word_seed_phrase" = "Your 33-word seed phrase";
+"i_have_wrote_down_all_33_words" = "I have written down all 33 words";
+"security_tools" = "Security Tools";
+"security_tools_message" = "Various tools that help in different aspects of crypto currency security will be located here.";
+"wallet_removed" = "Wallet removed";
+"rescanning_blocks_ellipsis" = "Rescanning Blocks…";
+"view_statistics" = "View statistics";
+"rescan_blockchain" = "Rescan blockchain";
+"rescan_progress_notification" = "Check progress in Overview!";
+"rescan_blockchain_warning" = "Are you sure? This could take some time.";
+"err_sync_in_progress" = "Unable to start rescan while sync is in progress";
+"err_rescan_in_progress" = "Unable to start rescan while another rescan is already running";
+"exit_app_prompt_title" = "Exit app?";
+"exit_app_prompt_message" = "Are you sure you want to exit?";
+"migrating_wallet" = "Migrating wallet";
+"add_new_wallet" = "Add new wallet";
+"wait_for_sync" = "Wait for sync to complete";
+"welcome_screen_text" = "Welcome to Decred Wallet, a secure &amp; open-source mobile wallet.";
+"mywallet" = "mywallet";
+"today" = "Today";
+"yesterday" = "Yesterday";
+"month_day_format" = "MMMM dd";
+"date_format" = "MMMM dd, yyyy";
+"date_time_format" = "MMM dd, yyyy hh:mma";
+"watch_only_wallets" = "Watch-only wallets";
+"wallets_limit_error" = "Limit of 1 wallet per 1 gig of ram on the device";
+"disconnect_add_wallet" = "Disconnect/cancel sync before adding a wallet";
+"disconnect_delete_wallet" = "Disconnect/cancel sync before deleting wallet";
+"seed_backup_success_msg" = "Be sure to store your seed phrase backup in a secure location.";
+"seed_backup_verified" = "Your seed phrase backup is verified";
+"rebroadcast_tx_success" = "Republished unmined transactions to the decred network";
+"confirm_create_needed_accounts" = "Confirm to create needed accounts";
+"confirm_setup_mixer" = "Confirm to set mixer accounts";
+"mixed_account" = "Mixed account";
+"unmixed_account" = "Unmixed account";
+"mixer" = "Mixer";
+"mix" = "Mix";
+"mixed" = "Mixed";
+"mix_tx_change" = "Mix change";
+"mix_tx_change_summary_enabled" = "Change on transactions from all accounts will go to unmixed";
+"mix_tx_change_summary_disabled" = "Change on transactions from mixed will go to unmixed";
+//"change_sent_to_unmixed" = "<![CDATA[Change of <b = "%1$s DCR</b = " will return to \'<b = "%2$s</b = "\'.]] = "";
+"start_mixer_warning" = "Your wallet will be unlocked and your display would remain on until mixing completes.";
+"mixer_has_stopped_running" = "cspp mixer has stopped running";
+"no_mixable_output" = "Unmixed account has no mixable output";
+"new_caps" = "NEW";
+"privacy_is_here" = "Privacy is here";
+"privacy_intro_desc" = "You can now use StakeShuffle mixer to mix your DCRs, right in the app.";
+"dismiss" = "Dismiss";
+"setup_mixer" = "Set up mixer";
+"privacy_popup_message" = "Set up StakeShuffle mixer in Privacy";
+"see_all" = "See all";
+"privacy_intro_title" = "How does StakeShuffle mixer enhance your privacy?";
+"privacy_intro_desc_1" = "StakeShuffle mixer can mix your DCRs through CoinJoin transactions.";
+"privacy_intro_desc_2" = "Using mixed DCRs protects you from exposing your financial activities to the public (e.g. how much you own, who pays you).";
+"setup_mixer_btn_title" = "Set up mixer for this wallet";
+"privacy_intro_dialog_title" = "Set up mixer by creating two needed accounts";
+//"privacy_intro_dialog_desc" = "<![CDATA[Two dedicated accounts (“mixed” & “unmixed”) will be created in order to use the mixer.<br/ = "<br/ = "<b = "<font color="#091440" = "This action cannot be undone.</font = "</b = "]] = "";
+"begin_setup" = "Begin setup";
+"mixer_setup_completed" = "Mixer setup completed";
+"ready_to_mix" = "Ready to mix";
+"unmixed_balance" = "Unmixed balance";
+"mixed_balance" = "Mixed balance";
+"mixer_settings" = "Mixer Settings";
+"mixed_account_branch" = "Mixed account branch";
+"server_port" = "Server port";
+"mix_server" = "Mix server";
+"keep_app_opened" = "Keep this app opened";
+"mixer_help_title" = "How to use the mixer?";
+//"mixer_help_desc" = "<![CDATA[When you turn on the mixer, your unmixed DCRs in this wallet (unmixed balance) will be gradually mixed.<br/ = "<br/ = "<b = "<font color="#091440" = "Important: keep this app opened while mixer is running. Your display would not timeout until the mixer completes, this may impact your battery life.</font = "</b = "<br/ = "<br/ = "Mixer will automatically stop when unmixed balance are fully mixed.]] = "";
+"mixer_is_running" = "Mixer is running…";
+"keep_this_app_opened" = "Keep this app opened";
+"mixer_status_info" = "Mixer will automatically stop when unmixed balance are fully mixed.";
+"check_mixer_status" = "Check mixer status";
+"mixing_elp" = "Mixing…";
+"account_name_taken" = "Account name is taken";
+//"account_name_conflict_dialog_desc" = "<![CDATA[There are existing accounts named <b = "mixed</b = " or <b = "unmixed</b = ". Please change the name to something else for now. You can change them back after the setup.]] = "";
+"go_back_rename" = "Go back &amp; rename";
+"set_up_needed_accounts" = "Set up needed accounts";
+"setup_mixer_account_desc" = "Two dedicated accounts will be set up to use the mixer:";
+"setup_mixer_account_bullet_1" = "<font color='#091440' = "<b = "Mixed</b = "</font = " account will be the outbound spending account.";
+"setup_mixer_account_bullet_2" = "<font color='#091440' = "<b = "Unmixed</b = "</font = " account will be the change handling account.";
+"auto_setup" = "Auto setup";
+"auto_setup_desc" = "Create and set up the needed accounts for you.";
+"manual_setup_desc" = "For wallets that have enabled privacy before.";
+"manual_mixer_setup_help" = "<font color='#091440' = "<b = "Make sure to select the corresponding accounts to the previous setup.</b = "</font = " Failing to do so could damage wallet privacy.";
+"set_up" = "Set up";
+"manual_setup" = "Manual setup";
+//"same_mixed_unmixed" = "<![CDATA[Cannot use same account for mixed & unmixed]] = "";
+"status" = "Status";
+"reward" = "Reward";
+"days_to_vote" = "Days to vote";
+"spendable_in" = "Spendable in";
+"view_associated_ticket" = "View associated ticket";
+"missed_expired" = "Missed/Expired";
+"age" = "Age";
+"maturity" = "Maturity";
+"verify_seed_header_instruction" = "Select the correct words to verify.";
+//<plurals name="mixer_is_running" = "
+//    <item quantity="one" = "1 mixer is running…</item = "
+//    <item quantity="other" = "%d mixers are running…</item = "
+//</plurals = "
+
+/* Politeia */
+"politeia" = "Politeia";
+"proposal_details" = "Proposal Details";
+"ago" = "ago";
+"now" = "now";
+"status_abandoned" = "Abandoned";
+"status_invalid" = "Invalid";
+"status_not_authorized" = "Not authorized by author";
+"status_authorized" = "Authorized by author";
+"status_vote_started" = "Vote started";
+"status_approved" = "Approved";
+"status_rejected" = "Rejected";
+"status_non_existent" = "Does not exist";
+"no_proposals" = "No proposals for selected category.";
+"proposal_in_discussion" = "In Discussion (%1$d)";
+"proposal_active" = "Active (%1$d)";
+"proposal_approved" = "Approved (%1$d)";
+"proposal_rejected" = "Rejected (%1$d)";
+"proposal_abandoned" = "Abandoned (%1$d)";
+"politeia_notifications" = "Politeia Notifications";
+"new_proposal" = "New Proposal";
+"vote_started" = "Vote Started";
+"vote_ended" = "Vote Ended";
+"share_proposal" = "Share Proposal Link";
+//"text_pain" translatable="false" = "text/plain";
+"comments" = "%d comments";
+"version_number" = "version %s";
+"yes_votes_percent" = "Yes: %1$d (%2$.2f%%)";
+"no_votes_percent" = "No: %1$d (%2$.2f%%)";
+"yes_no_votes_percent" = "Yes: %1$d (%2$.2f%%)  No: %3$d (%4$.2f%%)";
+"proposal_name_author" = "%1$s by %2$s";
